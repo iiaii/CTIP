@@ -3,7 +3,7 @@
  */
 package CTIP;
 
-public class Ap
+public class App {
     public String getGreeting() {
         return "Hello world.";
     }
