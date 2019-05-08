@@ -1,6 +1,6 @@
 package bank;
 
-class Account{
+class Account
     private int balance;
     private String name;
     private String phone_num;
