@@ -9,9 +9,13 @@
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
-
+    id 'idea'
     // Apply the application plugin to add support for building an application
     id 'application'
+    id "org.sonarqube" version "2.7"
+    id 'jacoco'
+    //id 'findbugs'
+    //id 'pmd'
 }
 
 repositories {
@@ -22,11 +26,43 @@ repositories {
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
-    implementation 'com.google.guava:guava:27.0.1-jre'
-
+    //implementation 'com.google.guava:guava:27.0.1-jre'
+    //compile files('src/main/resources/activation.jar', 'src/main/resources/mail.jar')
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.4.1')
 }
 
+jacoco {
+    toolVersion = "0.8.3"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+/*
+findbugs{
+    toolVersion = "3.0.1"
+    reportsDir = file("$buildDir/reports/findbugs")
+    ignoreFailures=true
+}
+
+pmd{
+    reportsDir = file("$buildDir/reports/pmd")
+    ignoreFailures=true
+}
+*/
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        //html.destination file("${buildDir}/reports/jacocoHtml")
+    }
+}
+
+test{
+    useJUnitPlatform()
+    reports{
+        junitXml.enabled = true
+        html.enabled = false
+    }
+}
 // Define the main class for the application
-mainClassName = 'CTIP.App'
+mainClassName = 'app.App'
