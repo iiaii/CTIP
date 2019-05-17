@@ -50,6 +50,3 @@ __/src__
 __settings.gradle__
 
 __build.gradle__
-
-## YOU CAN USE FOR BUILD
-__gradlew__
