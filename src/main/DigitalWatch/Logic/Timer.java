@@ -1,68 +1,32 @@
 package Logic;
 public class Timer {
-
-    /**
-     * Default constructor
-     */
-    public Timer() {
-    }
-
-    /**
-     * 
-     */
     public Time savedTimer;
-
-    /**
-     * 
-     */
     public Time remainedTimer;
-
-    /**
-     * 
-     */
     public Boolean isActived;
 
-
-
-
-    /**
-     * @return
-     */
     public void activate() {
-        // TODO implement here
-        return ;
+        this.isActived = true;
     }
 
-    /**
-     * @return
-     */
     public void pause() {
+        this.isActived = false;
     }
 
-    /**
-     * @return
-     */
     public void reset() {
+        this.savedTimer = null;
+        this.remainedTimer = null;
+        this.isActived = false;
     }
 
-    /**
-     * @return
-     */
     public Time loadTimer() {
-        return null;
+        return this.savedTimer;
     }
 
-    /**
-     * @param data 
-     * @return
-     */
     public void saveTimer(Time data) {
+        this.savedTimer = data;
     }
 
-    /**
-     * @return
-     */
-    public void Notify() {
+    public void ring() {
 
         return;
     }

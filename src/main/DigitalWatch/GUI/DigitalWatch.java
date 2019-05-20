@@ -3,9 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Logic.WatchSystem;
 
 public class DigitalWatch extends JFrame {
     WatchButton[] buttons;
+    WatchSystem ws = new WatchSystem();
+    ButtonEvent[] modes = new ButtonEvent[4];
 
     public DigitalWatch() {
         int[] btnX = {24, 646, 24, 646};
@@ -67,18 +70,60 @@ public class DigitalWatch extends JFrame {
         buttons[0].setClickListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int increasedYear2 = dateDigit[1].increase();
-                if(increasedYear2 == 0)
-                    dateDigit[0].increase();
+                modes[ws.modeManager.currentMode].buttonA();
             }
         });
+
+        buttons[0].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonAHold();
+            }
+        });
+
+        buttons[1].setClickListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonB();
+            }
+        });
+
+        buttons[1].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonBHold();
+            }
+        });
+
+        buttons[2].setClickListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonC();
+            }
+        });
+
+        buttons[2].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonCHold();
+            }
+        });
+        buttons[3].setClickListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonD();
+            }
+        });
+
+        buttons[3].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modes[ws.modeManager.currentMode].buttonDHold();
+            }
+        });
+
         this.getContentPane().setBackground(Color.white);
         //this.setBackground(Color.white);
         this.setVisible(true);
     }
-
-    public static void main(String[] args){
-        DigitalWatch d = new DigitalWatch();
-    }
-
 }

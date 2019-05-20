@@ -1,57 +1,38 @@
 package Logic;
 
-import java.util.*;
 public class AlarmTime {
+    public Time currentAlarm;
+    public Boolean isEnabled;
 
-    /**
-     * Default constructor
-     */
     public AlarmTime() {
     }
 
-    /**
-     * 
-     */
-    public Time currentAlarm;
-
-    /**
-     * 
-     */
-    public Boolean isEnabled;
-
-
-
-
-    /**
-     * @return
-     */
     public Time loadAlarmData() {
-        // TODO implement here
-        return null ;
+        return this.currentAlarm;
     }
-
-    /**
-     * @return
-     */
-    public void saveAlarmData() {
-        // TODO implement here
-        return ;
+    public void saveAlarmData(Time data) {
+        this.currentAlarm = data;
     }
-
-    /**
-     * @return
-     */
     public void enable() {
-        // TODO implement here
-        return ;
+        this.isEnabled = true;
     }
-
-    /**
-     * @return
-     */
     public void disable() {
-        // TODO implement here
-        return ;
+        this.isEnabled = false;
     }
 
+    public Time getCurrentAlarm() {
+        return currentAlarm;
+    }
+
+    public void setCurrentAlarm(Time currentAlarm) {
+        this.currentAlarm = currentAlarm;
+    }
+
+    public Boolean getEnabled() {
+        return this.isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.isEnabled = enabled;
+    }
 }

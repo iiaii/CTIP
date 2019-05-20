@@ -3,12 +3,32 @@
   <component name="ChangeListManager">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="6139c171-edc0-4613-af36-b7f94a9ffd73" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
 =======
     <list default="true" id="fdc5e155-e550-4eea-952f-7bbff719fe65" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="fdc5e155-e550-4eea-952f-7bbff719fe65" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/DigitalWatch/GUI/ButtonEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/GUI/DigitalWatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/GUI/DigitalWatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/AlarmTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/AlarmTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/IntervalTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/IntervalTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/ModeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/ModeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/StopWatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/StopWatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Time.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Time.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/TimeKeeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/TimeKeeping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Timer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/DigitalWatch/Logic/buttonEvent.java" beforeDir="false" />
+    </list>
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -90,26 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Time.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="16">
-              <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/StopWatch.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+            <state relative-caret-position="32">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -117,8 +119,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/IntervalTimer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="176">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+              <folding>
+                <element signature="e#271#272#0" expanded="true" />
+                <element signature="e#308#309#0" expanded="true" />
+                <element signature="e#336#337#0" expanded="true" />
+                <element signature="e#361#362#0" expanded="true" />
+                <element signature="e#555#556#0" expanded="true" />
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#686#687#0" expanded="true" />
+                <element signature="e#719#720#0" expanded="true" />
+                <element signature="e#742#743#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,13 +140,37 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/ModeManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+            <state relative-caret-position="407">
+              <caret line="89" column="49" selection-start-line="89" selection-start-column="49" selection-end-line="89" selection-end-column="49" />
+              <folding>
+                <element signature="e#397#398#0" expanded="true" />
+                <element signature="e#449#450#0" expanded="true" />
+                <element signature="e#643#644#0" expanded="true" />
+                <element signature="e#666#667#0" expanded="true" />
+                <element signature="e#697#698#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="22" column="20" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="20" />
+              <folding>
+                <element signature="e#394#395#0" expanded="true" />
+                <element signature="e#459#460#0" expanded="true" />
+                <element signature="e#511#512#0" expanded="true" />
+                <element signature="e#565#566#0" expanded="true" />
+                <element signature="e#618#619#0" expanded="true" />
+                <element signature="e#673#674#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/RoundedBorder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="80">
@@ -141,36 +179,74 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/Test.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="6" column="10" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/TestDigit.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/DigitalWatch.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2378#2379#0" expanded="true" />
+                <element signature="e#2453#2454#0" expanded="true" />
+                <element signature="e#2608#2609#0" expanded="true" />
+                <element signature="e#2687#2688#0" expanded="true" />
+                <element signature="e#2838#2839#0" expanded="true" />
+                <element signature="e#2913#2914#0" expanded="true" />
+                <element signature="e#3068#3069#0" expanded="true" />
+                <element signature="e#3147#3148#0" expanded="true" />
+                <element signature="e#3306#3307#0" expanded="true" />
+                <element signature="e#3381#3382#0" expanded="true" />
+                <element signature="e#3536#3537#0" expanded="true" />
+                <element signature="e#3615#3616#0" expanded="true" />
+                <element signature="e#3765#3766#0" expanded="true" />
+                <element signature="e#3840#3841#0" expanded="true" />
+                <element signature="e#3995#3996#0" expanded="true" />
+                <element signature="e#4074#4075#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="516">
+              <caret line="112" column="5" selection-start-line="112" selection-start-column="5" selection-end-line="112" selection-end-column="5" />
+              <folding>
+                <element signature="e#164#165#0" expanded="true" />
+                <element signature="e#191#192#0" expanded="true" />
+                <element signature="e#224#225#0" expanded="true" />
+                <element signature="e#251#252#0" expanded="true" />
+                <element signature="e#283#284#0" expanded="true" />
+                <element signature="e#307#308#0" expanded="true" />
+                <element signature="e#336#337#0" expanded="true" />
+                <element signature="e#359#360#0" expanded="true" />
+                <element signature="e#390#391#0" expanded="true" />
+                <element signature="e#413#414#0" expanded="true" />
+                <element signature="e#444#445#0" expanded="true" />
+                <element signature="e#467#468#0" expanded="true" />
+                <element signature="e#497#498#0" expanded="true" />
+                <element signature="e#520#521#0" expanded="true" />
+                <element signature="e#559#560#0" expanded="true" />
+                <element signature="e#582#583#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchButton.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="227">
+              <caret line="54" column="10" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="48">
               <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
@@ -213,8 +289,23 @@
             <state relative-caret-position="342">
               <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
 >>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
+=======
+            <state relative-caret-position="16">
+              <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#151#152#0" expanded="true" />
+                <element signature="e#183#184#0" expanded="true" />
+                <element signature="e#231#232#0" expanded="true" />
+                <element signature="e#273#274#0" expanded="true" />
+                <element signature="e#305#306#0" expanded="true" />
+                <element signature="e#335#336#0" expanded="true" />
+                <element signature="e#379#380#0" expanded="true" />
+                <element signature="e#417#418#0" expanded="true" />
+                <element signature="e#222#223#0" expanded="true" />
+                <element signature="e#259#260#0" expanded="true" />
+                <element signature="e#291#292#0" expanded="true" />
+                <element signature="e#326#327#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -252,9 +343,13 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>return null;</find>
+      <find>editmode</find>
+      <find>timekeeping</find>
+      <find>Notify</find>
     </findStrings>
     <replaceStrings>
       <replace>return ;</replace>
+      <replace>ring</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -624,21 +719,24 @@
         <option value="$PROJECT_DIR$/src/main/GUI/DigitalWatch.java" />
         <option value="$PROJECT_DIR$/src/main/GUI/asfd.java" />
         <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Class1.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/StopWatch.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Time.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/AlarmTime.java" />
         <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/buttonEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/TimeKeeping.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Timer.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java" />
         <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/IntervalTimer.java" />
-        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/ModeManager.java" />
         <option value="$PROJECT_DIR$/src/main/DigitalWatch/GUI/TestDigit.java" />
         <option value="$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchPanel.java" />
         <option value="$PROJECT_DIR$/src/main/DigitalWatch/GUI/Test.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Time.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/TimeKeeping.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Timer.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/IntervalTimer.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/AlarmTime.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/StopWatch.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/ButtonEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/Logic/ModeManager.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/GUI/ButtonEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/DigitalWatch/GUI/DigitalWatch.java" />
       </list>
     </option>
   </component>
@@ -648,11 +746,17 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="152" />
-    <option name="y" value="105" />
-    <option name="width" value="1440" />
-    <option name="height" value="832" />
+    <option name="x" value="497" />
+    <option name="y" value="23" />
+    <option name="width" value="1423" />
+    <option name="height" value="1011" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
@@ -850,7 +954,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558346586581" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558356744586" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
 =======
       <pane id="Scope" />
@@ -867,11 +971,11 @@
 >>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
 <<<<<<< HEAD
     <property name="project.structure.side.proportion" value="0.16027397" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -919,7 +1023,7 @@
       <module name="CTIP_SMA_5.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Logic.*" />
+          <option name="PATTERN" value="GUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -995,7 +1099,8 @@
       <updated>1558325468567</updated>
       <workItem from="1558325473034" duration="2197000" />
       <workItem from="1558327733685" duration="245000" />
-      <workItem from="1558345186055" duration="1364000" />
+      <workItem from="1558345186055" duration="1761000" />
+      <workItem from="1558347029151" duration="7824000" />
     </task>
     <task id="LOCAL-00001" summary="initializing">
       <created>1558346266655</created>
@@ -1008,7 +1113,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3806000" />
+    <option name="totallyTimeSpent" value="12027000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1020,10 +1125,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="152" y="105" width="1440" height="832" extended-state="0" />
+    <frame x="497" y="23" width="1423" height="1011" extended-state="0" />
+    <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18025751" />
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18464881" />
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1091,17 +1201,21 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32972974" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32972974" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32972974" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32972974" />
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
+=======
+      <window_info anchor="bottom" id="Version Control" order="13" visible="true" weight="0.265506" />
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.32897604" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Gradle" order="6" />
@@ -1158,13 +1272,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchCursor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
@@ -1186,109 +1293,187 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/DigitalWatch/Logic/AcocuntTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/TestDigit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/AlarmTime.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="179" column="14" selection-start-line="179" selection-start-column="14" selection-end-line="179" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="32" column="7" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/TimeKeeping.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+        <state relative-caret-position="16">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#186#187#0" expanded="true" />
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#269#270#0" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Timer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+        <state relative-caret-position="336">
+          <caret line="21" column="23" lean-forward="true" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
           <folding>
+            <element signature="e#153#154#0" expanded="true" />
+            <element signature="e#190#191#0" expanded="true" />
+            <element signature="e#217#218#0" expanded="true" />
+            <element signature="e#236#237#0" expanded="true" />
             <element signature="e#577#578#0" expanded="true" />
             <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/buttonEvent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/TimeKeeping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        <state relative-caret-position="96">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Time.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        <state relative-caret-position="288">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/StopWatch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+        <state relative-caret-position="224">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="e#166#167#0" expanded="true" />
+            <element signature="e#205#206#0" expanded="true" />
+            <element signature="e#232#233#0" expanded="true" />
+            <element signature="e#265#266#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/IntervalTimer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="176">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding>
+            <element signature="e#271#272#0" expanded="true" />
+            <element signature="e#308#309#0" expanded="true" />
+            <element signature="e#336#337#0" expanded="true" />
+            <element signature="e#361#362#0" expanded="true" />
+            <element signature="e#555#556#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#719#720#0" expanded="true" />
+            <element signature="e#742#743#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Dday.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding>
+            <element signature="e#151#152#0" expanded="true" />
+            <element signature="e#183#184#0" expanded="true" />
+            <element signature="e#231#232#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#305#306#0" expanded="true" />
+            <element signature="e#335#336#0" expanded="true" />
+            <element signature="e#379#380#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#222#223#0" expanded="true" />
+            <element signature="e#259#260#0" expanded="true" />
+            <element signature="e#291#292#0" expanded="true" />
+            <element signature="e#326#327#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="32">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/DigitalWatch/Logic/AcocuntTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/Alarm.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="305">
           <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
+=======
+        <state relative-caret-position="352">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="20" />
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#394#395#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+            <element signature="e#618#619#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/TestDigit.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/WatchSystem.java">
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="516">
+          <caret line="112" column="5" selection-start-line="112" selection-start-column="5" selection-end-line="112" selection-end-column="5" />
+          <folding>
+            <element signature="e#164#165#0" expanded="true" />
+            <element signature="e#191#192#0" expanded="true" />
+            <element signature="e#224#225#0" expanded="true" />
+            <element signature="e#251#252#0" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+            <element signature="e#307#308#0" expanded="true" />
+            <element signature="e#336#337#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+            <element signature="e#413#414#0" expanded="true" />
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+            <element signature="e#559#560#0" expanded="true" />
+            <element signature="e#582#583#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/DigitalWatch.java">
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchButton.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="48">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
 =======
@@ -1309,30 +1494,64 @@
     </entry>
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/WatchPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="6" column="10" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="10" />
+=======
+        <state relative-caret-position="227">
+          <caret line="54" column="10" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/Test.java">
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/RoundedBorder.java">
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        <state relative-caret-position="80">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/Logic/ModeManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+        <state relative-caret-position="407">
+          <caret line="89" column="49" selection-start-line="89" selection-start-column="49" selection-end-line="89" selection-end-column="49" />
+          <folding>
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#449#450#0" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#666#667#0" expanded="true" />
+            <element signature="e#697#698#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/RoundedBorder.java">
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/ButtonEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state relative-caret-position="96">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/DigitalWatch/GUI/DigitalWatch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2378#2379#0" expanded="true" />
+            <element signature="e#2453#2454#0" expanded="true" />
+            <element signature="e#2608#2609#0" expanded="true" />
+            <element signature="e#2687#2688#0" expanded="true" />
+            <element signature="e#2838#2839#0" expanded="true" />
+            <element signature="e#2913#2914#0" expanded="true" />
+            <element signature="e#3068#3069#0" expanded="true" />
+            <element signature="e#3147#3148#0" expanded="true" />
+            <element signature="e#3306#3307#0" expanded="true" />
+            <element signature="e#3381#3382#0" expanded="true" />
+            <element signature="e#3536#3537#0" expanded="true" />
+            <element signature="e#3615#3616#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="e#3840#3841#0" expanded="true" />
+            <element signature="e#3995#3996#0" expanded="true" />
+            <element signature="e#4074#4075#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1347,7 +1566,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.16027397" />
               </list>
             </option>
           </splitter-proportions>
@@ -1359,7 +1578,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.16027397" />
               </list>
             </option>
           </splitter-proportions>
@@ -1370,7 +1589,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.16027397" />
               </list>
             </option>
           </splitter-proportions>
@@ -1395,11 +1614,16 @@
       <state key="ModuleStructureConfigurable.UI">
         <settings>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <last-edited>test|CTIP_SMA_5</last-edited>
+=======
+          <last-edited>CTIP_SMA_5</last-edited>
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.16027397" />
+<<<<<<< HEAD
                 <option value="0.6" />
 =======
           <last-edited>CTIP_SMA_5_test|CTIP_SMA_5</last-edited>
@@ -1408,6 +1632,8 @@
               <list>
                 <option value="0.2" />
 >>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
+=======
+>>>>>>> 1c98ce587d5ebae125aa596fde3d5fb5950a6a19
               </list>
             </option>
           </splitter-proportions>

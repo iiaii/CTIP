@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CTIP_SMA_5.iml" filepath="$PROJECT_DIR$/.idea/modules/CTIP_SMA_5.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CTIP_SMA_5.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CTIP_SMA_5.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CTIP_SMA_5.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CTIP_SMA_5.test.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/CTIP_SMA_5.iml" filepath="$PROJECT_DIR$/CTIP_SMA_5.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CTIP_SMA_5_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CTIP_SMA_5_main.iml" group="CTIP_SMA_5" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CTIP_SMA_5_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CTIP_SMA_5_test.iml" group="CTIP_SMA_5" />
->>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
+      <module fileurl="file://$PROJECT_DIR$/.idea/CTIP_SMA_5.iml" filepath="$PROJECT_DIR$/.idea/CTIP_SMA_5.iml" />
     </modules>
   </component>
 </project>

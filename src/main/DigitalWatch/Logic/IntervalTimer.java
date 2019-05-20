@@ -1,71 +1,33 @@
 package Logic;
 
 public class IntervalTimer {
-
-    /**
-     * Default constructor
-     */
-    public IntervalTimer() {
-    }
-
-    
+    public int iteration;
     public Time savedIntervalTimer;
-
-    
     public Time remainedIntervalTimer;
-
-    
     public Boolean isEnabled;
 
-    
-    public int iteration;
-
-
-
-
+    public IntervalTimer() {
+        this.iteration = 0;
+        this.isEnabled = false;
+    }
     public void enable() {
-        // TODO implement here
-        return ;
+        this.isEnabled = true;
     }
-
-    /**
-     * @return
-     */
     public void disable() {
-        // TODO implement here
-        return ;
+        this.isEnabled = false;
     }
-
-    /**
-     * @return
-     */
     public void reset() {
-        // TODO implement here
-        return ;
+        this.savedIntervalTimer = null;
+        this.remainedIntervalTimer = null;
+        this.isEnabled = false;
     }
-
-    /**
-     * @return
-     */
     public Time loadIntervalTimer() {
-        // TODO implement here
-        return null;
+        return this.savedIntervalTimer;
     }
-
-    /**
-     * @param data 
-     * @return
-     */
     public void saveIntervalTimer(Time data) {
-        // TODO implement here
-        return ;
+        this.savedIntervalTimer = data;
     }
-
-    /**
-     * @return
-     */
-    public void Notify() {
-        // TODO implement here
+    public void ring() {
         return ;
     }
 
