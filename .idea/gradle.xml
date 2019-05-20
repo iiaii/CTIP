@@ -6,16 +6,23 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <option name="gradleJvm" value="1.8" />
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
+=======
+        <option name="gradleJvm" value="1.8" />
+>>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
           </set>
         </option>
+<<<<<<< HEAD
         <option name="useAutoImport" value="true" />
         <option name="useQualifiedModuleNames" value="true" />
+=======
+>>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
       </GradleProjectSettings>
     </option>
   </component>

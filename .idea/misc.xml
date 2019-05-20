@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
 =======
@@ -156,6 +157,9 @@
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android API 28 Platform" project-jdk-type="Android SDK">
 >>>>>>> 2e2d827bf0674f3d1a37f84cc6c378b769fa681d
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+>>>>>>> 61a584dec16681fe92dc3e6e093bea0bdc09e52e
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
 </project>
