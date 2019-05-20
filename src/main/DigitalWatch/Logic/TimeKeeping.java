@@ -1,45 +1,19 @@
 package Logic;
 public class TimeKeeping {
-
-    /**
-     * Default constructor
-     */
-    public TimeKeeping() {
-    }
-
-    /**
-     * 
-     */
     public Time currentTime;
+    public Boolean displayFormat = true;
 
-    /**
-     * 
-     */
-    public Boolean displayFormat;
-
-
-
-    /**
-     * @return
-     */
     public Time loadTime() {
-        // TODO implement here
-        return null;
+        return this.currentTime;
     }
 
-    /**
-     * @param data 
-     * @return
-     */
     public void saveTime(Time data) {
         // TODO implement here
+        this.currentTime = data;
     }
 
-    /**
-     * @return
-     */
     public void setHourformat() {
         // TODO implement here
+        this.displayFormat = !this.displayFormat;
     }
-
 }

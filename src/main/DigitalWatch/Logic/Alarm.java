@@ -1,69 +1,27 @@
 package Logic;
 public class Alarm {
-
-    /**
-     * Default constructor
-     */
-    public Alarm() {
-    }
-
-    /**
-     * 
-     */
     public int currentAlarmPage;
-
-    /**
-     * 
-     */
     public AlarmTime[] alarms = new AlarmTime[4];
-
-
-
-
-
-    /**
-     * @param currentAlarmPage 
-     * @return
-     */
+    public Alarm() {
+        for(int i=0;i<4;i++){
+            alarms[i] = new AlarmTime();
+        }
+    }
     public Time loadAlarm(int currentAlarmPage) {
         // TODO implement here
         return null;
     }
-
-    /**
-     * @param currentAlarmPage 
-     * @param data 
-     * @return
-     */
     public void saveAlarm(int currentAlarmPage, Time data) {
-        // TODO implement here
-        return ;
+        this.alarms[currentAlarmPage].saveAlarmData(data);
     }
-
-    /**
-     * @param currentAlarmPage 
-     * @return
-     */
     public void enableAlarm(int currentAlarmPage) {
-        // TODO implement here
-        return ;
+        this.alarms[currentAlarmPage].enable();
     }
-
-    /**
-     * @param currentAlarmPage 
-     * @return
-     */
     public void disableAlarm(int currentAlarmPage) {
-        // TODO implement here
-        return ;
+        this.alarms[currentAlarmPage].disable();
     }
+    public void ring() {
 
-    /**
-     * @return
-     */
-    public void Notify() {
-        // TODO implement here
-        return ;
     }
 
 }

@@ -1,78 +1,49 @@
 package Logic;
 public class Dday {
-
-    /**
-     * Default constructor
-     */
-    public Dday() {
-    }
-
-    /**
-     * 
-     */
     public Time startDday;
-
-    /**
-     * 
-     */
     public Time endDday;
-
-    /**
-     * 
-     */
     public Boolean displayType;
 
+    public Time getStartDday() {
+        return this.startDday;
+    }
 
+    public void setStartDday(Time startDday) {
+        this.startDday = startDday;
+    }
 
+    public Time getEndDday() {
+        return endDday;
+    }
 
-    /**
-     * @return
-     */
+    public void setEndDday(Time endDday) {
+        this.endDday = endDday;
+    }
+
     public Time loadStartDday() {
-        // TODO implement here
-        return null;
+        return this.startDday;
     }
-
-    /**
-     * @return
-     */
     public Time loadEndDday() {
-        // TODO implement here
-        return null;
+        return this.endDday;
     }
-
-    /**
-     * @param startDday 
-     * @param endDday 
-     * @return
-     */
     public void saveDday(Time startDday, Time endDday) {
-        // TODO implement here
-        return ;
+        this.startDday = startDday;
+        this.endDday = endDday;
     }
-
-    /**
-     * @return
-     */
     public void reset() {
-        // TODO implement here
-        return ;
+        this.startDday = null;
+        this.endDday = null;
     }
-
-    /**
-     * @return
-     */
     public Boolean changeFormat() {
-        // TODO implement here
+        if(this.startDday == null)
+            return (this.displayType = true);
+        else if(this.startDday != null && this.endDday != null)
+            return this.displayType = !this.displayType;
+
         return true;
     }
-
-    /**
-     * @return
-     */
-    public void Notify() {
+    public void ring() {
         // TODO implement here
         return ;
     }
-
 }
