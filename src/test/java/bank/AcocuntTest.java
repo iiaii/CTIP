@@ -16,6 +16,7 @@ class AccountTests {
 		assertEquals(0, account.getBalance());
 	}
 
+	
 	@Test
 	@DisplayName("Account Set Balance Test")
 	void setBalanceTest(){
