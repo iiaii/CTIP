@@ -4,6 +4,15 @@
 # Ignore Gradle build output directory
 build
 
-
+# Ignore
 .iml
+
 .xml
+
+/.idea/
+
+
+
+*gladle*
+
+/out/
