@@ -7,7 +7,7 @@ public class ModeManager {
     public int currentMode;
     public Boolean[] setMode = new Boolean[5]; // timer,stopwatch,alarm,dday,intervaltimer
     public TimeKeeping timekeeping;
-    public Timer timer;
+    public WatchTimer timer;
     public StopWatch stopwatch;
     public Alarm alarm;
     public Dday dday;
@@ -31,8 +31,8 @@ public class ModeManager {
         return 0;
     }
 
-    public Timer createTimer() {
-        this.timer = new Timer();
+    public WatchTimer createTimer() {
+        this.timer = new WatchTimer();
         this.setMode[0] = true;
         return this.timer;
     }

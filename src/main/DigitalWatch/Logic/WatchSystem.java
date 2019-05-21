@@ -1,8 +1,13 @@
 package Logic;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class WatchSystem {
     public Time tempTime;
     public Time tempTime2;
     public ModeManager modeManager;
+
 
     public Time enterEditMode() {
         return null;
@@ -28,6 +33,7 @@ public class WatchSystem {
     public void enablentervalTimer() {
         return ;
     }
+
     public void disableIntervalTimer() {
         
         return ;
@@ -110,5 +116,13 @@ public class WatchSystem {
     public int enterSetMode() {
         
         return 0;
+    }
+    public static void main(String[] args){
+        Timer m_timer = new Timer();
+        TimeKeeping timeKeeping = new TimeKeeping(m_timer);
+        WatchTimer watchTimer = new WatchTimer(m_timer);
+        watchTimer.activate();
+        //m_timer.schedule(watchTimer,0,2000);
+
     }
 }
