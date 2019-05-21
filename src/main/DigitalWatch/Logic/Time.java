@@ -1,12 +1,21 @@
 package Logic;
 public class Time {
 
-    public int year;
-    public int month;
-    public int day;
-    public int hour;
-    public int minute;
-    public int second;
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
+    private int minute;
+    private int second;
+
+    public Time() {
+        this.year = 0;
+        this.month = 0;
+        this.day = 0;
+        this.hour = 0;
+        this.minute = 0;
+        this.second = 0;
+    }
 
     public Time(int year, int month, int day, int hour, int minute, int second) {
         this.year = year;

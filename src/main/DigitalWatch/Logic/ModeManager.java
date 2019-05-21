@@ -1,20 +1,21 @@
 package Logic;
 
-import GUI.ButtonEvent;
-
 public class ModeManager {
 
-    public int currentMode;
-    public Boolean[] setMode = new Boolean[5]; // timer,stopwatch,alarm,dday,intervaltimer
-    public TimeKeeping timekeeping;
-    public Timer timer;
-    public StopWatch stopwatch;
-    public Alarm alarm;
-    public Dday dday;
-    public IntervalTimer intervaltimer;
-
+    private int currentMode;
+    private Boolean[] setMode = new Boolean[5]; // timer,stopwatch,alarm,dday,intervaltimer;
+    private TimeKeeping timekeeping;
+    private Timer timer;
+    private StopWatch stopwatch;
+    private Alarm alarm;
+    private Dday dday;
+    private IntervalTimer intervaltimer;
     public ModeManager() {
         this.timekeeping = new TimeKeeping();
+    }
+
+    public int getCurrentMode() {
+        return this.currentMode;
     }
 
     public int getNextMode() {

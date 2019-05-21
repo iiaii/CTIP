@@ -1,14 +1,27 @@
 package Logic;
 public class WatchSystem {
-    public Time tempTime;
-    public Time tempTime2;
+    private Time tempTime;
+    private Time tempTime2;
     public ModeManager modeManager;
+    private int currnentCussor; //추가
+
+    private TimeKeeping timekeeping;
+    private Timer timer;
+    private StopWatch stopwatch;
+    private Alarm alarm;
+    private Dday dday;
+    private IntervalTimer intervaltimer;
 
     public Time enterEditMode() {
         return null;
     }
     public Time increaseData() {
-        return null;
+        if(modeManager.getCurrentMode()==4) {
+            tempTime = timekeeping.currentTime;
+            tempTime2 = timekeeping.currentTime;
+            this.tempTime.setYear(tempTime.getYear()+1);
+        }
+        return tempTime;
     }
     public int changeCursor() {
         return 0;
@@ -66,15 +79,15 @@ public class WatchSystem {
         return null;
     }
     public void saveDday() {
-        
-        return ;
+        dday.saveDday(tempTime, tempTime2);
+        return;
     }
     public Time resetDday() {
-        
-        return null;
+        dday.reset();
+        return dday.getEndDday();
     }
     public int changeDdayFormat() {
-        
+        dday.changeFormat(timekeeping.currentTime);
         return 0;
     }
     public void activateStopwatch() {
