@@ -1,32 +1,34 @@
 package Logic;
+import java.time.LocalDateTime;
+
 public class Dday {
-    public Time startDday;
-    public Time endDday;
+    public LocalDateTime startDday;
+    public LocalDateTime endDday;
     public Boolean displayType;
 
-    public Time getStartDday() {
+    public LocalDateTime getStartDday() {
         return this.startDday;
     }
 
-    public void setStartDday(Time startDday) {
+    public void setStartDday(LocalDateTime startDday) {
         this.startDday = startDday;
     }
 
-    public Time getEndDday() {
+    public LocalDateTime getEndDday() {
         return endDday;
     }
 
-    public void setEndDday(Time endDday) {
+    public void setEndDday(LocalDateTime endDday) {
         this.endDday = endDday;
     }
 
-    public Time loadStartDday() {
+    public LocalDateTime loadStartDday() {
         return this.startDday;
     }
-    public Time loadEndDday() {
+    public LocalDateTime loadEndDday() {
         return this.endDday;
     }
-    public void saveDday(Time startDday, Time endDday) {
+    public void saveDday(LocalDateTime startDday, LocalDateTime endDday) {
         this.startDday = startDday;
         this.endDday = endDday;
     }
