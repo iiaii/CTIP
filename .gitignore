@@ -5,13 +5,11 @@
 build
 
 # Ignore
-.iml
+*.iml
 
-.xml
+*.xml
 
 /.idea/
-
-
 
 *gladle*
 
