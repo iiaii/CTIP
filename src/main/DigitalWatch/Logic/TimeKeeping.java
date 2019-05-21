@@ -42,7 +42,7 @@ public class TimeKeeping extends TimerTask {
 
     public void stopTimeKeeping() {
         if (m_timer != null)
-            m_timer.cancel();
+            cancel();
     }
 }
 

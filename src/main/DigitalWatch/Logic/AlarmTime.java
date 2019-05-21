@@ -28,7 +28,7 @@ public class AlarmTime extends TimerTask {
     }
     public void disable() {
         this.isEnabled = false;
-        m_timer.
+        cancel();
     }
 
     public LocalDateTime getCurrentAlarm() {
