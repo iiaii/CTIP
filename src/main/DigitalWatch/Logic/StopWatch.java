@@ -1,6 +1,8 @@
 package Logic;
+import java.time.LocalDateTime;
+
 public class StopWatch {
-    public Time currentStopwatch;
+    public LocalDateTime currentStopwatch;
     public Boolean isActivated;
 
     public void activate() {

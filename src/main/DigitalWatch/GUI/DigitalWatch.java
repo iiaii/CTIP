@@ -1,20 +1,24 @@
 package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import Logic.WatchSystem;
 
 public class DigitalWatch extends JFrame {
     WatchButton[] buttons;
     WatchSystem ws = new WatchSystem();
     ButtonEvent[] modes = new ButtonEvent[4];
-
+//    public static void main(String[] args) {
+//        new DigitalWatch();
+//    }
     public DigitalWatch() {
         int[] btnX = {24, 646, 24, 646};
         int[] btnY = {100, 100, 310, 310};
         buttons = new WatchButton[4];
-        for(int btnIndex = 0;btnIndex<4;btnIndex++){
+        for (int btnIndex = 0; btnIndex < 4; btnIndex++) {
             WatchButton btn = new WatchButton();
             btn.setSize(30, 60);
             btn.setLocation(btnX[btnIndex], btnY[btnIndex]);
@@ -36,13 +40,13 @@ public class DigitalWatch extends JFrame {
         panel.setBackground(Color.cyan);
         panel.setOpaque(false);
 
-        int[] date = {20,19,05,12};
+        int[] date = {20, 19, 05, 12};
         WatchCursor[] dateDigit = new WatchCursor[4];
-        int sizeX = 60, sizeY=50, startXOffset = 50;
-        for(int i=0;i<4;i++){
+        int sizeX = 60, sizeY = 50, startXOffset = 50;
+        for (int i = 0; i < 4; i++) {
             dateDigit[i] = new WatchCursor(2, date[i]);
             dateDigit[i].setSize(sizeX, sizeY);
-            dateDigit[i].setLocation((startXOffset +10) * (i+1), 60);
+            dateDigit[i].setLocation((startXOffset + 10) * (i + 1), 60);
             dateDigit[i].setVisible(true);
             panel.add(dateDigit[i]);
         }
@@ -66,7 +70,6 @@ public class DigitalWatch extends JFrame {
         panel.add(second);
 
         this.add(panel);
-
         buttons[0].setClickListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

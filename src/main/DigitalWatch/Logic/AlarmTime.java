@@ -1,16 +1,17 @@
 package Logic;
+import java.time.LocalDateTime;
 
 public class AlarmTime {
-    public Time currentAlarm;
+    public LocalDateTime currentAlarm;
     public Boolean isEnabled;
 
     public AlarmTime() {
     }
 
-    public Time loadAlarmData() {
+    public LocalDateTime loadAlarmData() {
         return this.currentAlarm;
     }
-    public void saveAlarmData(Time data) {
+    public void saveAlarmData(LocalDateTime data) {
         this.currentAlarm = data;
     }
     public void enable() {
@@ -20,11 +21,11 @@ public class AlarmTime {
         this.isEnabled = false;
     }
 
-    public Time getCurrentAlarm() {
+    public LocalDateTime getCurrentAlarm() {
         return currentAlarm;
     }
 
-    public void setCurrentAlarm(Time currentAlarm) {
+    public void setCurrentAlarm(LocalDateTime currentAlarm) {
         this.currentAlarm = currentAlarm;
     }
 

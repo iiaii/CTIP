@@ -1,114 +1,156 @@
 package Logic;
+import java.time.LocalDateTime;
 public class WatchSystem {
-    public Time tempTime;
-    public Time tempTime2;
+    public LocalDateTime tempTime;
+    public LocalDateTime tempTime2;
     public ModeManager modeManager;
+    public WatchTimer watchTimer;
 
-    public Time enterEditMode() {
+
+    public LocalDateTime enterEditMode() {
         return null;
     }
-    public Time increaseData() {
+
+    public LocalDateTime increaseData() {
         return null;
     }
+
     public int changeCursor() {
         return 0;
     }
+
     public void saveTime() {
-        return ;
+        return;
     }
+
     public void pauseTimer() {
-        return ;
+        modeManager.watchTimer.pause();
     }
+
     public void resetTimer() {
-        return ;
+        modeManager.watchTimer.reset();
     }
-    public void saveTimer() {
-        return ;
+
+    public void saveTimer(LocalDateTime data) {
+        WatchTimer wt = new WatchTimer(data);
     }
+
     public void enablentervalTimer() {
-        return ;
+        return;
     }
+
     public void disableIntervalTimer() {
-        
-        return ;
+
+        return;
     }
+
     public void saveIntervalTimer() {
-        
-        return ;
+
+        return;
     }
+
     public void resetIntervalTimer() {
-        
-        return ;
+
+        return;
     }
 
     public void saveAlarm() {
-        
-        return ;
+
+        return;
     }
+
     public void resetAlarm() {
-        
-        return ;
+
+        return;
     }
+
     public void enableAlarm() {
-        
-        return ;
+
+        return;
     }
+
     public void disableAlarm() {
-        
-        return ;
+
+        return;
     }
+
     public AlarmTime changeAlarmPage() {
-        
+
         return null;
     }
-    public Time changePage() {
-        
+
+    public LocalDateTime changePage() {
+
         return null;
     }
+
     public void saveDday() {
-        
-        return ;
+
+        return;
     }
-    public Time resetDday() {
-        
+
+    public LocalDateTime resetDday() {
+
         return null;
     }
+
     public int changeDdayFormat() {
-        
+
         return 0;
     }
+
     public void activateStopwatch() {
-        
-        return ;
+
+        return;
     }
+
     public void pauseStopwatch() {
-        
-        return ;
+
+        return;
     }
+
     public void resetStopwatch() {
-        return ;
+        return;
     }
+
     public int changeMode() {
         return 0;
     }
+
     public void chooseModes() {
-        
-        return ;
+
+        return;
     }
+
     public void saveMode() {
-        
-        return ;
+        // selected Mode
+        this.watchTimer = modeManager.createTimer();
+
+        return;
     }
-    public Time changeHourFormat() {
-        
+
+    public LocalDateTime changeHourFormat() {
+
         return null;
     }
+
     public void muteBeep() {
-        
-        return ;
+
+        return;
     }
+
     public int enterSetMode() {
-        
+
         return 0;
     }
+    public void activateTimer(){
+        modeManager.watchTimer.activate();
+    }
+
+    public static void main(String[]args) throws Exception {
+//        WatchTimer wt  = new WatchTimer();
+//        wt.activate();
+
+    }
+
 }
