@@ -56,7 +56,7 @@ public class ModeManager {
 
 
     public Alarm createAlarm() {
-        this.alarm = new Alarm();
+//        this.alarm = new Alarm();
         this.setMode[2] = true;
         return this.alarm;
     }
