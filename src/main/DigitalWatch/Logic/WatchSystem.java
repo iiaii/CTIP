@@ -1,6 +1,8 @@
 package Logic;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WatchSystem {
     private int currentCursor; //연도1 연도2 월 일 시 분 초
@@ -14,6 +16,11 @@ public class WatchSystem {
     private Dday dday;
     private IntervalTimer intervaltimer;
     public ModeManager modeManager;
+
+
+    public LocalDateTime enterEditMode() {
+        return null;
+    }
 
 //    public LocalDateTime enterEditMode() {
 //        currentCursor=0;

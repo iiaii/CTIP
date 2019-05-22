@@ -84,7 +84,7 @@ public class ModeManager {
     }
 
     public WatchTimer createTimer() {
-        //this.watchTimer = new WatchTimer();
+//        this.watchTimer = new WatchTimer();
         this.setMode[0] = true;
         return this.watchTimer;
     }
