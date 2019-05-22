@@ -208,20 +208,20 @@ public class WatchSystem {
         modeManager.getWatchTimer().activate();
     }
 
-    public static void main(String[]args) throws Exception {
-        Dday dd = new Dday();
-        dd.saveDday(LocalDateTime.now().toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
-        if(dd.getDisplayType())
-            System.out.println("d-"+dd.getCalDday());
-        else
-            System.out.println(+dd.getCalDday()+"%");
-        dd.changeFormat();
-        dd.saveDday(LocalDateTime.of(2019,1,1,0,0,0).toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
-        DecimalFormat dec = new DecimalFormat("#0.00");
-        if(dd.getDisplayType())
-            System.out.println("d-"+dd.getCalDday());
-        else
-            System.out.println(dec.format(dd.getCalDday())+"%");
-    }
+//    public static void main(String[]args) throws Exception {
+//        Dday dd = new Dday();
+//        dd.saveDday(LocalDateTime.now().toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
+//        if(dd.getDisplayType())
+//            System.out.println("d-"+dd.getCalDday());
+//        else
+//            System.out.println(+dd.getCalDday()+"%");
+//        dd.changeFormat();
+//        dd.saveDday(LocalDateTime.of(2019,1,1,0,0,0).toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
+//        DecimalFormat dec = new DecimalFormat("#0.00");
+//        if(dd.getDisplayType())
+//            System.out.println("d-"+dd.getCalDday());
+//        else
+//            System.out.println(dec.format(dd.getCalDday())+"%");
+//    }
 
 }
