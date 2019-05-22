@@ -25,8 +25,4 @@ public class Test extends JFrame {
         this.add(digit);
         this.setVisible(true);
     }
-
-    /*public static void main(String[] args){
-        new Test();
-    }*/
 }

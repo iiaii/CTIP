@@ -1,15 +1,15 @@
 package Logic;
 
 public class ModeManager {
-
     private int currentMode;
-    private Boolean[] setMode = new Boolean[5]; // timer,stopwatch,alarm,dday,intervaltimer;
-    private TimeKeeping timekeeping;
-    private Timer timer;
-    private StopWatch stopwatch;
-    private Alarm alarm;
-    private Dday dday;
-    private IntervalTimer intervaltimer;
+    private Boolean[] setMode = new Boolean[5]; // watchTimer,stopwatch,alarm,dday,intervaltimer
+    public TimeKeeping timekeeping;
+    public WatchTimer watchTimer;
+    public StopWatch stopwatch;
+    public Alarm alarm;
+    public Dday dday;
+    public IntervalTimer intervaltimer;
+
     public ModeManager() {
         this.timekeeping = new TimeKeeping();
     }
@@ -32,15 +32,15 @@ public class ModeManager {
         return 0;
     }
 
-    public Timer createTimer() {
-        this.timer = new Timer();
+    public WatchTimer createTimer() {
+        //this.watchTimer = new WatchTimer();
         this.setMode[0] = true;
-        return this.timer;
+        return this.watchTimer;
     }
 
     public void destoryTimer() {
-        this.timer.reset();
-        this.timer = null;
+        this.watchTimer.reset();
+        this.watchTimer = null;
         this.setMode[0] = false;
     }
 

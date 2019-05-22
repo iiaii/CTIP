@@ -1,13 +1,14 @@
 package Logic;
+import java.time.LocalDateTime;
 public class TimeKeeping {
-    public Time currentTime;
+    public LocalDateTime currentTime;
     public Boolean displayFormat = true;
 
-    public Time loadTime() {
+    public LocalDateTime loadTime() {
         return this.currentTime;
     }
 
-    public void saveTime(Time data) {
+    public void saveTime(LocalDateTime data) {
         // TODO implement here
         this.currentTime = data;
     }

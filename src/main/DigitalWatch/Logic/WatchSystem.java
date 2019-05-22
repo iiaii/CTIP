@@ -1,127 +1,215 @@
 package Logic;
-public class WatchSystem {
-    private Time tempTime;
-    private Time tempTime2;
-    public ModeManager modeManager;
-    private int currnentCussor; //추가
+import java.time.LocalDateTime;
 
+public class WatchSystem {
+    private int currentCursor; //연도1 연도2 월 일 시 분 초
+    private int currentDday;
+    private LocalDateTime tempTime;
+    private LocalDateTime tempTime2;
+    private ModeManager modeManager;
     private TimeKeeping timekeeping;
-    private Timer timer;
+    private WatchTimer watchTimer;
     private StopWatch stopwatch;
     private Alarm alarm;
     private Dday dday;
     private IntervalTimer intervaltimer;
 
-    public Time enterEditMode() {
-        return null;
+    public LocalDateTime enterEditMode() {
+        currentCursor=0;
+        if(modeManager.getCurrentMode()==1 || modeManager.getCurrentMode()==3 || modeManager.getCurrentMode()==5)
+            currentCursor = 4;
+        tempTime = timekeeping.currentTime;
+        tempTime2 = timekeeping.currentTime; //수정 더 필요
+        return timekeeping.currentTime;
     }
-    public Time increaseData() {
-        if(modeManager.getCurrentMode()==4) {
-            tempTime = timekeeping.currentTime;
-            tempTime2 = timekeeping.currentTime;
-            this.tempTime.setYear(tempTime.getYear()+1);
+    public LocalDateTime increaseData() {
+        switch (modeManager.getCurrentMode()) {
+            case 0: //timekeeping
+                break;
+            case 1: //timer
+                break;
+            case 3: //alarm
+                break;
+            case 4: //dday
+                if(currentDday==0) {
+                    if(currentCursor==0)
+                        tempTime.plusYears(100);
+                    else if(currentCursor==1)
+                        tempTime.plusYears(1);
+                    else if(currentCursor==2)
+                        tempTime.plusMonths(1);
+                    else
+                        tempTime.plusDays(1);
+                }
+                else {
+                    if(currentCursor==0)
+                        tempTime2.plusYears(100);
+                    else if(currentCursor==1)
+                        tempTime2.plusYears(1);
+                    else if(currentCursor==2)
+                        tempTime2.plusMonths(1);
+                    else
+                        tempTime2.plusDays(1);
+                }
+                break;
+            case 5: //interval timer
+                break;
+            default:
+                System.out.println("Error");
         }
         return tempTime;
     }
+
     public int changeCursor() {
-        return 0;
+        switch (modeManager.getCurrentMode()) {
+            case 0: //timekeeping
+                currentCursor=(currentCursor+1)% 7;
+                break;
+            case 1: case 3: case 5: //timer, alarm, interval timer
+                currentCursor = (currentCursor+1)%3 + 4;
+                break;
+            case 4: //dday
+                currentCursor = (currentCursor+1) %4;
+        }
+        return currentCursor;
     }
+
     public void saveTime() {
-        return ;
+        return;
     }
+
     public void pauseTimer() {
-        return ;
+        watchTimer.pause();
     }
+
     public void resetTimer() {
-        return ;
+        watchTimer.reset();
     }
-    public void saveTimer() {
-        return ;
+
+    public void saveTimer(LocalDateTime data) {
+        WatchTimer wt = new WatchTimer(data);
     }
+
     public void enablentervalTimer() {
-        return ;
+        return;
     }
+
     public void disableIntervalTimer() {
-        
-        return ;
+
+        return;
     }
+
     public void saveIntervalTimer() {
-        
-        return ;
+
+        return;
     }
+
     public void resetIntervalTimer() {
-        
-        return ;
+
+        return;
     }
 
     public void saveAlarm() {
-        
-        return ;
-    }
-    public void resetAlarm() {
-        
-        return ;
-    }
-    public void enableAlarm() {
-        
-        return ;
-    }
-    public void disableAlarm() {
-        
-        return ;
-    }
-    public AlarmTime changeAlarmPage() {
-        
-        return null;
-    }
-    public Time changePage() {
-        
-        return null;
-    }
-    public void saveDday() {
-        dday.saveDday(tempTime, tempTime2);
+
         return;
     }
-    public Time resetDday() {
+
+    public void resetAlarm() {
+
+        return;
+    }
+
+    public void enableAlarm() {
+
+        return;
+    }
+
+    public void disableAlarm() {
+
+        return;
+    }
+
+    public AlarmTime changeAlarmPage() {
+
+        return null;
+    }
+
+    public LocalDateTime changePage() {
+        currentDday = (currentDday+1)%2;
+        if(currentDday==0)
+            return tempTime;
+        else
+            return tempTime2;
+    }
+
+    public void saveDday() {
+        dday.saveDday(tempTime.toLocalDate(), tempTime2.toLocalDate());
+        return;
+    }
+
+    public LocalDateTime resetDday() {
         dday.reset();
-        return dday.getEndDday();
+        return dday.loadEndDday().atTime(0,0,0);
     }
-    public int changeDdayFormat() {
-        dday.changeFormat(timekeeping.currentTime);
-        return 0;
+
+    public long changeDdayFormat() {
+        dday.changeFormat();
+        return dday.getCalDday();
     }
+
     public void activateStopwatch() {
-        
-        return ;
+        stopwatch.activate();
+        return;
     }
+
     public void pauseStopwatch() {
-        
-        return ;
+        stopwatch.pause();
+        return;
     }
+
     public void resetStopwatch() {
-        return ;
+        stopwatch.reset();
+        return;
     }
+
     public int changeMode() {
         return 0;
     }
+
     public void chooseModes() {
-        
-        return ;
+
+        return;
     }
+
     public void saveMode() {
-        
-        return ;
+
+        return;
     }
-    public Time changeHourFormat() {
-        
+
+    public LocalDateTime changeHourFormat() {
+
         return null;
     }
+
     public void muteBeep() {
-        
-        return ;
+
+        return;
     }
+
     public int enterSetMode() {
-        
+
         return 0;
     }
+
+    public void activateTimer(){
+        modeManager.watchTimer.activate();
+    }
+
+    public static void main(String[]args) throws Exception {
+        Dday dd = new Dday();
+        dd.saveDday(null, LocalDateTime.of(2019,12,9,0,0,0));
+        System.out.println(dd.getCalDday());
+
+    }
+
 }

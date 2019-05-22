@@ -1,4 +1,6 @@
 package Logic;
+import java.time.LocalDateTime;
+
 public class Alarm {
     public int currentAlarmPage;
     public AlarmTime[] alarms = new AlarmTime[4];
@@ -7,11 +9,11 @@ public class Alarm {
             alarms[i] = new AlarmTime();
         }
     }
-    public Time loadAlarm(int currentAlarmPage) {
+    public LocalDateTime loadAlarm(int currentAlarmPage) {
         // TODO implement here
         return null;
     }
-    public void saveAlarm(int currentAlarmPage, Time data) {
+    public void saveAlarm(int currentAlarmPage, LocalDateTime data) {
         this.alarms[currentAlarmPage].saveAlarmData(data);
     }
     public void enableAlarm(int currentAlarmPage) {

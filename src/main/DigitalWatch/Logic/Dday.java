@@ -1,27 +1,39 @@
 package Logic;
+import java.time.LocalDate;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.time.temporal.ChronoUnit;
+
 public class Dday {
-    private Time startDday;
-    private Time endDday;
-    private int calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
+    private LocalDate startDday;
+    private LocalDate endDday;
+    private long calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
     private Boolean displayType;
 
-    public Time getStartDday() {
+    public LocalDate loadStartDday() {
         return this.startDday;
     }
 
-    public void setStartDday(Time startDday) {
+    public void setStartDday(LocalDate startDday) {
         this.startDday = startDday;
     }
 
-    public Time getEndDday() {
+    public LocalDate loadEndDday() {
         return endDday;
     }
 
-    public void setEndDday(Time endDday) {
+    public void setEndDday(LocalDate endDday) {
         this.endDday = endDday;
     }
 
-    public int getCalDday() {
+    public long getCalDday() {
+        if(this.displayType == true)
+            calDday = ChronoUnit.DAYS.between(LocalDate.now(), endDday);
+        else {
+            long wholeday = ChronoUnit.DAYS.between(startDday, endDday);
+            long partday = ChronoUnit.DAYS.between(startDday, LocalDate.now());
+            calDday = partday/wholeday*100;
+        }
         return calDday;
     }
 
@@ -33,41 +45,28 @@ public class Dday {
         return displayType;
     }
 
-    public Time loadStartDday() {
-        return this.startDday;
-    }
-    public Time loadEndDday() {
-        return this.endDday;
-    }
-
-    public void saveDday(Time startDday, Time endDday) {
+    public void saveDday(LocalDate startDday, LocalDate endDday) {
         this.startDday = startDday;
         this.endDday = endDday;
     }
 
     public void reset() {
-        startDday = null;
-        endDday = null;
+        startDday = LocalDate.now();
+        endDday = LocalDate.now();
     }
 
-    public Boolean changeFormat(Time currentTime) { //true면 d-day, false면 %
-        String start = "";
-        String end = String.valueOf(endDday.getYear()) + String.valueOf(endDday.getMonth()) + String.valueOf(endDday.getDay());
-        if (this.startDday == null) {
-            start = String.valueOf(currentTime.getYear()) + String.valueOf(currentTime.getMonth()) + String.valueOf(currentTime.getDay());
-            return (this.displayType = true);
-        } else if (this.startDday != null && this.endDday != null) {
-            start = String.valueOf(startDday.getYear()) + String.valueOf(startDday.getMonth()) + String.valueOf(startDday.getDay());
-            return (this.displayType = !this.displayType);
+    public Boolean changeFormat() { //true면 d-day, false면 %
+        if(this.displayType) {
+            return false;
         }
-        else
+        else {
             return true;
-    }
-    public void ring(Time currentTime) {
-        // TODO implement here
-        if(currentTime == endDday) {
-            //ring 3번 후 더 이상 수행X
         }
+    }
+
+    public void ring(LocalDate currentTime) {
+        // TODO implement here
+
         return ;
     }
 }

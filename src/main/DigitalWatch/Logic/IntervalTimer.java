@@ -1,9 +1,9 @@
 package Logic;
-
+import java.time.LocalDateTime;
 public class IntervalTimer {
     public int iteration;
-    public Time savedIntervalTimer;
-    public Time remainedIntervalTimer;
+    public LocalDateTime savedIntervalTimer;
+    public LocalDateTime remainedIntervalTimer;
     public Boolean isEnabled;
 
     public IntervalTimer() {
@@ -21,10 +21,10 @@ public class IntervalTimer {
         this.remainedIntervalTimer = null;
         this.isEnabled = false;
     }
-    public Time loadIntervalTimer() {
+    public LocalDateTime loadIntervalTimer() {
         return this.savedIntervalTimer;
     }
-    public void saveIntervalTimer(Time data) {
+    public void saveIntervalTimer(LocalDateTime data) {
         this.savedIntervalTimer = data;
     }
     public void ring() {
