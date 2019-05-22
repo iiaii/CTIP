@@ -65,6 +65,10 @@ public class ModeManager {
         this.timekeeping = new TimeKeeping();
     }
 
+    public int getCurrentMode() {
+        return this.currentMode;
+    }
+
     public int getNextMode() {
         this.currentMode = (this.currentMode++) % 4;
         return this.currentMode;
@@ -80,7 +84,7 @@ public class ModeManager {
     }
 
     public WatchTimer createTimer() {
-//        this.watchTimer = new WatchTimer();
+        //this.watchTimer = new WatchTimer();
         this.setMode[0] = true;
         return this.watchTimer;
     }
@@ -99,7 +103,7 @@ public class ModeManager {
     }
 
     public void destroyStopwatch() {
-        this.stopwatch.reset();
+//        this.stopwatch.reset();
         this.stopwatch = null;
         this.setMode[1] = false;
     }
