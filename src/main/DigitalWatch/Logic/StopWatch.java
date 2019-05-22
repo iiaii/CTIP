@@ -2,21 +2,24 @@ package Logic;
 import javafx.scene.paint.Stop;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.TimerTask;
 import java.util.Timer;
 
 public class StopWatch extends TimerTask{
-    private LocalDateTime currentStopwatch;
+    private LocalTime currentStopwatch;
     private Boolean isActivated;
     private Timer m_timer = new Timer();
 
     public StopWatch (){
-        currentStopwatch = LocalDateTime.of(0,0,0,0,0,0);
+        currentStopwatch = LocalTime.of(0,0,0);
     }
     @Override
     public void run() {
         this.currentStopwatch = this.currentStopwatch.plusSeconds(1);
+        if(this.currentStopwatch.equals(LocalTime.MAX)) {
+            pause();
+        }
     }
 
     public void activate() {
@@ -30,7 +33,7 @@ public class StopWatch extends TimerTask{
     public void reset() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(!this.isActivated) {
-            currentStopwatch = LocalDateTime.of(0,0,0,0,0,0);
+            currentStopwatch = LocalTime.of(0,0,0);
             this.isActivated = false;
         }
         else

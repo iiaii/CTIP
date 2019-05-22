@@ -1,4 +1,5 @@
 package Logic;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 public class WatchSystem {
@@ -6,13 +7,13 @@ public class WatchSystem {
     private int currentDday;
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
-    private ModeManager modeManager;
     private TimeKeeping timekeeping;
     private WatchTimer watchTimer;
     private StopWatch stopwatch;
     private Alarm alarm;
     private Dday dday;
     private IntervalTimer intervaltimer;
+    public ModeManager modeManager;
 
     public LocalDateTime enterEditMode() {
         currentCursor=0;
@@ -152,7 +153,7 @@ public class WatchSystem {
         return dday.loadEndDday().atTime(0,0,0);
     }
 
-    public long changeDdayFormat() {
+    public double changeDdayFormat() {
         dday.changeFormat();
         return dday.getCalDday();
     }
@@ -207,9 +208,18 @@ public class WatchSystem {
 
     public static void main(String[]args) throws Exception {
         Dday dd = new Dday();
-        dd.saveDday(null, LocalDateTime.of(2019,12,9,0,0,0));
-        System.out.println(dd.getCalDday());
-
+        dd.saveDday(LocalDateTime.now().toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
+        if(dd.getDisplayType())
+            System.out.println("d-"+dd.getCalDday());
+        else
+            System.out.println(+dd.getCalDday()+"%");
+        dd.changeFormat();
+        dd.saveDday(LocalDateTime.of(2019,1,1,0,0,0).toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
+        DecimalFormat dec = new DecimalFormat("#0.00");
+        if(dd.getDisplayType())
+            System.out.println("d-"+dd.getCalDday());
+        else
+            System.out.println(dec.format(dd.getCalDday())+"%");
     }
 
 }
