@@ -1,11 +1,13 @@
 package Logic;
 import java.time.LocalDateTime;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class WatchSystem {
     public LocalDateTime tempTime;
     public LocalDateTime tempTime2;
     public ModeManager modeManager;
-    public WatchTimer watchTimer;
-
 
     public LocalDateTime enterEditMode() {
         return null;
@@ -24,33 +26,34 @@ public class WatchSystem {
     }
 
     public void pauseTimer() {
-        modeManager.watchTimer.pause();
+        modeManager.getWatchTimer().pause();
     }
 
     public void resetTimer() {
-        modeManager.watchTimer.reset();
+        modeManager.getWatchTimer().reset();
     }
 
     public void saveTimer(LocalDateTime data) {
-        WatchTimer wt = new WatchTimer(data);
+        modeManager.getWatchTimer().saveTimer(data);
     }
 
     public void enablentervalTimer() {
+        modeManager.getIntervaltimer().enable();
         return;
     }
 
     public void disableIntervalTimer() {
-
+        modeManager.getIntervaltimer().disable();
         return;
     }
 
-    public void saveIntervalTimer() {
-
+    public void saveIntervalTimer(LocalDateTime data) {
+        modeManager.getIntervaltimer().saveIntervalTimer(data);
         return;
     }
 
     public void resetIntervalTimer() {
-
+        modeManager.getIntervaltimer().reset();
         return;
     }
 
@@ -114,6 +117,7 @@ public class WatchSystem {
     }
 
     public int changeMode() {
+
         return 0;
     }
 
@@ -124,7 +128,7 @@ public class WatchSystem {
 
     public void saveMode() {
         // selected Mode
-        this.watchTimer = modeManager.createTimer();
+//        this.watchTimer = modeManager.createTimer();
 
         return;
     }
@@ -144,7 +148,7 @@ public class WatchSystem {
         return 0;
     }
     public void activateTimer(){
-        modeManager.watchTimer.activate();
+        modeManager.getWatchTimer().activate();
     }
 
     public static void main(String[]args) throws Exception {
@@ -152,5 +156,4 @@ public class WatchSystem {
 //        wt.activate();
 
     }
-
 }

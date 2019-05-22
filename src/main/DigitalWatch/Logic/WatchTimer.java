@@ -33,7 +33,7 @@ public class WatchTimer extends TimerTask {
 
     public void reset() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(!this.isActived && formatTime.format(this.remainedTimer).equals("000000")){
+        if(!this.isActived && !formatTime.format(this.remainedTimer).equals("000000")){
             this.savedTimer = null;
             this.remainedTimer = null;
         }else{

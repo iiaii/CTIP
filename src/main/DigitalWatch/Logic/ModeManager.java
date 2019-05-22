@@ -4,12 +4,62 @@ public class ModeManager {
 
     public int currentMode;
     public Boolean[] setMode = new Boolean[5]; // watchTimer,stopwatch,alarm,dday,intervaltimer
-    public TimeKeeping timekeeping;
-    public WatchTimer watchTimer;
-    public StopWatch stopwatch;
-    public Alarm alarm;
-    public Dday dday;
-    public IntervalTimer intervaltimer;
+
+
+    private TimeKeeping timekeeping;
+    private WatchTimer watchTimer;
+    private StopWatch stopwatch;
+    private Alarm alarm;
+    private Dday dday;
+    private IntervalTimer intervaltimer;
+
+    public TimeKeeping getTimekeeping() {
+        return timekeeping;
+    }
+
+    public void setTimekeeping(TimeKeeping timekeeping) {
+        this.timekeeping = timekeeping;
+    }
+
+    public WatchTimer getWatchTimer() {
+        return watchTimer;
+    }
+
+    public void setWatchTimer(WatchTimer watchTimer) {
+        this.watchTimer = watchTimer;
+    }
+
+    public StopWatch getStopwatch() {
+        return stopwatch;
+    }
+
+    public void setStopwatch(StopWatch stopwatch) {
+        this.stopwatch = stopwatch;
+    }
+
+    public Alarm getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(Alarm alarm) {
+        this.alarm = alarm;
+    }
+
+    public Dday getDday() {
+        return dday;
+    }
+
+    public void setDday(Dday dday) {
+        this.dday = dday;
+    }
+
+    public IntervalTimer getIntervaltimer() {
+        return intervaltimer;
+    }
+
+    public void setIntervaltimer(IntervalTimer intervaltimer) {
+        this.intervaltimer = intervaltimer;
+    }
 
     public ModeManager() {
         this.timekeeping = new TimeKeeping();
@@ -56,7 +106,7 @@ public class ModeManager {
 
 
     public Alarm createAlarm() {
-        this.alarm = new Alarm();
+//        this.alarm = new Alarm();
         this.setMode[2] = true;
         return this.alarm;
     }
