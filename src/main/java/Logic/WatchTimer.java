@@ -18,6 +18,7 @@ public class WatchTimer extends TimerTask {
     @Override
     public void run() {
         this.remainedTimer = this.savedTimer.minusSeconds(1);
+        ring(); //추가
     }
 
     public void activate() {
@@ -27,7 +28,7 @@ public class WatchTimer extends TimerTask {
 
     public void pause() {
         this.isActived = false;
-        m_timer.cancel();
+        cancel();
         saveTimer(this.remainedTimer);
     }
 
