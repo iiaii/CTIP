@@ -32,6 +32,7 @@ public class WatchSystem {
 //    }
     public LocalDateTime increaseData() {
         switch (modeManager.getCurrentMode()) {
+
             case 0: //timekeeping
                 break;
             case 1: //timer
@@ -64,6 +65,7 @@ public class WatchSystem {
                 break;
             default:
                 System.out.println("Error");
+
         }
         return tempTime;
     }

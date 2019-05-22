@@ -24,7 +24,7 @@ public class IntervalTimer extends TimerTask{
     }
     public void disable() {
         this.isEnabled = false;
-        m_timer.cancel();
+        cancel();
     }
     public void reset() {
         if(!this.isEnabled){
@@ -41,7 +41,6 @@ public class IntervalTimer extends TimerTask{
     }
     public void ring() {
         System.out.println("beep");
-        return ;
     }
 
     @Override

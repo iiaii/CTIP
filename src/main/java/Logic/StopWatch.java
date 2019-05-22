@@ -28,7 +28,7 @@ public class StopWatch extends TimerTask{
     }
     public void pause() {
         this.isActivated = false;
-        m_timer.cancel();
+        cancel();
     }
     public void reset() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");

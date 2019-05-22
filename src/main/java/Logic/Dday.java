@@ -30,6 +30,7 @@ public class Dday {
         }
         else { //%
             this.calDday = (double)(ChronoUnit.DAYS.between(this.startDday, LocalDate.now())) / (double)(ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
+            // 여휴 자리 설정 필요
         }
         return calDday;
     }
