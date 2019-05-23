@@ -1,6 +1,4 @@
 package Logic;
-import javafx.scene.paint.Stop;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.TimerTask;

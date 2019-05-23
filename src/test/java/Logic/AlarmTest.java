@@ -4,21 +4,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TimeKeepingTest {
+class AlarmTest {
 
     @Test
-    void loadTime() {
+    void loadAlarm() {
     }
 
     @Test
-    void saveTime() {
+    void saveAlarm() {
     }
 
     @Test
-    void setHourformat() {
+    void enableAlarm() {
     }
 
     @Test
-    void stopTimeKeeping() {
+    void disableAlarm() {
     }
 }

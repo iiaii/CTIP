@@ -15,7 +15,7 @@ public class Alarm {
         //currentAlarmPage = (currentAlarmPage++) % 4;
         return alarms[currentAlarmPage].loadAlarmData();
     }
-    public void saveAlarm(LocalDateTime data) { // Interaction Diagram 수정필요
+    public void saveAlarm(int currentAlarmPage, LocalDateTime data) { // Interaction Diagram 수정필요
         this.alarms[currentAlarmPage].saveAlarmData(data);
     }
     public void enableAlarm(int currentAlarmPage) {

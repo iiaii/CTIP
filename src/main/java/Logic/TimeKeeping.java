@@ -11,6 +11,14 @@ public class TimeKeeping extends TimerTask {
     private Timer m_timer = null; // new instance
     private boolean hourFormat = true; // true menas 24 hours
 
+    public LocalDateTime getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(LocalDateTime currentTime) {
+        this.currentTime = currentTime;
+    }
+
     public TimeKeeping(Timer m_timer) {
         currentTime = LocalDateTime.now();
         this.m_timer = m_timer;
@@ -18,7 +26,7 @@ public class TimeKeeping extends TimerTask {
     }// 생성자
 
     public TimeKeeping() {
-
+        currentTime = LocalDateTime.now().plusHours(3);
     }
 
     @Override

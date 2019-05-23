@@ -1,22 +1,27 @@
 package Logic;
+import GUI.DigitalWatch;
 import com.sun.org.apache.bcel.internal.generic.LoadClass;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import javafx.scene.paint.Stop;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WatchSystem {
+public class WatchSystem extends TimerTask {
     private int currentCursor; //연도1 연도2 월 일 시 분 초
+    private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
     private Boolean isEditMode;
-
 
 
     public LocalDateTime enterEditMode() {
@@ -95,7 +100,7 @@ public class WatchSystem {
             }
         }
         else if(currentCursor==4){
-            if(!(currentMode instanceof Dday || currentMode instanceof Stopwatch)){
+            if(!(currentMode instanceof Dday || currentMode instanceof StopWatch)){
                 tempTime.plusHours(1);
             }
             else{
@@ -172,7 +177,7 @@ public class WatchSystem {
     }
 
     public void saveAlarm() {
-        modeManager.getAlarm().saveAlarm(tempTime);
+        modeManager.getAlarm().saveAlarm(currentAlarmPage,tempTime);
         tempTime = null;
     }
 
@@ -197,11 +202,11 @@ public class WatchSystem {
     public LocalDateTime changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
         if(currentDdayPage==0){
-            temp1 = modeManager.getDday().loadStartDday();
+            tempTime = modeManager.getDday().loadStartDday();
             return tempTime;
         }
         else{
-            temp2 = modeManager.getDday().loadEndDday();
+            tempTime2 = modeManager.getDday().loadEndDday();
             return tempTime2;
         }
     }
@@ -211,8 +216,8 @@ public class WatchSystem {
     }
 
     public LocalDateTime resetDday() {
-        modeManager.getDday().reset();;
-        return dday.loadEndDday().atTime(0,0,0);
+        modeManager.getDday().reset();
+        return modeManager.getDday().loadEndDday();
     }
 
     public double changeDdayFormat() {
@@ -242,8 +247,8 @@ public class WatchSystem {
     }
 
     public void saveMode() {
-         selected Mode
-        this.watchTimer = modeManager.createTimer();
+        //selected Mode
+        //this.watchTimer = modeManager.createTimer();
         return;
     }
 
@@ -261,7 +266,8 @@ public class WatchSystem {
 
         return 0;
     }
-    public void activateTimer(){
+
+    public void activateTimer() {
         modeManager.getWatchTimer().activate();
     }
 
@@ -280,5 +286,42 @@ public class WatchSystem {
 //        else
 //            System.out.println(dec.format(dd.getCalDday())+"%");
 //    }
+    public void run() {
+//        timekeeping = new TimeKeeping();
+//        Date date = java.util.Date.from(timekeeping.getCurrentTime().atZone(ZoneId.systemDefault()).toInstant());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//        try {
+//            DigitalWatch.getInstance().showDigit(sdf.format(date));
+//        } catch(Exception e) {
+//
+//        }
+//
+//        Object currentMode = new TimeKeeping();
+//        if(currentMode instanceof TimeKeeping) {
+//            TimeKeeping timeKeeping = (TimeKeeping) currentMode;
+//            timeKeeping.getCurrentTime();
+//        }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
+        try {
+            //DigitalWatch.getInstance().showDigit(sdf.format(date));
+        }catch (Exception e){
+
+        }
+    }
+
+    public WatchSystem() {
+        DigitalWatch.getInstance();
+        LocalDate tmpDate = LocalDate.now();
+        LocalTime tmpTime = LocalTime.of(0,0,9);
+        LocalDateTime tmp = LocalDateTime.of(tmpDate, tmpTime);
+        //this.watchTimer = new WatchTimer(tmp);
+        //watchTimer.activate();
+    }
+    public static void main(String[] args) {
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(new WatchSystem(), 0, 100);
+
+    }
 }

@@ -45,7 +45,7 @@ public class WatchButton extends JLabel {
         if(this.shape == false) {
             x = -2;
         }
-        g2.drawRoundRect(x, 2, this.getWidth(), this.getHeight() - 4, 10, 10);
+        g2.fillRoundRect(x, 2, this.getWidth(), this.getHeight() - 4, 15, 15);
     }
 
     public void setClickListener(ActionListener l){
@@ -75,21 +75,21 @@ public class WatchButton extends JLabel {
         public void mouseReleased(MouseEvent e) {
             long timeDifference = System.currentTimeMillis() - this.mousePressedTime;
             int uniqueId = (int) System.currentTimeMillis();
-            System.out.println(timeDifference);
+            //System.out.println(timeDifference);
             if(timeDifference >= holdTime) {
                 if(t.eventClickHold != null){
                     String commandName = "ClickHold";
                     ActionEvent event = new ActionEvent(this, uniqueId, commandName);
                     t.eventClickHold.actionPerformed(event);
                 }
-                System.out.println("Hold");
+                //System.out.println("Hold");
             } else {
                 if(t.eventClick != null){
                     String commandName = "Click";
                     ActionEvent event = new ActionEvent(this, uniqueId, commandName);
                     t.eventClick.actionPerformed(event);
                 }
-                System.out.println("Click");
+                //System.out.println("Click");
             }
         }
 

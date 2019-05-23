@@ -4,21 +4,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TimeKeepingTest {
+class StopWatchTest {
 
     @Test
-    void loadTime() {
+    void activate() {
     }
 
     @Test
-    void saveTime() {
+    void pause() {
     }
 
     @Test
-    void setHourformat() {
-    }
-
-    @Test
-    void stopTimeKeeping() {
+    void reset() {
     }
 }
