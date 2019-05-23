@@ -7,9 +7,10 @@ import java.util.Timer;
 public class StopWatch extends TimerTask{
     private LocalTime currentStopwatch;
     private Boolean isActivated;
-    private Timer m_timer = new Timer();
+    private Timer m_timer;
 
-    public StopWatch (){
+    public StopWatch (Timer m_timer){
+        this.m_timer = m_timer;
         currentStopwatch = LocalTime.of(0,0,0);
     }
     @Override

@@ -1,9 +1,12 @@
 package Logic;
 import GUI.DigitalWatch;
+import com.sun.org.apache.bcel.internal.generic.LoadClass;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import java.time.ZoneId;
 import java.util.Date;
@@ -13,102 +16,137 @@ import java.util.TimerTask;
 public class WatchSystem extends TimerTask {
     private int currentCursor; //연도1 연도2 월 일 시 분 초
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
-    private int currentDdayPage; //Startdday, Enddday page
+    private int currentDdayPage=0;
+    private int currentAlarmPage = 0;
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
-    private TimeKeeping timekeeping;
-    private WatchTimer watchTimer;
-    private StopWatch stopwatch;
-    private Alarm alarm;
-    private Dday dday;
-    private IntervalTimer intervaltimer;
     public ModeManager modeManager;
+    private Boolean isEditMode;
+    private Boolean isSetMode;
+
+
 
     public LocalDateTime enterEditMode() {
-        currentCursor=0; //연도1부터 커서
-        currentModeCursor = 0; //모드 커서 타이머부터
-        if(modeManager.getCurrentMode()==1 || modeManager.getCurrentMode()==3 || modeManager.getCurrentMode()==5)
-            currentCursor = 4; //시간만 건들이는 모드들은 시 부터 커서
+        LocalDateTime data;
+        Object currentMode = modeManager.getCurrentMode();
 
+        if(currentMode instanceof TimeKeeping){
+            data = ((TimeKeeping) currentMode).loadTime();
+            currentCursor = 0;
+        }
+        else if(currentMode instanceof WatchTimer){
+            data = ((WatchTimer) currentMode).loadTimer();
+            currentCursor = 4;
+        }
+        else if(currentMode instanceof Alarm){
+            data = ((Alarm) currentMode).loadAlarm(currentAlarmPage);
+            currentCursor = 4;
+        }
+        else if(currentMode instanceof Dday){
+            data = ((Dday) currentMode).loadStartDday();
+            currentCursor = 0;
+        }
+        else if(currentMode instanceof IntervalTimer){
+            data = ((IntervalTimer) currentMode).loadIntervalTimer();
+            currentCursor = 4;
+        }
+        else{
+            return null;//error
+        }
+        tempTime = data;
 
-//        switch (modeManager.getCurrentMode()) {
-//            case 0: //timekeeping
-//                tempTime = timekeeping.getCurrentTime();
-//                break;
-//            case 1: //wahtchTimer
-//                tempTime = watchTimer.loadTimer();
-//                break;
-//            case 3: //alarm
-//                tempTime = alarm.loadAlarm();
-//                break;
-//            case 4: //dday
-//                tempTime = timekeeping.getCurrentTime();
-//                tempTime2 = timekeeping.getCurrentTime();
-//                break;
-//            case 5: //interval timer
-//                tempTime = intervaltimer.loadIntervalTimer();
-//                break;
-//            default:
-//                System.out.println("Error");
-//        }
-        return tempTime;
+        return data;
     }
+
+    /* IN Timekeeping
+        currentCursor
+            0 -> Year1
+            1 -> year2
+            2 -> month
+            3 -> day
+            4 -> hour
+            5 -> min
+            6 -> second
+     */
     public LocalDateTime increaseData() {
-        switch (modeManager.getCurrentMode()) {
-            case 0: //timekeeping
-                break;
-            case 1: //timer
-                break;
-            case 3: //alarm
-                break;
-            case 4: //dday
-                if(currentDdayPage==0) {
-                    if(currentCursor==0)
-                        tempTime.plusYears(100);
-                    else if (currentCursor == 1)
-                        tempTime.plusYears(1);
-                    else if (currentCursor == 2)
-                        tempTime.plusMonths(1);
-                    else
-                        tempTime.plusDays(1);
-                } else {
-                    if (currentCursor == 0)
-                        tempTime2.plusYears(100);
-                    else if (currentCursor == 1)
-                        tempTime2.plusYears(1);
-                    else if (currentCursor == 2)
-                        tempTime2.plusMonths(1);
-                    else
-                        tempTime2.plusDays(1);
-                }
-                break;
-            case 5: //interval timer
-                break;
-            default:
-                System.out.println("Error");
+        Object currentMode = modeManager.getCurrentMode();
+        if(currentCursor==0){
+            if(currentMode instanceof TimeKeeping || currentMode instanceof Dday){
+                tempTime.plusYears(10);
+            }
+            else{
+                return null; //error
+            }
+        }
+        else if(currentCursor==1){
+            if(currentMode instanceof TimeKeeping || currentMode instanceof Dday){
+                tempTime.plusYears(1);
+            }
+            else{
+                return null; //error
+            }
+        }
+        else if(currentCursor==2){
+            if(currentMode instanceof TimeKeeping || currentMode instanceof Dday){
+                tempTime.plusMonths(1);
+            }
+            else{
+                return null; //error
+            }
+        }
+        else if(currentCursor==3){
+            if(currentMode instanceof TimeKeeping || currentMode instanceof Dday){
+                tempTime.plusDays(1);
+            }
+            else{
+                return null; //error
+            }
+        }
+        else if(currentCursor==4){
+            if(!(currentMode instanceof Dday || currentMode instanceof StopWatch)){
+                tempTime.plusHours(1);
+            }
+            else{
+                return null; //error
+            }
+        }
+        else if(currentCursor==5){
+            if(!(currentMode instanceof Dday || currentMode instanceof StopWatch)){
+                tempTime.plusMinutes(1);
+            }
+            else{
+                return null;
+            }
+        }
+        else if(currentCursor==6){
+            if(!(currentMode instanceof Dday || currentMode instanceof StopWatch)){
+                tempTime.plusSeconds(1);
+            }
         }
         return tempTime;
     }
 
-    public int changeCursor() {
-        switch (modeManager.getCurrentMode()) {
-            case 0: //timekeeping
-                currentCursor = (currentCursor + 1) % 7;
-                break;
-            case 1:
-            case 3:
-            case 5: //timer, alarm, interval timer
-                currentCursor = (currentCursor + 1) % 3 + 4;
-                break;
-            case 4: //dday
-                currentCursor = (currentCursor + 1) % 4;
+    public void changeCursor() {
+        // is editmode
+        Object currentMode = modeManager.getCurrentMode();
+        if(currentMode instanceof TimeKeeping){
+            currentCursor = currentCursor++ % 7;
         }
-        return currentCursor;
+        else if(currentMode instanceof Dday){
+            currentCursor = currentCursor++ %4;
+        }
+        else if(currentMode instanceof Alarm || currentMode instanceof WatchTimer ||
+                currentMode instanceof IntervalTimer){
+            currentCursor = currentCursor++ % 3 + 4;
+        }
+        else{
+            //error
+        }
     }
 
     public void saveTime() {
-
-        return;
+        modeManager.getTimekeeping().saveTime(tempTime);
+        tempTime = null;
     }
 
     public void pauseTimer() {
@@ -119,110 +157,101 @@ public class WatchSystem extends TimerTask {
         modeManager.getWatchTimer().reset();
     }
 
-    public void saveTimer(LocalDateTime data) {
-//        modeManager.getWatchTimer().saveTimer(data);
+    public void saveTimer() {
+        modeManager.getWatchTimer().saveTimer(tempTime);
+        tempTime = null;
     }
 
     public void enablentervalTimer() {
         modeManager.getIntervaltimer().enable();
-        return;
     }
 
     public void disableIntervalTimer() {
         modeManager.getIntervaltimer().disable();
-        return;
     }
 
-    public void saveIntervalTimer(LocalDateTime data) {
-        modeManager.getIntervaltimer().saveIntervalTimer(data);
-        return;
+    public void saveIntervalTimer() {
+        modeManager.getIntervaltimer().saveIntervalTimer(tempTime);
+        tempTime = null;
     }
 
     public void resetIntervalTimer() {
         modeManager.getIntervaltimer().reset();
-        return;
     }
 
     public void saveAlarm() {
-
-        return;
+        modeManager.getAlarm().saveAlarm(tempTime);
+        tempTime = null;
     }
 
-    public void resetAlarm() {
-
-        return;
+    public LocalDateTime resetAlarm() {
+        tempTime = null;
+        return tempTime;
     }
 
     public void enableAlarm() {
-
-        return;
+        modeManager.getAlarm().enableAlarm(currentAlarmPage);
     }
 
     public void disableAlarm() {
-
-        return;
+        modeManager.getAlarm().disableAlarm(currentAlarmPage);
     }
 
-    public AlarmTime changeAlarmPage() {
-
-        return null;
+    public LocalDateTime changeAlarmPage() {
+        currentAlarmPage = (currentAlarmPage++) % 4;
+        return modeManager.getAlarm().loadAlarm(currentAlarmPage);
     }
 
     public LocalDateTime changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
-        if(currentDdayPage==0) {
-            tempTime = dday.loadStartDday();
+        if(currentDdayPage==0){
+            tempTime = modeManager.getDday().loadStartDday();
             return tempTime;
         }
-        else {
-            tempTime2 = dday.loadEndDday();
+        else{
+            tempTime2 = modeManager.getDday().loadEndDday();
             return tempTime2;
         }
     }
 
     public void saveDday() {
-        dday.saveDday(tempTime, tempTime2);
-        return;
+        modeManager.getDday().saveDday(tempTime,tempTime2);
     }
 
     public LocalDateTime resetDday() {
-        dday.reset();
-        return dday.loadEndDday();
+        modeManager.getDday().reset();
+        return modeManager.getDday().loadEndDday();
     }
 
     public double changeDdayFormat() {
-        dday.changeFormat();
-        return dday.getCalDday();
+        modeManager.getDday().changeFormat();
+        return modeManager.getDday().getCalDday();
     }
 
     public void activateStopwatch() {
-        stopwatch.activate();
-        return;
+        modeManager.getStopwatch().activate();
     }
 
     public void pauseStopwatch() {
-        stopwatch.pause();
-        return;
+        modeManager.getStopwatch().pause();
     }
 
     public void resetStopwatch() {
-        stopwatch.reset();
-        return;
+        modeManager.getStopwatch().reset();
     }
 
     public int changeMode() {
-
-        return 0;
+        int selectedMode = modeManager.getNextMode();
+        return selectedMode;
     }
 
-    public void chooseModes() {
-
-        return;
+    public void chooseModes(int modeNum) {
+        modeManager.toggleMode(modeNum);
     }
 
     public void saveMode() {
-        // selected Mode
-//        this.watchTimer = modeManager.createTimer();
+        //selected Mode
+        //this.watchTimer = modeManager.createTimer();
         return;
     }
 
@@ -260,27 +289,38 @@ public class WatchSystem extends TimerTask {
 //        else
 //            System.out.println(dec.format(dd.getCalDday())+"%");
 //    }
-
     public void run() {
-        timekeeping = new TimeKeeping();
-        Date date = java.util.Date.from(timekeeping.getCurrentTime().atZone(ZoneId.systemDefault()).toInstant());
+//        timekeeping = new TimeKeeping();
+//        Date date = java.util.Date.from(timekeeping.getCurrentTime().atZone(ZoneId.systemDefault()).toInstant());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//        try {
+//            DigitalWatch.getInstance().showDigit(sdf.format(date));
+//        } catch(Exception e) {
+//
+//        }
+//
+//        Object currentMode = new TimeKeeping();
+//        if(currentMode instanceof TimeKeeping) {
+//            TimeKeeping timeKeeping = (TimeKeeping) currentMode;
+//            timeKeeping.getCurrentTime();
+//        }
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
         try {
-            DigitalWatch.getInstance().showDigit(sdf.format(date));
-        } catch(Exception e) {
+            //DigitalWatch.getInstance().showDigit(sdf.format(date));
+        }catch (Exception e){
 
         }
-
-        Object currentMode = new TimeKeeping();
-        if(currentMode instanceof TimeKeeping) {
-            TimeKeeping timeKeeping = (TimeKeeping) currentMode;
-            timeKeeping.getCurrentTime();
-        }
-
     }
 
     public WatchSystem() {
         DigitalWatch.getInstance();
+        LocalDate tmpDate = LocalDate.now();
+        LocalTime tmpTime = LocalTime.of(0,0,9);
+        LocalDateTime tmp = LocalDateTime.of(tmpDate, tmpTime);
+        //this.watchTimer = new WatchTimer(tmp);
+        //watchTimer.activate();
     }
     public static void main(String[] args) {
         Timer t = new Timer();

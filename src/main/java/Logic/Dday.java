@@ -39,7 +39,7 @@ public class Dday extends TimerTask{
         this.currentDay = this.currentDay.plusDays(1);
         this.ring(this.currentDay);
         if(this.currentDay == this.endDday) {
-            cancel();
+//            cancel();
         }
     }
 
