@@ -2,6 +2,8 @@ package Logic;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,7 +40,7 @@ public class IntervalTimer extends TimerTask{
     public String loadIntervalTimer() {
         String data,data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
-        data = format.format(savedIntervalTimer);
+        data = format.format(LocaltoDate(savedIntervalTimer));
         data2 = ""+iteration;
         return data2+data;
     }
@@ -53,6 +55,9 @@ public class IntervalTimer extends TimerTask{
     public void run(){
         this.iteration++;
         ring();
+    }
+    public Date LocaltoDate(LocalDateTime time){
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 
 }
