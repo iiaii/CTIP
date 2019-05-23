@@ -1,26 +1,27 @@
 package Logic;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Dday {
-    private LocalDate startDday;
-    private LocalDate endDday;
+    private LocalDateTime startDday;
+    private LocalDateTime endDday;
     private double calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
     private Boolean displayType = true;
 
-    public LocalDate loadStartDday() {
+    public LocalDateTime loadStartDday() {
         return this.startDday;
     }
 
-    public void setStartDday(LocalDate startDday) {
+    public void setStartDday(LocalDateTime startDday) {
         this.startDday = startDday;
     }
 
-    public LocalDate loadEndDday() {
+    public LocalDateTime loadEndDday() {
         return endDday;
     }
 
-    public void setEndDday(LocalDate endDday) {
+    public void setEndDday(LocalDateTime endDday) {
         this.endDday = endDday;
     }
 
@@ -47,14 +48,14 @@ public class Dday {
         this.displayType = displayType;
     }
 
-    public void saveDday(LocalDate startDday, LocalDate endDday) {
+    public void saveDday(LocalDateTime startDday, LocalDateTime endDday) {
         this.startDday = startDday;
         this.endDday = endDday;
     }
 
     public void reset() {
-        startDday = LocalDate.now();
-        endDday = LocalDate.now();
+        startDday = LocalDateTime.now();
+        endDday = LocalDateTime.now();
     }
 
     public void changeFormat() { //true면 d-day, false면 %

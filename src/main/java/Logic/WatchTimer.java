@@ -9,10 +9,9 @@ public class WatchTimer extends TimerTask {
     private LocalDateTime savedTimer;
     private LocalDateTime remainedTimer;
     private Boolean isActived;
-    private Timer m_timer = new Timer();
+    private Timer m_timer;
 
-    public WatchTimer(LocalDateTime savedTimer){
-        this.savedTimer = savedTimer;
+    public WatchTimer(Timer m_timer){
     }
 
     @Override
