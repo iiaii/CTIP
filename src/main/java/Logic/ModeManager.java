@@ -148,7 +148,7 @@ public class ModeManager {
         this.alarm.disableAlarm(1);
         this.alarm.disableAlarm(2);
         this.alarm.disableAlarm(3);
-        this.remove(this.alarm);
+//        this.remove(this.alarm);
         this.alarm = null;
         this.setMode[2] = false;
     }

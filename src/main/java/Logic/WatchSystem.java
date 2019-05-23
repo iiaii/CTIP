@@ -103,7 +103,7 @@ public class WatchSystem extends TimerTask {
             }
         }
         else if(currentCursor==4){
-            if(!(currentMode instanceof Dday || currentMode instanceof Stopwatch)){
+            if(!(currentMode instanceof Dday || currentMode instanceof StopWatch)){
                 tempTime.plusHours(1);
             }
             else{
@@ -205,11 +205,11 @@ public class WatchSystem extends TimerTask {
     public LocalDateTime changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
         if(currentDdayPage==0){
-            temp1 = modeManager.getDday().loadStartDday();
+            tempTime = modeManager.getDday().loadStartDday();
             return tempTime;
         }
         else{
-            temp2 = modeManager.getDday().loadEndDday();
+            tempTime2 = modeManager.getDday().loadEndDday();
             return tempTime2;
         }
     }
@@ -219,8 +219,8 @@ public class WatchSystem extends TimerTask {
     }
 
     public LocalDateTime resetDday() {
-        modeManager.getDday().reset();;
-        return dday.loadEndDday().atTime(0,0,0);
+        modeManager.getDday().reset();
+        return modeManager.getDday().loadEndDday();
     }
 
     public double changeDdayFormat() {
@@ -250,8 +250,8 @@ public class WatchSystem extends TimerTask {
     }
 
     public void saveMode() {
-         selected Mode
-        this.watchTimer = modeManager.createTimer();
+        //selected Mode
+        //this.watchTimer = modeManager.createTimer();
         return;
     }
 
@@ -306,10 +306,9 @@ public class WatchSystem extends TimerTask {
 //        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
+        //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
         try {
-
-            DigitalWatch.getInstance().showDigit(sdf.format(date));
+            //DigitalWatch.getInstance().showDigit(sdf.format(date));
         }catch (Exception e){
 
         }
@@ -320,8 +319,8 @@ public class WatchSystem extends TimerTask {
         LocalDate tmpDate = LocalDate.now();
         LocalTime tmpTime = LocalTime.of(0,0,9);
         LocalDateTime tmp = LocalDateTime.of(tmpDate, tmpTime);
-        this.watchTimer = new WatchTimer(tmp);
-        watchTimer.activate();
+        //this.watchTimer = new WatchTimer(tmp);
+        //watchTimer.activate();
     }
     public static void main(String[] args) {
         Timer t = new Timer();
