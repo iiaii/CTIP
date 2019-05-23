@@ -15,6 +15,10 @@ public class TimeKeeping extends TimerTask {
         return currentTime;
     }
 
+    public void setCurrentTime(LocalDateTime currentTime) {
+        this.currentTime = currentTime;
+    }
+
     public TimeKeeping(Timer m_timer) {
         currentTime = LocalDateTime.now();
         this.m_timer = m_timer;
