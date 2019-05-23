@@ -13,20 +13,28 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WatchSystem extends TimerTask {
+public class WatchSystem {
     private int currentCursor; //연도1 연도2 월 일 시 분 초
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
+    public Boolean[] setMode = new Boolean[5];
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
-    private Boolean isEditMode;
+    private Timer m_timer = new Timer();
+    Object currentMode;
 
+    public WatchSystem(){
+        modeManager = new  ModeManager(m_timer);
+        this.currentMode = modeManager.getCurrentMode();
+    }
 
-    public LocalDateTime enterEditMode() {
-        LocalDateTime data;
-        Object currentMode = modeManager.getCurrentMode();
+    public void enterEditMode() {
+        String data=null;
+        DigitalWatch gui = DigitalWatch.getInstance();
+        SimpleDateFormat format;
+        //Object currentMode = modeManager.getCurrentMode();
         if(currentMode instanceof TimeKeeping){
             data = ((TimeKeeping) currentMode).loadTime();
             currentCursor = 0;
@@ -41,6 +49,7 @@ public class WatchSystem extends TimerTask {
         }
         else if(currentMode instanceof Dday){
             data = ((Dday) currentMode).loadStartDday();
+
             currentCursor = 0;
         }
         else if(currentMode instanceof IntervalTimer){
@@ -48,11 +57,9 @@ public class WatchSystem extends TimerTask {
             currentCursor = 4;
         }
         else{
-            return null;//error
+            System.out.println("errror");
         }
-        tempTime = data;
-
-        return data;
+        gui.showDigit(data);
     }
 
     /* IN Timekeeping
@@ -124,17 +131,19 @@ public class WatchSystem extends TimerTask {
     }
 
     public void changeCursor() {
-        // is editmode
         Object currentMode = modeManager.getCurrentMode();
         if(currentMode instanceof TimeKeeping){
-            currentCursor = currentCursor++ % 7;
+            currentCursor = (currentCursor+1) % 7;
         }
         else if(currentMode instanceof Dday){
-            currentCursor = currentCursor++ %4;
+            currentCursor = (currentCursor+1) % 4;
         }
         else if(currentMode instanceof Alarm || currentMode instanceof WatchTimer ||
                 currentMode instanceof IntervalTimer){
-            currentCursor = currentCursor++ % 3 + 4;
+            currentCursor = (currentCursor+1) % 3 + 4;
+        }
+        else if(currentMode == null){
+            currentCursor = (currentCursor+1) %5;
         }
         else{
             //error
@@ -194,15 +203,17 @@ public class WatchSystem extends TimerTask {
         modeManager.getAlarm().disableAlarm(currentAlarmPage);
     }
 
-    public LocalDateTime changeAlarmPage() {
-        currentAlarmPage = (currentAlarmPage++) % 4;
+    public String changeAlarmPage() {
+        currentAlarmPage = (currentAlarmPage+1) % 4;
         return modeManager.getAlarm().loadAlarm(currentAlarmPage);
     }
 
     public LocalDateTime changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
+        String data;
         if(currentDdayPage==0){
-            tempTime = modeManager.getDday().loadStartDday();
+            tempTime = modeManager.getDday().getCurrentDay();
+            data =
             return tempTime;
         }
         else{
@@ -237,13 +248,15 @@ public class WatchSystem extends TimerTask {
         modeManager.getStopwatch().reset();
     }
 
-    public int changeMode() {
-        int selectedMode = modeManager.getNextMode();
-        return selectedMode;
+    public void changeMode() {
+        currentMode = modeManager.getNextMode();
     }
 
-    public void chooseModes(int modeNum) {
-        modeManager.toggleMode(modeNum);
+    public void chooseModes() {
+        if(setMode[currentModeCursor]==true)
+            setMode[currentModeCursor] = false;
+        else
+            setMode[currentModeCursor] = true;
     }
 
     public void saveMode() {
@@ -253,7 +266,6 @@ public class WatchSystem extends TimerTask {
     }
 
     public LocalDateTime changeHourFormat() {
-
         return null;
     }
 
@@ -262,66 +274,17 @@ public class WatchSystem extends TimerTask {
         return;
     }
 
-    public int enterSetMode() {
-
-        return 0;
+    public Boolean[] enterSetMode() {
+        currentMode = null;
+        System.arraycopy(modeManager.loadSetMode(),0,setMode,0,5);
+        return setMode;
     }
 
     public void activateTimer() {
         modeManager.getWatchTimer().activate();
     }
-
-//    public static void main(String[]args) throws Exception {
-//        Dday dd = new Dday();
-//        dd.saveDday(LocalDateTime.now().toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
-//        if(dd.getDisplayType())
-//            System.out.println("d-"+dd.getCalDday());
-//        else
-//            System.out.println(+dd.getCalDday()+"%");
-//        dd.changeFormat();
-//        dd.saveDday(LocalDateTime.of(2019,1,1,0,0,0).toLocalDate(), LocalDateTime.of(2019,12,9,0,0,0).toLocalDate());
-//        DecimalFormat dec = new DecimalFormat("#0.00");
-//        if(dd.getDisplayType())
-//            System.out.println("d-"+dd.getCalDday());
-//        else
-//            System.out.println(dec.format(dd.getCalDday())+"%");
-//    }
-    public void run() {
-//        timekeeping = new TimeKeeping();
-//        Date date = java.util.Date.from(timekeeping.getCurrentTime().atZone(ZoneId.systemDefault()).toInstant());
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//        try {
-//            DigitalWatch.getInstance().showDigit(sdf.format(date));
-//        } catch(Exception e) {
-//
-//        }
-//
-//        Object currentMode = new TimeKeeping();
-//        if(currentMode instanceof TimeKeeping) {
-//            TimeKeeping timeKeeping = (TimeKeeping) currentMode;
-//            timeKeeping.getCurrentTime();
-//        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
-        try {
-            //DigitalWatch.getInstance().showDigit(sdf.format(date));
-        }catch (Exception e){
-
-        }
+    public Object getCurrentMode(){
+        return this.currentMode;
     }
 
-    public WatchSystem() {
-        DigitalWatch.getInstance();
-        LocalDate tmpDate = LocalDate.now();
-        LocalTime tmpTime = LocalTime.of(0,0,9);
-        LocalDateTime tmp = LocalDateTime.of(tmpDate, tmpTime);
-        //this.watchTimer = new WatchTimer(tmp);
-        //watchTimer.activate();
-    }
-    public static void main(String[] args) {
-        Timer t = new Timer();
-        t.scheduleAtFixedRate(new WatchSystem(), 0, 100);
-
-    }
 }

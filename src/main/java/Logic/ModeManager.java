@@ -22,7 +22,7 @@ public class ModeManager {
     public ModeManager(Timer m_timer) {
         this.m_timer = m_timer;
         this.timekeeping = new TimeKeeping(m_timer);
-        this.watchTimer = new WatchTimer(m_timer);
+        this.watchTimer = new WatchTimer(m_timer,this.timekeeping);
         this.stopwatch = new StopWatch(m_timer);
         this.alarm  = new Alarm(m_timer,this.timekeeping);
         modes.add(this.timekeeping);
@@ -87,9 +87,9 @@ public class ModeManager {
         return modes;
     }
 
-    public int getNextMode() {
+    public Object getNextMode() {
         this.currentMode = (this.currentMode++) % 4;
-        return this.currentMode;
+        return modes.get(currentMode);
     }
 
     public Boolean[] loadSetMode() {
@@ -106,7 +106,7 @@ public class ModeManager {
     }
 
     public WatchTimer createTimer() {
-        this.watchTimer = new WatchTimer(m_timer);
+        this.watchTimer = new WatchTimer(m_timer,this.timekeeping);
         this.setMode[0] = true;
         modes.add(this.watchTimer);
         return this.watchTimer;
