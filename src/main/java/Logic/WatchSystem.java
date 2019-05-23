@@ -86,7 +86,6 @@ public class WatchSystem extends TimerTask {
                 break;
             default:
                 System.out.println("Error");
-
         }
         return tempTime;
     }
@@ -108,6 +107,7 @@ public class WatchSystem extends TimerTask {
     }
 
     public void saveTime() {
+
         return;
     }
 
@@ -171,23 +171,23 @@ public class WatchSystem extends TimerTask {
     public LocalDateTime changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
         if(currentDdayPage==0) {
-            tempTime = dday.loadStartDday().atTime(0,0,0);
+            tempTime = dday.loadStartDday();
             return tempTime;
         }
         else {
-            tempTime2 = dday.loadEndDday().atTime(0,0,0);
+            tempTime2 = dday.loadEndDday();
             return tempTime2;
         }
     }
 
     public void saveDday() {
-        dday.saveDday(tempTime.toLocalDate(), tempTime2.toLocalDate());
+        dday.saveDday(tempTime, tempTime2);
         return;
     }
 
     public LocalDateTime resetDday() {
         dday.reset();
-        return dday.loadEndDday().atTime(0, 0, 0);
+        return dday.loadEndDday();
     }
 
     public double changeDdayFormat() {
