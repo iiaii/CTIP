@@ -6,7 +6,8 @@ import java.util.TimerTask;
 
 public class WatchSystem {
     private int currentCursor; //연도1 연도2 월 일 시 분 초
-    private int currentDday;
+    private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
+    private int currentDdayPage; //Startdday, Enddday page
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     private TimeKeeping timekeeping;
@@ -17,22 +18,36 @@ public class WatchSystem {
     private IntervalTimer intervaltimer;
     public ModeManager modeManager;
 
-
     public LocalDateTime enterEditMode() {
-        return null;
-    }
+        currentCursor=0; //연도1부터 커서
+        currentModeCursor = 0; //모드 커서 타이머부터
+        if(modeManager.getCurrentMode()==1 || modeManager.getCurrentMode()==3 || modeManager.getCurrentMode()==5)
+            currentCursor = 4; //시간만 건들이는 모드들은 시 부터 커서
 
-//    public LocalDateTime enterEditMode() {
-//        currentCursor=0;
-//        if(modeManager.getCurrentMode()==1 || modeManager.getCurrentMode()==3 || modeManager.getCurrentMode()==5)
-//            currentCursor = 4;
-//        tempTime = timekeeping.currentTime;
-//        tempTime2 = timekeeping.currentTime; //수정 더 필요
-//        return timekeeping.currentTime;
-//    }
+        switch (modeManager.getCurrentMode()) {
+            case 0: //timekeeping
+                tempTime = timekeeping.getCurrentTime();
+                break;
+            case 1: //wahtchTimer
+                tempTime = watchTimer.loadTimer();
+                break;
+            case 3: //alarm
+                tempTime = alarm.loadAlarm();
+                break;
+            case 4: //dday
+                tempTime = timekeeping.getCurrentTime();
+                tempTime2 = timekeeping.getCurrentTime();
+                break;
+            case 5: //interval timer
+                tempTime = intervaltimer.loadIntervalTimer();
+                break;
+            default:
+                System.out.println("Error");
+        }
+        return tempTime;
+    }
     public LocalDateTime increaseData() {
         switch (modeManager.getCurrentMode()) {
-
             case 0: //timekeeping
                 break;
             case 1: //timer
@@ -40,7 +55,7 @@ public class WatchSystem {
             case 3: //alarm
                 break;
             case 4: //dday
-                if(currentDday==0) {
+                if(currentDdayPage==0) {
                     if(currentCursor==0)
                         tempTime.plusYears(100);
                     else if(currentCursor==1)
@@ -146,11 +161,15 @@ public class WatchSystem {
     }
 
     public LocalDateTime changePage() {
-        currentDday = (currentDday+1)%2;
-        if(currentDday==0)
+        currentDdayPage = (currentDdayPage+1)%2;
+        if(currentDdayPage==0) {
+            tempTime = dday.loadStartDday().atTime(0,0,0);
             return tempTime;
-        else
+        }
+        else {
+            tempTime2 = dday.loadEndDday().atTime(0,0,0);
             return tempTime2;
+        }
     }
 
     public void saveDday() {
