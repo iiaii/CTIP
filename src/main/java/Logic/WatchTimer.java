@@ -13,6 +13,7 @@ public class WatchTimer extends TimerTask {
     private LocalDateTime savedTimer;
     private LocalDateTime remainedTimer;
     private Boolean isActived;
+    private TimeKeeping timeKeeping;
     private Timer m_timer;
 
     public Boolean getActived() {
@@ -70,8 +71,13 @@ public class WatchTimer extends TimerTask {
         }
     }
 
-    public LocalDateTime loadTimer() {
-        return this.savedTimer;
+    public String loadTimer() {
+        String data, data2;
+        SimpleDateFormat format = new SimpleDateFormat("HHmmss");
+        data = format.format(savedTimer);
+        format = new SimpleDateFormat("yyMMdd");
+        data2 = format.format(timeKeeping.loadTime());
+        return data2+data;
     }
 
     public void saveTimer(LocalDateTime data) {

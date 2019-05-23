@@ -1,4 +1,5 @@
 package Logic;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import java.util.Timer;
@@ -34,8 +35,12 @@ public class IntervalTimer extends TimerTask{
             System.out.println("disable 하고 하셈.");
         }
     }
-    public LocalDateTime loadIntervalTimer() {
-        return this.savedIntervalTimer;
+    public String loadIntervalTimer() {
+        String data,data2;
+        SimpleDateFormat format = new SimpleDateFormat("HHmmss");
+        data = format.format(savedIntervalTimer);
+        data2 = ""+iteration;
+        return data2+data;
     }
     public void saveIntervalTimer(LocalDateTime data) {
         this.savedIntervalTimer = data;

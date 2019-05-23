@@ -13,11 +13,12 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WatchSystem extends TimerTask {
+public class WatchSystem extends TimerTask{
     private int currentCursor; //연도1 연도2 월 일 시 분 초
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
+    public Boolean[] setMode = new Boolean[5];
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
@@ -40,10 +41,10 @@ public class WatchSystem extends TimerTask {
         this.tempTime2 = null;
     }
 
-    public LocalDateTime enterEditMode() {
-        LocalDateTime data;
+    public void enterEditMode() {
+        DigitalWatch gui = DigitalWatch.getInstance();
+        String data = "zzzzzzzzzzzzzzzzz";
         Object currentMode = modeManager.getCurrentMode();
-
         if(currentMode instanceof TimeKeeping){
             data = ((TimeKeeping) currentMode).loadTime();
             currentCursor = 0;
@@ -58,6 +59,7 @@ public class WatchSystem extends TimerTask {
         }
         else if(currentMode instanceof Dday){
             data = ((Dday) currentMode).loadStartDday();
+
             currentCursor = 0;
         }
         else if(currentMode instanceof IntervalTimer){
@@ -65,11 +67,9 @@ public class WatchSystem extends TimerTask {
             currentCursor = 4;
         }
         else{
-            return null;//error
+            System.out.println("errror");
         }
-        tempTime = data;
-
-        return data;
+        gui.showDigit(data);
     }
 
     /* IN Timekeeping
@@ -141,17 +141,19 @@ public class WatchSystem extends TimerTask {
     }
 
     public void changeCursor() {
-        // is editmode
         Object currentMode = modeManager.getCurrentMode();
         if(currentMode instanceof TimeKeeping){
-            currentCursor = currentCursor++ % 7;
+            currentCursor = (currentCursor+1) % 7;
         }
         else if(currentMode instanceof Dday){
-            currentCursor = currentCursor++ %4;
+            currentCursor = (currentCursor+1) % 4;
         }
         else if(currentMode instanceof Alarm || currentMode instanceof WatchTimer ||
                 currentMode instanceof IntervalTimer){
-            currentCursor = currentCursor++ % 3 + 4;
+            currentCursor = (currentCursor+1) % 3 + 4;
+        }
+        else if(currentMode == null){
+            currentCursor = (currentCursor+1) %5;
         }
         else{
             //error
@@ -211,15 +213,17 @@ public class WatchSystem extends TimerTask {
         modeManager.getAlarm().disableAlarm(currentAlarmPage);
     }
 
-    public LocalDateTime changeAlarmPage() {
-        currentAlarmPage = (currentAlarmPage++) % 4;
+    public String changeAlarmPage() {
+        currentAlarmPage = (currentAlarmPage+1) % 4;
         return modeManager.getAlarm().loadAlarm(currentAlarmPage);
     }
 
     public LocalDateTime changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
+        String data;
         if(currentDdayPage==0){
-            tempTime = modeManager.getDday().loadStartDday();
+            tempTime = modeManager.getDday().getCurrentDay();
+//            data =
             return tempTime;
         }
         else{
@@ -266,8 +270,11 @@ public class WatchSystem extends TimerTask {
         this.currentMode = modeManager.getNextMode();
     }
 
-    public void chooseModes(int modeNum) {
-        modeManager.toggleMode(modeNum);
+    public void chooseModes() {
+        if(setMode[currentModeCursor]==true)
+            setMode[currentModeCursor] = false;
+        else
+            setMode[currentModeCursor] = true;
     }
 
     public void saveMode() {
@@ -285,9 +292,10 @@ public class WatchSystem extends TimerTask {
         return;
     }
 
-    public int enterSetMode() {
-
-        return 0;
+    public Boolean[] enterSetMode() {
+        currentMode = null;
+        System.arraycopy(modeManager.loadSetMode(),0,setMode,0,5);
+        return setMode;
     }
 
     public void activateTimer() {

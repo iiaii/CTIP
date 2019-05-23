@@ -37,7 +37,7 @@ public class AlarmTime extends TimerTask {
         this.currentAlarm = currentAlarm;
     }
 
-    public Boolean getEnabled() {
+    public Boolean getIsEnabled() {
         return this.isEnabled;
     }
 
@@ -46,7 +46,7 @@ public class AlarmTime extends TimerTask {
     }
     @Override
     public void run(){
-        LocalDateTime currentTime = timeKeeping.loadTime();
+        LocalDateTime currentTime = timeKeeping.getCurrentTime();
         if(currentAlarm.getHour() == currentTime.getHour() &&
                 currentAlarm.getMinute() == currentTime.getMinute()
         ){

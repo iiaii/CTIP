@@ -1,4 +1,5 @@
 package Logic;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.TimerTask;
@@ -11,8 +12,15 @@ public class Dday extends TimerTask{
     private double calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
     private Boolean displayType = true;
 
-    public LocalDateTime loadStartDday() {
-        return this.startDday;
+    public String loadStartDday() {
+        String data, data2;
+        SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+        data = format.format(startDday);
+        if(displayType==true)
+            data2 = "d-"+(int)getCalDday()%10000;
+        else
+            data2 = (Math.round(100*getCalDday())/100)+"PE";
+        return data+data2;
     }
 
     public void setStartDday(LocalDateTime startDday) {
