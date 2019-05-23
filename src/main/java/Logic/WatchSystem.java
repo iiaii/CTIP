@@ -16,15 +16,12 @@ public class WatchSystem {
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
     private Boolean isEditMode;
-    private Boolean isSetMode;
-
 
 
 
     public LocalDateTime enterEditMode() {
         LocalDateTime data;
         Object currentMode = modeManager.getCurrentMode();
-
         if(currentMode instanceof TimeKeeping){
             data = ((TimeKeeping) currentMode).loadTime();
             currentCursor = 0;
