@@ -1,10 +1,13 @@
 package Logic;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.TimerTask;
+import java.util.Timer;
 
-public class Dday {
+public class Dday extends TimerTask{
     private LocalDate startDday;
     private LocalDate endDday;
+    private LocalDate currentDay; //추가 - 현재 날짜 TimeKeeping에서 정보 입력 해줘야할듯
     private double calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
     private Boolean displayType = true;
 
@@ -24,13 +27,27 @@ public class Dday {
         this.endDday = endDday;
     }
 
+    public LocalDate getCurrentDay() {
+        return currentDay;
+    }
+
+    public void setCurrentDay(LocalDate currentDay) {
+        this.currentDay = currentDay;
+    }
+
+    public void run() {
+        this.currentDay = this.currentDay.plusDays(1);
+        if(this.currentDay == this.endDday) {
+            cancel();
+        }
+    }
+
     public double getCalDday() {
         if(this.displayType) { //dday
-            this.calDday = ChronoUnit.DAYS.between(LocalDate.now(), this.endDday);
+            this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday);
         }
         else { //%
-            this.calDday = (double)(ChronoUnit.DAYS.between(this.startDday, LocalDate.now())) / (double)(ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
-            // 여휴 자리 설정 필요
+            this.calDday = (double)(ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double)(ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
         }
         return calDday;
     }
@@ -63,6 +80,9 @@ public class Dday {
 
     public void ring(LocalDate currentTime) {
         // TODO implement here
+        if(this.currentDay == this.endDday) {
+            System.out.println("ring ring ring");
+        }
         return ;
     }
 }
