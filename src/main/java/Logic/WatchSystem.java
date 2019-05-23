@@ -30,6 +30,7 @@ public class WatchSystem {
 //        tempTime2 = timekeeping.currentTime; //수정 더 필요
 //        return timekeeping.currentTime;
 //    }
+
     public LocalDateTime increaseData() {
         switch (modeManager.getCurrentMode()) {
 
