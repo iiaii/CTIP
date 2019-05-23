@@ -18,7 +18,6 @@ public class WatchPanel extends JPanel {
         g2.setStroke(new BasicStroke(4));
 
         //draw outline border
-        //g2.drawRoundRect(2,2,width-4, this.getHeight()-4,80, 80);
         g2.drawRoundRect(2,2,this.getWidth()-4, this.getHeight()-4,80, 80);
 
         //draw inline border
