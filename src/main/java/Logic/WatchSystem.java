@@ -33,6 +33,7 @@ public class WatchSystem {
 
     public LocalDateTime increaseData() {
         switch (modeManager.getCurrentMode()) {
+
             case 0: //timekeeping
                 break;
             case 1: //timer
