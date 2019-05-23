@@ -138,19 +138,20 @@ public class DigitalWatch extends JFrame {
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.setVisible(true);
 
-        TimerTask job = new TimerTask() {
-            public void run() {
-                try {
-                    showDigit(new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()));
-                    int modes[] ={0,0,0,1,1,1};
-                    showMode(modes);
-                } catch(NullPointerException e){
-                    System.out.println("not initiated yet");
-                }
-            }
-        };
-        Timer jobScheduler = new Timer();
-        jobScheduler.scheduleAtFixedRate(job,0, 100);
+
+//        TimerTask job = new TimerTask() {
+//            public void run() {
+//                try {
+//                    showDigit(new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()));
+//                    int modes[] ={0,0,0,1,1,1};
+//                    showMode(modes);
+//                } catch(NullPointerException e){
+//                    System.out.println("not initiated yet");
+//                }
+//            }
+//        };
+//        Timer jobScheduler = new Timer();
+//        jobScheduler.scheduleAtFixedRate(job,0, 100);
     }
 
     public static DigitalWatch getInstance() {
@@ -164,6 +165,7 @@ public class DigitalWatch extends JFrame {
         }
     }
 
+    // {}
     public void showMode(int[] modes) {
         Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158)}; // disabled, color1, color2
         for(int i=0;i<this.icons.length;i++){
@@ -171,6 +173,9 @@ public class DigitalWatch extends JFrame {
                                                       // modes 0이면 비활성화, 1이면 리빙코랄, 2면 보색
         }
     }
+
+
+
 
     public static void main(String[] args) {
         DigitalWatch.getInstance();

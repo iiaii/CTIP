@@ -1,10 +1,16 @@
 package Logic;
+import GUI.DigitalWatch;
+
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WatchSystem {
+public class WatchSystem extends TimerTask {
     private int currentCursor; //연도1 연도2 월 일 시 분 초
     private int currentDday;
     private LocalDateTime tempTime;
@@ -41,22 +47,21 @@ public class WatchSystem {
             case 3: //alarm
                 break;
             case 4: //dday
-                if(currentDday==0) {
-                    if(currentCursor==0)
+                if (currentDday == 0) {
+                    if (currentCursor == 0)
                         tempTime.plusYears(100);
-                    else if(currentCursor==1)
+                    else if (currentCursor == 1)
                         tempTime.plusYears(1);
-                    else if(currentCursor==2)
+                    else if (currentCursor == 2)
                         tempTime.plusMonths(1);
                     else
                         tempTime.plusDays(1);
-                }
-                else {
-                    if(currentCursor==0)
+                } else {
+                    if (currentCursor == 0)
                         tempTime2.plusYears(100);
-                    else if(currentCursor==1)
+                    else if (currentCursor == 1)
                         tempTime2.plusYears(1);
-                    else if(currentCursor==2)
+                    else if (currentCursor == 2)
                         tempTime2.plusMonths(1);
                     else
                         tempTime2.plusDays(1);
@@ -74,13 +79,15 @@ public class WatchSystem {
     public int changeCursor() {
         switch (modeManager.getCurrentMode()) {
             case 0: //timekeeping
-                currentCursor=(currentCursor+1)% 7;
+                currentCursor = (currentCursor + 1) % 7;
                 break;
-            case 1: case 3: case 5: //timer, alarm, interval timer
-                currentCursor = (currentCursor+1)%3 + 4;
+            case 1:
+            case 3:
+            case 5: //timer, alarm, interval timer
+                currentCursor = (currentCursor + 1) % 3 + 4;
                 break;
             case 4: //dday
-                currentCursor = (currentCursor+1) %4;
+                currentCursor = (currentCursor + 1) % 4;
         }
         return currentCursor;
     }
@@ -147,8 +154,8 @@ public class WatchSystem {
     }
 
     public LocalDateTime changePage() {
-        currentDday = (currentDday+1)%2;
-        if(currentDday==0)
+        currentDday = (currentDday + 1) % 2;
+        if (currentDday == 0)
             return tempTime;
         else
             return tempTime2;
@@ -161,7 +168,7 @@ public class WatchSystem {
 
     public LocalDateTime resetDday() {
         dday.reset();
-        return dday.loadEndDday().atTime(0,0,0);
+        return dday.loadEndDday().atTime(0, 0, 0);
     }
 
     public double changeDdayFormat() {
@@ -214,7 +221,8 @@ public class WatchSystem {
 
         return 0;
     }
-    public void activateTimer(){
+
+    public void activateTimer() {
         modeManager.getWatchTimer().activate();
     }
 
@@ -234,4 +242,30 @@ public class WatchSystem {
 //            System.out.println(dec.format(dd.getCalDday())+"%");
 //    }
 
+    public void run() {
+        timekeeping = new TimeKeeping();
+        Date date = java.util.Date.from(timekeeping.getCurrentTime().atZone(ZoneId.systemDefault()).toInstant());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        try {
+            DigitalWatch.getInstance().showDigit(sdf.format(date));
+        } catch(Exception e) {
+
+        }
+
+        Object currentMode = new TimeKeeping();
+        if(currentMode instanceof TimeKeeping) {
+            TimeKeeping timeKeeping = (TimeKeeping) currentMode;
+            timeKeeping.getCurrentTime();
+        }
+
+    }
+
+    public WatchSystem() {
+        DigitalWatch.getInstance();
+    }
+    public static void main(String[] args) {
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(new WatchSystem(), 0, 100);
+
+    }
 }
