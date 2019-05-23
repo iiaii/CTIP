@@ -8,9 +8,10 @@ public class IntervalTimer extends TimerTask{
     private int iteration;
     private LocalDateTime savedIntervalTimer;
     private Boolean isEnabled;
-    private Timer m_timer = new Timer();
+    private Timer m_timer;
 
-    public IntervalTimer() {
+    public IntervalTimer(Timer m_timer) {
+        this.m_timer = m_timer;
         this.iteration = 0;
         this.isEnabled = false;
     }
