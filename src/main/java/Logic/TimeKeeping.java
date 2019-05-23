@@ -34,8 +34,11 @@ public class TimeKeeping extends TimerTask {
     }
 
 
-    public LocalDateTime loadTime() {
-        return this.currentTime;
+    public String loadTime() {
+        String data;
+        SimpleDateFormat format = new SimpleDateFormat(displayFormat== true ? "yyyyMMddHHmmss" : "yyyyMMddhhmmss");
+        data = format.format(currentTime);
+        return data;
     }
 
     public void saveTime(LocalDateTime data) {

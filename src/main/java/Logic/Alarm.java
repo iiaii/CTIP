@@ -1,4 +1,5 @@
 package Logic;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import java.util.Timer;
@@ -11,9 +12,17 @@ public class Alarm {
             alarms[i] = new AlarmTime(m_timer,timeKeeping);
         }
     }
-    public LocalDateTime loadAlarm(int currentAlarmPage) { //16 interation diagram 수정필요
+    public String loadAlarm(int currentAlarmPage) { //16 interation diagram 수정필요
         //currentAlarmPage = (currentAlarmPage++) % 4;
-        return alarms[currentAlarmPage].loadAlarmData();
+        String data, data2;
+        SimpleDateFormat format = new SimpleDateFormat("HHmmss");
+        data = format.format(alarms[currentAlarmPage].loadAlarmData());
+        if(alarms[currentAlarmPage].isEnabled == true)
+            data2 = "ENzzzzzz";
+        else
+            data2 = "zzzzzzzz";
+
+        return data2+data;
     }
     public void saveAlarm(int currentAlarmPage, LocalDateTime data) { // Interaction Diagram 수정필요
         this.alarms[currentAlarmPage].saveAlarmData(data);

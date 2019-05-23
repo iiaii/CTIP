@@ -23,7 +23,7 @@ public class ModeManager {
         this.currentMode = 0;
         this.m_timer = m_timer;
         this.timekeeping = new TimeKeeping(m_timer);
-        this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
+        this.watchTimer = new WatchTimer(m_timer,this.timekeeping);
         this.stopwatch = new StopWatch(m_timer);
         this.alarm  = new Alarm(m_timer,this.timekeeping);
         modes.add(this.timekeeping);
