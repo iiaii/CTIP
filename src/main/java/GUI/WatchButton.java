@@ -86,6 +86,7 @@ public class WatchButton extends JLabel {
             } else {
                 if(t.eventClick != null){
                     String commandName = "Click";
+
                     ActionEvent event = new ActionEvent(this, uniqueId, commandName);
                     t.eventClick.actionPerformed(event);
                 }
