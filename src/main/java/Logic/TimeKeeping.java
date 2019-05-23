@@ -7,9 +7,12 @@ import java.util.Date;
 
 public class TimeKeeping extends TimerTask {
     private LocalDateTime currentTime;
-    private Boolean displayFormat = true;
+    private Boolean displayFormat = true; // true 24H false AMPM
     private Timer m_timer = null; // new instance
-    private boolean hourFormat = true; // true menas 24 hours
+
+    public Boolean getDisplayFormat() {
+        return displayFormat;
+    }
 
     public LocalDateTime getCurrentTime() {
         return currentTime;
@@ -22,16 +25,12 @@ public class TimeKeeping extends TimerTask {
     public TimeKeeping(Timer m_timer) {
         currentTime = LocalDateTime.now();
         this.m_timer = m_timer;
-        m_timer.schedule(this, 0, 1000);
+        m_timer.scheduleAtFixedRate(this, 0, 1000);
     }// 생성자
-
-    public TimeKeeping() {
-        currentTime = LocalDateTime.now().plusHours(3);
-    }
 
     @Override
     public void run() {
-        currentTime.plusSeconds(1);
+        currentTime = currentTime.plusSeconds(1);
     }
 
 

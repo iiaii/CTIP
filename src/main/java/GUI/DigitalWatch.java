@@ -9,12 +9,16 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Logic.*;
+import sun.jvm.hotspot.utilities.Interval;
+
 public class DigitalWatch extends JFrame {
     private static DigitalWatch instance;
     private WatchButton[] buttons;
     private WatchIcon[] icons;
     private String[] iconNames = {"sun","timer","stopwatch","alarm","dday","intervaltimer"};
     private WatchCursor[] cursors = new WatchCursor[7];
+    private WatchSystem ws;
 
     public DigitalWatch() {
         /* Image Cache initialize */
@@ -119,45 +123,73 @@ public class DigitalWatch extends JFrame {
         cursors[6] = second;
         panel.add(second);
 
-
+        ClickEvent events = new ClickEvent();
         buttons[0].setClickListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                events.buttonA();
             }
         });
-
+        buttons[1].setClickListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                events.buttonB();
+            }
+        });
         buttons[2].setClickListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                icons[0].setColor(new Color(221,221,221));
+                events.buttonC();
             }
         });
+        buttons[3].setClickListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                events.buttonD();
+            }
+        });
+
+        buttons[0].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                events.buttonAHold();
+            }
+        });
+        buttons[1].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                events.buttonBHold();
+            }
+        });
+        buttons[2].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                events.buttonCHold();
+            }
+        });
+        buttons[3].setClickHoldListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                events.buttonDHold();
+            }
+        });
+
         this.getContentPane().setBackground(Color.white);
-        //this.setBackground(Color.white);
+        this.setResizable(false);
         this.add(panel);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.setVisible(true);
 
-
-//        TimerTask job = new TimerTask() {
-//            public void run() {
-//                try {
-//                    showDigit(new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()));
-//                    int modes[] ={0,0,0,1,1,1};
-//                    showMode(modes);
-//                } catch(NullPointerException e){
-//                    System.out.println("not initiated yet");
-//                }
-//            }
-//        };
-//        Timer jobScheduler = new Timer();
-//        jobScheduler.scheduleAtFixedRate(job,0, 100);
+        Timer m_timer = new Timer();
+        this.ws = new WatchSystem(m_timer);
+        m_timer.scheduleAtFixedRate(ws, 2000, 100);
     }
 
     public static DigitalWatch getInstance() {
         if(instance == null) instance = new DigitalWatch();
         return instance;
     }
+
     public void showDigit(String content) { // cursor yyyyMMddhhmmss
         for(int i=0;i<7;i++) {
             this.cursors[i].setSegments(content.substring(2 * i, 2 * (i + 1)));
@@ -182,9 +214,198 @@ public class DigitalWatch extends JFrame {
         }
     }
 
+    class ClickEvent implements ButtonEvent {
 
+        public void buttonA() {
+            if(ws.getSetMode() == false) {
+                Object mode = ws.getCurrentMode();
+                if(mode instanceof TimeKeeping) {
+                    ws.changeHourFormat();
+                }
 
+                if(mode instanceof Dday) {
+                    ws.changeDdayFormat();
+                }
+            } else {
+                ws.changeCursor();
+            }
 
+        }
+
+        public void buttonAHold() {
+            if(ws.getSetMode() == false) {
+                ws.enterSetMode();
+            } else {
+                //none
+            }
+        }
+
+        public void buttonB() {
+            if(ws.getSetMode() == true) {
+                //mode toggle
+                //ws.chooseModes();
+            } else {
+                Boolean isEditMode = ws.getEditMode();
+                Object mode = ws.getCurrentMode();
+                if(isEditMode == false) {
+                    if(mode instanceof WatchTimer){
+                        WatchTimer t = (WatchTimer)mode;
+                        if(t.getActived() == true){
+                            ws.pauseTimer();
+                        } else {
+                            ws.activateTimer();
+                        }
+                    }
+
+                    if(mode instanceof StopWatch){
+                        StopWatch t = (StopWatch)mode;
+                        if(t.getActivated() == true){
+                            ws.pauseStopwatch();
+                        } else {
+                            ws.activateStopwatch();
+                        }
+                    }
+
+                    if(mode instanceof Alarm) {
+                        // get alarm state
+                        if(((Alarm)mode).alarms[ws.getCurrentAlarmPage()].isEnabled == true) {
+                            ws.disableAlarm();
+                        } else {
+                            ws.enableAlarm();
+                        }
+                    }
+
+                    if(mode instanceof Dday) {
+                        Dday t = (Dday)mode;
+                        // none
+                    }
+
+                    if(mode instanceof IntervalTimer) {
+                        IntervalTimer t = (IntervalTimer)mode;
+                        ws.disableIntervalTimer();
+                        ws.enablentervalTimer(); // 오타임
+                    }
+                } else {
+                    ws.increaseData();
+                }
+            }
+        }
+
+        public void buttonBHold() {
+            ///nope
+        }
+
+        public void buttonC() {
+
+            if(ws.getSetMode() == true) {
+                //mode toggle
+                //ws.chooseModes();
+                ws.saveMode();
+            } else {
+                Boolean isEditMode = ws.getEditMode();
+                Object mode = ws.getCurrentMode();
+                if (isEditMode == true) {
+                    if (mode instanceof TimeKeeping) {
+                        ws.saveTime();
+                    }
+
+                    if (mode instanceof WatchTimer) {
+                        ws.saveTimer();
+                    }
+
+                    if (mode instanceof Alarm) {
+                        ws.saveAlarm();
+                    }
+
+                    if (mode instanceof Dday) {
+                        ws.saveDday();
+                    }
+
+                    if (mode instanceof IntervalTimer) {
+                        ws.saveIntervalTimer();
+                    }
+                } else {
+                    ws.changeMode();
+                }
+            }
+        }
+
+        public void buttonCHold() {
+            if(ws.getSetMode() == true) {
+                //none
+            } else {
+                ws.enterEditMode();
+            }
+        }
+
+        public void buttonD() {
+
+            if(ws.getSetMode() == true) {
+                //none
+            } else {
+                Boolean isEditMode = ws.getEditMode();
+                Object mode = ws.getCurrentMode();
+                if (isEditMode == true) {
+                    if (mode instanceof WatchTimer) {
+                        ws.resetTimer();
+                    }
+
+                    if (mode instanceof StopWatch) {
+                        ws.resetStopwatch();
+                    }
+
+                    if (mode instanceof Alarm) {
+                        ws.resetAlarm();
+                    }
+
+                    if (mode instanceof Dday) {
+                        ws.changePage();
+                    }
+
+                    if (mode instanceof IntervalTimer) {
+                        ws.resetIntervalTimer();
+                    }
+                } else {
+                    ws.changeMode();
+                }
+            }
+        }
+
+        public void buttonDHold() {
+            Boolean isEditMode = ws.getEditMode();
+            Object mode = ws.getCurrentMode();
+            if (isEditMode == true) {
+                if (mode instanceof TimeKeeping) {
+                    //ws.exitEditMode();
+                }
+
+                if (mode instanceof WatchTimer) {
+                    //ws.exitEditMode();
+                }
+
+                if (mode instanceof Alarm) {
+                    //ws.exitEditMode();
+                }
+
+                if (mode instanceof Dday) {
+                    //ws.exitEditMode();
+                }
+
+                if (mode instanceof IntervalTimer) {
+                    //ws.exitEditMode();
+                }
+
+                if(ws.getSetMode() == true) {
+                    //ws.exitSetMode();
+                }
+            } else {
+                if (mode instanceof Dday) {
+                    ws.resetDday();
+                }
+            }
+        }
+
+    }
 
     public static void main(String[] args) {
         DigitalWatch.getInstance();

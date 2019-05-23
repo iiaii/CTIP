@@ -5,7 +5,7 @@ import java.util.Timer;
 
 public class ModeManager {
 
-    public int currentMode=0;
+    private int currentMode = 0;
     public Boolean[] setMode = new Boolean[5]; // watchTimer,stopwatch,alarm,dday,intervaltimer
 
     private TimeKeeping timekeeping;
@@ -20,9 +20,10 @@ public class ModeManager {
     LinkedList<Object> modes  = new LinkedList<Object>();
 
     public ModeManager(Timer m_timer) {
+        this.currentMode = 0;
         this.m_timer = m_timer;
         this.timekeeping = new TimeKeeping(m_timer);
-        this.watchTimer = new WatchTimer(m_timer);
+        this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
         this.stopwatch = new StopWatch(m_timer);
         this.alarm  = new Alarm(m_timer,this.timekeeping);
         modes.add(this.timekeeping);
@@ -87,9 +88,9 @@ public class ModeManager {
         return modes;
     }
 
-    public int getNextMode() {
-        this.currentMode = (this.currentMode++) % 4;
-        return this.currentMode;
+    public Object getNextMode() {
+        this.currentMode = (this.currentMode + 1) % 4;
+        return this.modes.get(this.currentMode);
     }
 
     public Boolean[] loadSetMode() {
@@ -106,7 +107,7 @@ public class ModeManager {
     }
 
     public WatchTimer createTimer() {
-        this.watchTimer = new WatchTimer(m_timer);
+        this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
         this.setMode[0] = true;
         modes.add(this.watchTimer);
         return this.watchTimer;

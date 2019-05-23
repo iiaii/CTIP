@@ -21,6 +21,10 @@ public class StopWatch extends TimerTask{
         }
     }
 
+    public Boolean getActivated() {
+        return isActivated;
+    }
+
     public void activate() {
         this.isActivated = true;
         m_timer.schedule(this, 0, 1000);

@@ -15,7 +15,14 @@ public class WatchTimer extends TimerTask {
     private Boolean isActived;
     private Timer m_timer;
 
-    public WatchTimer(Timer m_timer){
+    public Boolean getActived() {
+        return isActived;
+    }
+
+    public WatchTimer(Timer m_timer, TimeKeeping timeKeeping){
+        this.m_timer = m_timer;
+        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
+        this.remainedTimer = this.savedTimer;
     }
     public WatchTimer(){
     }
