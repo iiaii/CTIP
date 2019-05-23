@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WatchSystem {
+public class WatchSystem extends TimerTask{
     private int currentCursor; //연도1 연도2 월 일 시 분 초
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
