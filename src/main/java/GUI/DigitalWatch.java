@@ -158,21 +158,30 @@ public class DigitalWatch extends JFrame {
         if(instance == null) instance = new DigitalWatch();
         return instance;
     }
-
     public void showDigit(String content) { // cursor yyyyMMddhhmmss
         for(int i=0;i<7;i++) {
             this.cursors[i].setSegments(content.substring(2 * i, 2 * (i + 1)));
         }
     }
 
-    // {}
-    public void showMode(int[] modes) {
+    public void showMode(int[] modes) { // {0,1,0,0,0,0}
         Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158)}; // disabled, color1, color2
         for(int i=0;i<this.icons.length;i++){
             this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
-                                                      // modes 0이면 비활성화, 1이면 리빙코랄, 2면 보색
+            // modes 0이면 비활성화, 1이면 리빙코랄, 2면 보색
         }
     }
+
+    public void selectCursor(int cursor) {
+        try {
+            for(int i=0;i<this.cursors.length;i++){
+                if(this.cursors[i].getCursorState() != (i == cursor))
+                    this.cursors[i].setCursorState(i == cursor);
+            }
+        } catch(NullPointerException e){
+        }
+    }
+
 
 
 
