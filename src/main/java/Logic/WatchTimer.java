@@ -22,7 +22,9 @@ public class WatchTimer extends TimerTask {
 
     public WatchTimer(Timer m_timer, TimeKeeping timeKeeping){
         this.m_timer = m_timer;
-        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
+        //this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
+        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+        this.timeKeeping = timeKeeping;
         this.remainedTimer = this.savedTimer;
     }
     public WatchTimer(){
@@ -62,7 +64,7 @@ public class WatchTimer extends TimerTask {
 
     public void reset() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(!this.isActived && !formatTime.format(this.remainedTimer).equals("000000")){
+        if(!this.isActived && !formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
             this.savedTimer = null;
             this.remainedTimer = null;
             System.out.println("111");
@@ -71,12 +73,13 @@ public class WatchTimer extends TimerTask {
         }
     }
 
+
     public String loadTimer() {
         String data, data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
-        data = format.format(savedTimer);
-        format = new SimpleDateFormat("yyMMdd");
-        data2 = format.format(timeKeeping.loadTime());
+        data = format.format(LocaltoDate(savedTimer));
+        format = new SimpleDateFormat("yyyyMMdd");
+        data2 = format.format(LocaltoDate(timeKeeping.getCurrentTime()));
         return data2+data;
     }
 
@@ -86,9 +89,12 @@ public class WatchTimer extends TimerTask {
 
     public void ring() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(this.isActived && formatTime.format(this.remainedTimer).equals("000000")) {
+        if(this.isActived && formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")) {
             System.out.println("beep");
         }
+    }
+    public Date LocaltoDate(LocalDateTime time){
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 
 
