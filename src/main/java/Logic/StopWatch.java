@@ -13,6 +13,7 @@ public class StopWatch extends TimerTask{
     private Boolean isActivated = false;
     private Timer m_timer;
     private int countDay=0;
+    private StopWatch tempTimer;
 
     public StopWatch (Timer m_timer){
         this.m_timer = m_timer;
@@ -36,6 +37,7 @@ public class StopWatch extends TimerTask{
 
     public void activate() {
         this.isActivated = true;
+
         m_timer.schedule(this, 0, 1000);
     }
     public void pause() {
@@ -47,6 +49,7 @@ public class StopWatch extends TimerTask{
         if(!this.isActivated) {
             currentStopwatch = LocalTime.of(0,0,0);
             this.isActivated = false;
+            this.countDay = 0;
         }
         else
             System.out.println("비활성화 되지 않습니다.");
