@@ -1,6 +1,7 @@
 package Logic;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class TimeKeeping extends TimerTask {
     public String loadTime() {
         String data;
         SimpleDateFormat format = new SimpleDateFormat(displayFormat== true ? "yyyyMMddHHmmss" : "yyyyMMddhhmmss");
-        data = format.format(currentTime);
+        data = format.format(LocaltoDate(currentTime));
         return data;
     }
 
@@ -53,6 +54,9 @@ public class TimeKeeping extends TimerTask {
     public void stopTimeKeeping() {
         if (m_timer != null)
             cancel();
+    }
+    public Date LocaltoDate(LocalDateTime time){
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
 

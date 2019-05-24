@@ -2,6 +2,8 @@ package Logic;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Timer;
 
 public class Alarm {
@@ -16,12 +18,11 @@ public class Alarm {
         //currentAlarmPage = (currentAlarmPage++) % 4;
         String data, data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
-        data = format.format(alarms[currentAlarmPage].loadAlarmData());
+        data = format.format(LocaltoDate(alarms[currentAlarmPage].loadAlarmData()));
         if(alarms[currentAlarmPage].isEnabled == true)
-            data2 = "ENzzzzzz";
+            data2 = "ENzzzzz"+currentAlarmPage;
         else
-            data2 = "zzzzzzzz";
-
+            data2 = "zzzzzzz"+currentAlarmPage;
         return data2+data;
     }
     public void saveAlarm(int currentAlarmPage, LocalDateTime data) { // Interaction Diagram 수정필요
@@ -32,6 +33,9 @@ public class Alarm {
     }
     public void disableAlarm(int currentAlarmPage) {
         this.alarms[currentAlarmPage].disable();
+    }
+    public Date LocaltoDate(LocalDateTime time){
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 //    public void ring() {
 //

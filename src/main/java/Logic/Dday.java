@@ -1,7 +1,9 @@
 package Logic;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -15,7 +17,7 @@ public class Dday extends TimerTask{
     public String loadStartDday() {
         String data, data2;
         SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
-        data = format.format(startDday);
+        data = format.format(LocaltoDate(startDday));
         if(displayType==true)
             data2 = "d-"+(int)getCalDday()%10000;
         else
@@ -94,5 +96,8 @@ public class Dday extends TimerTask{
             System.out.println("ring ring ring");
         }
         return ;
+    }
+    public Date LocaltoDate(LocalDateTime time){
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
