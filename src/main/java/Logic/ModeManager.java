@@ -8,12 +8,12 @@ public class ModeManager {
     private int currentMode = 0;
     public Boolean[] setMode = new Boolean[5]; // watchTimer,stopwatch,alarm,dday,intervaltimer
 
-    private TimeKeeping timekeeping;
-    private WatchTimer watchTimer;
-    private StopWatch stopwatch;
-    private Alarm alarm;
-    private Dday dday;
-    private IntervalTimer intervaltimer;
+    private TimeKeeping timekeeping=null;
+    private WatchTimer watchTimer=null;
+    private StopWatch stopwatch=null;
+    private Alarm alarm=null;
+    private Dday dday=null;
+    private IntervalTimer intervaltimer=null;
 
     private Timer m_timer;
 
@@ -107,8 +107,10 @@ public class ModeManager {
     }
 
     public WatchTimer createTimer() {
-        this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
-        this.setMode[0] = true;
+        if(!setMode[0]){
+            this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
+            this.setMode[0] = true;
+        }
         modes.add(this.watchTimer);
         return this.watchTimer;
     }
