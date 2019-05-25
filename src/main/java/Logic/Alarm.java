@@ -45,8 +45,4 @@ public class Alarm {
     public AlarmTime getAlarmTime(int currentAlarmpage){
         return alarms[currentAlarmpage];
     }
-//    public void ring() {
-//
-//    } Deleted in Alarm
-
 }

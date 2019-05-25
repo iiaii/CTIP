@@ -184,7 +184,7 @@ public class DigitalWatch extends JFrame {
 
         Timer m_timer = new Timer();
         this.ws = new WatchSystem(m_timer);
-        m_timer.scheduleAtFixedRate(ws, 2000, 100);
+        m_timer.scheduleAtFixedRate(ws, 2000, 500);
     }
 
     public static DigitalWatch getInstance() {
@@ -252,6 +252,8 @@ public class DigitalWatch extends JFrame {
                 if(isEditMode == false) {
                     if(mode instanceof WatchTimer){
                         WatchTimer t = (WatchTimer)mode;
+                        System.out.println(t.getActived());
+//                        System.out.println(t.getRemainedTimer());
                         if(t.getActived() == true){
                             ws.pauseTimer();
                         } else {
@@ -347,28 +349,27 @@ public class DigitalWatch extends JFrame {
             } else {
                 Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
+                System.out.println(isEditMode);
                 if (isEditMode == true) {
-                    if (mode instanceof WatchTimer) {
-                        ws.resetTimer();
-                    }
-
-                    if (mode instanceof StopWatch) {
-                        ws.resetStopwatch();
-                    }
-
                     if (mode instanceof Alarm) {
                         ws.resetAlarm();
                     }
 
                     if (mode instanceof Dday) {
-                        ws.changePage();
-                    }
-
-                    if (mode instanceof IntervalTimer) {
-                        ws.resetIntervalTimer();
+                        ws.changePage();//dday changepage가 없음
                     }
                 } else {
-                    ws.changeMode();
+                    if(mode instanceof WatchTimer) {
+                        ws.resetTimer();
+                    }
+
+                    if(mode instanceof StopWatch) {
+                        ws.resetStopwatch();
+                    }
+
+                    if(mode instanceof Alarm) {
+                        ws.changeAlarmPage();
+                    }
                 }
             }
         }

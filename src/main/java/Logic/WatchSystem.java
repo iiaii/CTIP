@@ -19,7 +19,7 @@ public class WatchSystem extends TimerTask{
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = new Boolean[5];
+    public Boolean[] setMode = {true,true,true,false,false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
@@ -27,7 +27,6 @@ public class WatchSystem extends TimerTask{
     private Boolean isSetMode = false;
     private Object currentMode = null;
     private Timer m_timer;
-
     public WatchSystem(Timer m_timer) {
         this.m_timer = m_timer;
         this.modeManager = new ModeManager(m_timer);
@@ -40,7 +39,7 @@ public class WatchSystem extends TimerTask{
         this.currentAlarmPage = 0;
         this.tempTime = null;
         this.tempTime2 = null;
-        saveMode();
+        this.saveMode();
     }
 
     public void enterEditMode() {
@@ -276,6 +275,15 @@ public class WatchSystem extends TimerTask{
     public void changeMode() {
 
         this.currentMode = modeManager.getNextMode();
+        Boolean[] setMode = modeManager.setMode;
+        int[] showMode = new int[6];
+        showMode[0] = this.modeManager.getTimekeeping().getDisplayFormat() == true ? 1 : 0;
+
+        for(int i=0;i<setMode.length;i++){
+
+        }
+//        DigitalWatch.getInstance().showMode();
+
     }
 
     public void chooseModes() {
@@ -325,12 +333,15 @@ public class WatchSystem extends TimerTask{
         else{
             modeManager.destroyDday();
         }
-        isSetMode = false;
+        // exitSetMode();
         //selected Mode
         //this.watchTimer = modeManager.createTimer();
         return;
     }
 
+    public void exitSetMode(){
+        isSetMode = false;
+    }
 
     public void muteBeep() {
 
