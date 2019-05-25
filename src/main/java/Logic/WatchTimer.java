@@ -15,17 +15,18 @@ public class WatchTimer extends TimerTask {
     private Boolean isActived;
     private TimeKeeping timeKeeping;
     private Timer m_timer;
-
+    private WatchTimer newTimer;
     public Boolean getActived() {
         return isActived;
     }
 
     public WatchTimer(Timer m_timer, TimeKeeping timeKeeping){
+        this.isActived = false;
         this.m_timer = m_timer;
-        //this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
-        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,9));
         this.timeKeeping = timeKeeping;
         this.remainedTimer = this.savedTimer;
+        this.m_timer.schedule(this, 0, 1000);
     }
     public WatchTimer(){
     }
@@ -41,32 +42,33 @@ public class WatchTimer extends TimerTask {
     }
     @Override
     public void run() {
-        remainedTimer = remainedTimer.minusSeconds(1);
-//        ring(); //추가
-        if(remainedTimer.getSecond()== 0){
+        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
+        if(this.isActived == true){
+            this.remainedTimer = this.remainedTimer.minusSeconds(1);
+        }
+        if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
             cancel();
         }
     }
 
     public void activate() {
         this.isActived = true;
-//        savedTimer.minusSeconds(1);
         if(this.remainedTimer == null)
             this.remainedTimer = LocalDateTime.of(this.savedTimer.toLocalDate(), this.savedTimer.toLocalTime());
-        m_timer.schedule(this, 0, 1000);
     }
 
     public void pause() {
-        this.isActived = false;
-        cancel();
         saveTimer(this.remainedTimer);
+        this.isActived = false;
     }
 
     public void reset() {
+        LocalTime tmpTime = LocalTime.of(0,0,0);
+        LocalDateTime initDateTime = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), tmpTime);
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(!this.isActived && !formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
-            this.savedTimer = null;
-            this.remainedTimer = null;
+            this.savedTimer = initDateTime;
+            this.remainedTimer = initDateTime;
             System.out.println("111");
         }else{
             System.out.println("비활성화 안돼.");
@@ -77,7 +79,7 @@ public class WatchTimer extends TimerTask {
     public String loadTimer() {
         String data, data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
-        data = format.format(LocaltoDate(savedTimer));
+        data = format.format(LocaltoDate(this.remainedTimer));
         format = new SimpleDateFormat("yyyyMMdd");
         data2 = format.format(LocaltoDate(timeKeeping.getCurrentTime()));
         return data2+data;
@@ -88,7 +90,7 @@ public class WatchTimer extends TimerTask {
     }
 
     public void saveTimer(LocalDateTime data) {
-        this.savedTimer = data;
+        this.remainedTimer = data;
     }
 
     public void ring() {

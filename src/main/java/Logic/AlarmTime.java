@@ -9,14 +9,16 @@ import java.util.TimerTask;
 
 public class AlarmTime extends TimerTask {
     public LocalTime currentAlarm;
-    private Boolean isEnabled=false;
+    public Boolean isEnabled;
     private Timer m_timer;//new in this class
     private TimeKeeping timeKeeping; // new in this class
 
     public AlarmTime(Timer m_timer,TimeKeeping timeKeeping) {
-        currentAlarm = LocalTime.of(0, 0,0,0);
+        currentAlarm = LocalTime.of(4, 13,0,0);
         this.timeKeeping = timeKeeping;
         this.m_timer = m_timer;
+        this.isEnabled = false;
+        m_timer.schedule(this,0,1000);
     }
 
     public LocalDateTime loadAlarmData() {
@@ -27,11 +29,9 @@ public class AlarmTime extends TimerTask {
     }
     public void enable() {
         this.isEnabled = true;
-        m_timer.schedule(this,0,60000);
     }
     public void disable() {
         this.isEnabled = false;
-        cancel();
     }
 
     public LocalDateTime getCurrentAlarm() {
@@ -50,6 +50,9 @@ public class AlarmTime extends TimerTask {
         this.isEnabled = enabled;
     }
 
+    public void ring() {
+        System.out.println("BEEP!");
+    }
     public Boolean getEnabled() {
         return isEnabled;
     }
@@ -58,10 +61,11 @@ public class AlarmTime extends TimerTask {
     public void run(){
         LocalDateTime currentTime = timeKeeping.getCurrentTime();
         if(currentAlarm.getHour() == currentTime.getHour() &&
-                currentAlarm.getMinute() == currentTime.getMinute()
+                currentAlarm.getMinute() == currentTime.getMinute() &&
+                currentAlarm.getSecond() == currentTime.getSecond() &&
+                isEnabled
         ){
-            //Beep action hear
-            System.out.println("BEEP!");
+            ring();
         }
     }
 
