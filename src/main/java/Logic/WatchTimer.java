@@ -64,7 +64,7 @@ public class WatchTimer extends TimerTask {
 
     public void reset() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(!this.isActived && !formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
             this.savedTimer = initDateTime;

@@ -171,6 +171,15 @@ public class WatchSystem extends TimerTask{
         ((TimeKeeping)this.currentMode).setHourformat();
     }
 
+    public void saveTimer() {
+        modeManager.getWatchTimer().saveTimer(tempTime);
+        tempTime = null;
+    }
+
+    public void activateTimer() {
+        modeManager.getWatchTimer().activate();
+    }
+
     public void pauseTimer() {
         modeManager.getWatchTimer().pause();
     }
@@ -179,26 +188,16 @@ public class WatchSystem extends TimerTask{
         modeManager.getWatchTimer().reset();
     }
 
-    public void saveTimer() {
-        modeManager.getWatchTimer().saveTimer(tempTime);
-        tempTime = null;
+    public void activateStopwatch() {
+        modeManager.getStopwatch().activate();
     }
 
-    public void enablentervalTimer() {
-        modeManager.getIntervaltimer().enable();
+    public void pauseStopwatch() {
+        modeManager.getStopwatch().pause();
     }
 
-    public void disableIntervalTimer() {
-        modeManager.getIntervaltimer().disable();
-    }
-
-    public void saveIntervalTimer() {
-        modeManager.getIntervaltimer().saveIntervalTimer(tempTime);
-        tempTime = null;
-    }
-
-    public void resetIntervalTimer() {
-        modeManager.getIntervaltimer().reset();
+    public void resetStopwatch() {
+        modeManager.getStopwatch().reset();
     }
 
     public void saveAlarm() {
@@ -260,20 +259,24 @@ public class WatchSystem extends TimerTask{
         return currentAlarmPage;
     }
 
-    public void activateStopwatch() {
-        modeManager.getStopwatch().activate();
+    public void enablentervalTimer() {
+        modeManager.getIntervaltimer().enable();
     }
 
-    public void pauseStopwatch() {
-        modeManager.getStopwatch().pause();
+    public void disableIntervalTimer() {
+        modeManager.getIntervaltimer().disable();
     }
 
-    public void resetStopwatch() {
-        modeManager.getStopwatch().reset();
+    public void saveIntervalTimer() {
+        modeManager.getIntervaltimer().saveIntervalTimer(tempTime);
+        tempTime = null;
+    }
+
+    public void resetIntervalTimer() {
+        modeManager.getIntervaltimer().reset();
     }
 
     public void changeMode() {
-
         this.currentMode = modeManager.getNextMode();
         Boolean[] setMode = modeManager.setMode;
         int[] showMode = new int[6];
@@ -357,9 +360,6 @@ public class WatchSystem extends TimerTask{
         return setMode;
     }
 
-    public void activateTimer() {
-        modeManager.getWatchTimer().activate();
-    }
     /* gui part*/
     public void run() {
         //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
