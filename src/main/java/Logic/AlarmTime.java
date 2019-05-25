@@ -13,8 +13,9 @@ public class AlarmTime extends TimerTask {
     private Timer m_timer;//new in this class
     private TimeKeeping timeKeeping; // new in this class
 
-    public AlarmTime(Timer m_timer,TimeKeeping timeKeeping) {
-        currentAlarm = LocalTime.of(4, 13,0,0);
+
+    public AlarmTime(Timer m_timer, TimeKeeping timeKeeping) {
+        currentAlarm = LocalTime.of(0, 0,0,0);
         this.timeKeeping = timeKeeping;
         this.m_timer = m_timer;
         this.isEnabled = false;
@@ -52,6 +53,7 @@ public class AlarmTime extends TimerTask {
 
     public void ring() {
         System.out.println("BEEP!");
+        this.isEnabled = false;
     }
     public Boolean getEnabled() {
         return isEnabled;
