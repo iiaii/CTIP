@@ -59,6 +59,7 @@ public class WatchTimer extends TimerTask {
         if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
             this.isActived = false;
         }
+        ring();
     }
 
     public void activate() {

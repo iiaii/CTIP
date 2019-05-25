@@ -278,7 +278,7 @@ public class WatchSystem extends TimerTask{
 
     public void changeMode() {
         this.currentMode = modeManager.getNextMode();
-        Boolean[] setMode = modeManager.setMode;
+        Boolean[] setMode = modeManager.loadSetMode();
         int[] showMode = new int[6];
         showMode[0] = this.modeManager.getTimekeeping().getDisplayFormat() == true ? 1 : 0;
 

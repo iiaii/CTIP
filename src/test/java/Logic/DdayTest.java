@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-class DdayTest {
+class xxDdayTest {
 
     private Timer m_timer = new Timer();
     private TimeKeeping tk = new TimeKeeping(m_timer);
