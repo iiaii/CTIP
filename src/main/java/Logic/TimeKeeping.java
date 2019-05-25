@@ -35,14 +35,6 @@ public class TimeKeeping extends TimerTask {
         currentTime = currentTime.plusSeconds(1);
     }
 
-    /*
-    public String loadTime() {
-        String data;
-        SimpleDateFormat format = new SimpleDateFormat(displayFormat== true ? "yyyyMMddHHmmss" : "yyyyMMddhhmmss");
-        data = format.format(LocaltoDate(currentTime));
-        return data;
-    }
-     */
     public LocalDateTime loadTime(){
         return currentTime;
     }
@@ -56,44 +48,4 @@ public class TimeKeeping extends TimerTask {
         this.displayFormat = !this.displayFormat;
     }
 
-    public void stopTimeKeeping() {
-        if (m_timer != null)
-            cancel();
-    }
-    public Date LocaltoDate(LocalDateTime time){
-        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
-    }
 }
-
-//    public void initCurrentTime(){
-//        currentDateTime = LocalDateTime.now();
-//        int year,month,day,hour,minute,second,secs;
-////        long time  = System.currentTimeMillis();
-////        Date date = new Date(time);
-////        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-////        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-////        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
-////        SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
-////        SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
-////        SimpleDateFormat secondFormat = new SimpleDateFormat("ss");
-////
-////        year = Integer.valueOf(yearFormat.format(date));
-////        month = Integer.valueOf(monthFormat.format(date));
-////        day = Integer.valueOf(dayFormat.format(date));
-////        hour = Integer.valueOf(hourFormat.format(date));
-////        minute = Integer.valueOf(minuteFormat.format(date));
-////        second = Integer.valueOf(secondFormat.format(date));
-//        //        secs = day*86400+3600*hour + minute*60 + second;
-//
-//        year = currentDateTime.getYear();
-//        month = currentDateTime.getMonthValue();
-//        day = currentDateTime.getDayOfMonth();
-//        hour = currentDateTime.getHour();
-//        minute = currentDateTime.getMinute();
-//        second = currentDateTime.getSecond();
-//
-//
-//        currentDateTime.plusSeconds(1);
-//    }
-//
-//}

@@ -32,6 +32,14 @@ public class Dday extends TimerTask{
         this.displayType = true;
     }
 
+    public LocalDateTime getStartDday() {
+        return startDday;
+    }
+
+    public LocalDateTime getEndDday() {
+        return endDday;
+    }
+
     public LocalDateTime loadStartDday(){
         return startDday;
     }
@@ -86,6 +94,10 @@ public class Dday extends TimerTask{
         if(startDday != null) this.startDday = startDday;
         this.existStartDday = (startDday != null);
         this.endDday = endDday;
+    }
+
+    public void setCurrentDay(LocalDateTime currentDay) {
+        this.currentDay = currentDay;
     }
 
     public void reset() {
