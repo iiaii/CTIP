@@ -29,16 +29,26 @@ public class WatchTimer extends TimerTask {
         this.m_timer.schedule(this, 0, 1000);
     }
     public WatchTimer(){
+        this.isActived = false;
+        this.m_timer = m_timer;
+        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,9));
+        this.timeKeeping = timeKeeping;
+        this.remainedTimer = this.savedTimer;
     }
     public LocalDateTime getSavedTimer(){
         return this.savedTimer;
     }
+
     public LocalDateTime getRemainedTimer(){
         return this.remainedTimer;
     }
 
     public void setSavedTimer(LocalDateTime savedTimer){
         this.savedTimer = savedTimer;
+    }
+
+    public void setRemainedTimer(LocalDateTime remainedTimer){
+        this.remainedTimer = remainedTimer;
     }
     @Override
     public void run() {
@@ -47,7 +57,7 @@ public class WatchTimer extends TimerTask {
             this.remainedTimer = this.remainedTimer.minusSeconds(1);
         }
         if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
-            cancel();
+            this.isActived = false;
         }
     }
 
@@ -58,7 +68,7 @@ public class WatchTimer extends TimerTask {
     }
 
     public void pause() {
-        saveTimer(this.remainedTimer);
+//        saveTimer(this.remainedTimer);
         this.isActived = false;
     }
 
@@ -69,9 +79,7 @@ public class WatchTimer extends TimerTask {
         if(!this.isActived && !formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
             this.savedTimer = initDateTime;
             this.remainedTimer = initDateTime;
-            System.out.println("111");
         }else{
-            System.out.println("비활성화 안돼.");
         }
     }
 
@@ -80,13 +88,14 @@ public class WatchTimer extends TimerTask {
     }
 
     public void saveTimer(LocalDateTime data) {
-        this.remainedTimer = data;
+        this.savedTimer = data;
     }
 
     public void ring() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(this.isActived && formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")) {
             System.out.println("beep");
+            this.isActived = false;
         }
     }
     public Date LocaltoDate(LocalDateTime time){
