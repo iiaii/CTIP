@@ -26,10 +26,10 @@ public class ModeManager {
         this.watchTimer = new WatchTimer(m_timer,this.timekeeping);
         this.stopwatch = new StopWatch(m_timer);
         this.alarm  = new Alarm(m_timer,this.timekeeping);
-        modes.add(this.timekeeping);
-        modes.add(this.watchTimer);
-        modes.add(this.stopwatch);
-        modes.add(this.alarm);
+//        modes.add(this.timekeeping);
+//        modes.add(this.watchTimer);
+//        modes.add(this.stopwatch);
+//        modes.add(this.alarm);
     }
 
     public TimeKeeping getTimekeeping() {

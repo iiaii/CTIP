@@ -40,6 +40,7 @@ public class WatchSystem extends TimerTask{
         this.currentAlarmPage = 0;
         this.tempTime = null;
         this.tempTime2 = null;
+        saveMode();
     }
 
     public void enterEditMode() {
@@ -273,6 +274,7 @@ public class WatchSystem extends TimerTask{
     }
 
     public void changeMode() {
+
         this.currentMode = modeManager.getNextMode();
     }
 
@@ -351,12 +353,17 @@ public class WatchSystem extends TimerTask{
         //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
         DigitalWatch gui = DigitalWatch.getInstance();
         String data;
+        int icon[] = new int[6];
+
         try {
+            icon = iconIdeal();
+            gui.showMode(icon);
+            /* show digit part */
             if(this.isSetMode==true){
                 data = "zzzzzzzzzzzzzzzzz";
             }
             else{
-                data = ideal(currentMode);
+                data = digitIdeal(currentMode);
             }
             gui.showDigit(data);
         }
@@ -386,7 +393,7 @@ public class WatchSystem extends TimerTask{
     public Object getCurrentMode(){
         return this.currentMode;
     }
-    public String ideal(Object mode) {
+    public String digitIdeal(Object mode) {
         String data,data2;
         Boolean displayFormat;
         SimpleDateFormat format;
@@ -438,7 +445,38 @@ public class WatchSystem extends TimerTask{
         }
         return "zzzzzzzzzzzzzzzzz";
     }
+    public int[] iconIdeal(){
+        int[] icon = new int[6];
+        String PM;
+        LocalDateTime currentTime = modeManager.getTimekeeping().loadTime();
+        SimpleDateFormat format = new SimpleDateFormat("a");
+        PM = format.format(LocaltoDate(currentTime));
+        if(PM.equals("PM"))
+            icon[0] = 1;
+        for(int i=0;i<5;i++){
+            if(modeManager.loadSetMode()[i]==true){
+                icon[i+1] = 2;
+            }
+        }
+        if(currentMode instanceof WatchTimer){
+            icon[1]=1;
+        }
+        else if(currentMode instanceof StopWatch){
+            icon[2]=1;
+        }
+        else if(currentMode instanceof Alarm){
+            icon[3]=1;
+        }
+        else if(currentMode instanceof Dday){
+            icon[4]=1;
+        }
+        else if(currentMode instanceof IntervalTimer) {
+            icon[5]=1;
+        }
+        return icon;
+    }
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
+
 }
