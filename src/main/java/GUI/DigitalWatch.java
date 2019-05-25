@@ -10,7 +10,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Logic.*;
-import sun.jvm.hotspot.utilities.Interval;
 
 public class DigitalWatch extends JFrame {
     private static DigitalWatch instance;
