@@ -1,60 +1,103 @@
 package Logic;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class WatchTimer extends TimerTask {
     private LocalDateTime savedTimer;
     private LocalDateTime remainedTimer;
     private Boolean isActived;
-    private Timer m_timer = new Timer();
+    private TimeKeeping timeKeeping;
+    private Timer m_timer;
+    private WatchTimer newTimer;
+    public Boolean getActived() {
+        return isActived;
+    }
 
-    public WatchTimer(LocalDateTime savedTimer){
+    public WatchTimer(Timer m_timer, TimeKeeping timeKeeping){
+        this.isActived = false;
+        this.m_timer = m_timer;
+        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
+        this.timeKeeping = timeKeeping;
+        this.remainedTimer = this.savedTimer;
+        this.m_timer.schedule(this, 0, 1000);
+    }
+    public WatchTimer(){
+        this.isActived = false;
+        this.m_timer = m_timer;
+        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
+        this.timeKeeping = timeKeeping;
+        this.remainedTimer = this.savedTimer;
+    }
+    public LocalDateTime getSavedTimer(){
+        return this.savedTimer;
+    }
+
+    public LocalDateTime getRemainedTimer(){
+        return this.remainedTimer;
+    }
+
+    public void setSavedTimer(LocalDateTime savedTimer){
         this.savedTimer = savedTimer;
     }
 
+    public void setRemainedTimer(LocalDateTime remainedTimer){
+        this.remainedTimer = remainedTimer;
+    }
     @Override
     public void run() {
-        this.remainedTimer = this.savedTimer.minusSeconds(1);
-        ring(); //추가
+        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
+        if(this.isActived == true){
+            if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000") == true){
+                this.isActived = false;
+                this.remainedTimer = LocalDateTime.of(this.savedTimer.toLocalDate(), this.savedTimer.toLocalTime());
+                ring();
+            } else {
+
+                this.remainedTimer = this.remainedTimer.minusSeconds(1);
+            }
+        }
     }
 
     public void activate() {
         this.isActived = true;
-        m_timer.schedule(this, 0, 1000);
     }
 
     public void pause() {
+//        saveTimer(this.remainedTimer);
         this.isActived = false;
-        cancel();
-        saveTimer(this.remainedTimer);
     }
 
     public void reset() {
+        LocalTime tmpTime = LocalTime.of(0,0,0);
+        LocalDateTime initDateTime = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), tmpTime);
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(!this.isActived && !formatTime.format(this.remainedTimer).equals("000000")){
-            this.savedTimer = null;
-            this.remainedTimer = null;
-        }else{
-            System.out.println("비활성화 안돼.");
+        if(!this.isActived){
+            this.savedTimer = initDateTime;
+            this.remainedTimer = initDateTime;
         }
     }
 
-    public LocalDateTime loadTimer() {
-        return this.savedTimer;
+    public LocalDateTime loadTimer(){
+        return remainedTimer;
     }
 
     public void saveTimer(LocalDateTime data) {
-        this.remainedTimer = data;
+        this.savedTimer = data;
+        this.isActived = false;
     }
 
     public void ring() {
-        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(this.isActived && formatTime.format(this.remainedTimer).equals("000000")) {
-            System.out.println("beep");
-        }
+        System.out.println("beep");
+    }
+    public Date LocaltoDate(LocalDateTime time){
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 
 

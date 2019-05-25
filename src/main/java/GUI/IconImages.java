@@ -23,10 +23,11 @@ public class IconImages {
 
     public static BufferedImage getImage(String filename) {
         if(icons == null){
-            icons =new HashMap<>(10);
+            icons =new HashMap<>();
         }
         BufferedImage temp = icons.get(filename);
         if(temp == null) icons.put(filename, loadFile(filename));
         return temp;
     }
+
 }

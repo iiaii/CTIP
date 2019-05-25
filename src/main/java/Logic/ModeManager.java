@@ -1,17 +1,43 @@
 package Logic;
 
+import java.util.LinkedList;
+import java.util.Timer;
+
 public class ModeManager {
 
-    public int currentMode;
-    public Boolean[] setMode = new Boolean[5]; // watchTimer,stopwatch,alarm,dday,intervaltimer
+    private int currentMode = 0;
+    private Boolean[] setMode = {false, false, false, false, false}; // watchTimer,stopwatch,alarm,dday,intervaltimer
+
+    public Boolean[] getSetMode() {
+        return setMode;
+    }
+
+    public void setSetMode(Boolean[] setMode) {
+        this.setMode = setMode;
+    }
 
 
-    private TimeKeeping timekeeping;
-    private WatchTimer watchTimer;
-    private StopWatch stopwatch;
-    private Alarm alarm;
-    private Dday dday;
-    private IntervalTimer intervaltimer;
+    private TimeKeeping timekeeping = null;
+    private WatchTimer watchTimer = null;
+    private StopWatch stopwatch = null;
+    private Alarm alarm = null;
+    private Dday dday = null;
+    private IntervalTimer intervaltimer = null;
+
+    private Timer m_timer;
+
+    public void setCurrentMode(int currentMode) {
+        this.currentMode = currentMode;
+    }
+
+    LinkedList<Object> modes = new LinkedList<Object>();
+
+    public ModeManager(Timer m_timer) {
+        this.currentMode = 0;
+        this.m_timer = m_timer;
+        this.timekeeping = new TimeKeeping(m_timer);
+        modes.add(this.timekeeping);
+    }
 
     public TimeKeeping getTimekeeping() {
         return timekeeping;
@@ -61,92 +87,130 @@ public class ModeManager {
         this.intervaltimer = intervaltimer;
     }
 
-    public ModeManager() {
-        this.timekeeping = new TimeKeeping();
-    }
 
-    public int getCurrentMode() {
+    public int getCurrentModeIndex() {
         return this.currentMode;
     }
 
-    public int getNextMode() {
-        this.currentMode = (this.currentMode++) % 4;
-        return this.currentMode;
+    public Object getCurrentMode() {
+        return modes.get(currentMode);
+    }
+
+    public LinkedList<Object> getModes() {
+        return modes;
+    }
+
+    public Object getNextMode() {
+        this.currentMode = (this.currentMode + 1) % 4;
+        return this.modes.get(this.currentMode);
     }
 
     public Boolean[] loadSetMode() {
         return this.setMode;
     }
 
-
-    public int toggleMode() {
-        return 0;
-    }
-
     public WatchTimer createTimer() {
-//        this.watchTimer = new WatchTimer();
-        this.setMode[0] = true;
+        if (!setMode[0]) {
+            this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
+            this.setMode[0] = true;
+        }
+        if (modes.size() == 0) modes.add(this.timekeeping);
+        modes.add(this.watchTimer);
+        currentMode = 0;
         return this.watchTimer;
     }
 
     public void destoryTimer() {
-        this.watchTimer.reset();
-        this.watchTimer = null;
+        if (this.watchTimer != null) {
+            this.watchTimer.reset();
+            modes.remove(this.watchTimer);
+            this.watchTimer = null;
+        }
         this.setMode[0] = false;
+        currentMode = 0;
     }
 
 
     public StopWatch createStopwatch() {
-        this.stopwatch = new StopWatch();
+        this.stopwatch = new StopWatch(m_timer);
+        this.setMode[1] = true;
+        if (modes.size() == 0) modes.add(this.timekeeping);
+        modes.add(this.stopwatch);
+        currentMode = 0;
         // TODO implement here
         return this.stopwatch;
     }
 
     public void destroyStopwatch() {
-//        this.stopwatch.reset();
-        this.stopwatch = null;
+        if (this.stopwatch != null) {
+            this.stopwatch.reset();
+            modes.remove(this.stopwatch);
+            this.stopwatch = null;
+        }
         this.setMode[1] = false;
+        currentMode = 0;
     }
 
 
     public Alarm createAlarm() {
-//        this.alarm = new Alarm();
+        this.alarm = new Alarm(m_timer, timekeeping);
         this.setMode[2] = true;
+        if (modes.size() == 0) modes.add(this.timekeeping);
+        modes.add(this.alarm);
+        currentMode = 0;
         return this.alarm;
     }
 
     public void destroyAlarm() {
-        this.alarm.disableAlarm(0);
-        this.alarm.disableAlarm(1);
-        this.alarm.disableAlarm(2);
-        this.alarm.disableAlarm(3);
+        if (this.alarm != null) {
+            for (int i = 0; i < 4; i++) {
+                this.alarm.disableAlarm(i);
+            }
+        }
         this.alarm = null;
-        this.setMode[2] = true;
+        this.setMode[2] = false;
+        currentMode = 0;
     }
 
 
     public Dday createDday() {
-        this.dday = new Dday();
+        this.dday = new Dday(timekeeping, m_timer);
         this.setMode[3] = true;
+        if (modes.size() == 0) modes.add(this.timekeeping);
+        modes.add(this.dday);
+        currentMode = 0;
         return this.dday;
     }
 
     public void destroyDday() {
-        this.dday.reset();
-        this.dday = null;
+        if (this.dday != null) {
+            this.dday.reset();
+            modes.remove(dday);
+            this.dday = null;
+        }
         this.setMode[3] = false;
+        currentMode = 0;
     }
 
 
     public IntervalTimer createIntervalTimer() {
-        this.intervaltimer = new IntervalTimer();
+        this.intervaltimer = new IntervalTimer(m_timer);
         this.setMode[4] = true;
+        if (modes.size() == 0) modes.add(this.timekeeping);
+        modes.add(this.intervaltimer);
+        currentMode = 0;
         return this.intervaltimer;
     }
 
     public void destroyIntervalTimer() {
-        this.intervaltimer.disable();
-        this.intervaltimer = null;
+        if (this.intervaltimer != null) {
+            this.intervaltimer.disable();
+            modes.remove(intervaltimer);
+            this.intervaltimer = null;
+        }
         this.setMode[4] = false;
+        currentMode = 0;
     }
+
+
 }
