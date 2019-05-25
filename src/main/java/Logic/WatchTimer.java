@@ -75,7 +75,7 @@ public class WatchTimer extends TimerTask {
         }
     }
 
-
+    /*
     public String loadTimer() {
         String data, data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
@@ -83,6 +83,10 @@ public class WatchTimer extends TimerTask {
         format = new SimpleDateFormat("yyyyMMdd");
         data2 = format.format(LocaltoDate(timeKeeping.getCurrentTime()));
         return data2+data;
+    }
+    */
+    public LocalDateTime loadTimer(){
+        return remainedTimer;
     }
 
     public void saveTimer(LocalDateTime data) {

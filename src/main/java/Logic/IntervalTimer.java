@@ -45,7 +45,7 @@ public class IntervalTimer extends TimerTask{
             this.savedIntervalTimer = initDateTime;
             this.remainedIntervalTimer = initDateTime;
         }
-    }
+    }/*
     public String loadIntervalTimer() {
         String data,data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
@@ -53,6 +53,10 @@ public class IntervalTimer extends TimerTask{
         data2 = ""+iteration;
         System.out.println(data2+data);
         return data2+data;
+    }
+    */
+    public LocalDateTime loadIntervalTimer(){
+        return savedIntervalTimer;
     }
     public void saveIntervalTimer(LocalDateTime data) {
         this.savedIntervalTimer = data;
@@ -74,6 +78,9 @@ public class IntervalTimer extends TimerTask{
     }
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    public int getIteration(){
+        return iteration;
     }
 
 }

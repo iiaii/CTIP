@@ -53,6 +53,9 @@ public class AlarmTime extends TimerTask {
     public void ring() {
         System.out.println("BEEP!");
     }
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
 
     @Override
     public void run(){

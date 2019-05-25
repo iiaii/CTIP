@@ -14,6 +14,7 @@ public class Alarm {
             alarms[i] = new AlarmTime(m_timer,timeKeeping);
         }
     }
+    /*
     public String loadAlarm(int currentAlarmPage) { //16 interation diagram 수정필요
         //currentAlarmPage = (currentAlarmPage++) % 4;
         String data, data2;
@@ -24,6 +25,10 @@ public class Alarm {
         else
             data2 = "zzzzzzz"+currentAlarmPage;
         return data2+data;
+    }
+     */
+    public LocalDateTime loadAlarm(int currentAlarmPage){
+        return alarms[currentAlarmPage].loadAlarmData();
     }
     public void saveAlarm(int currentAlarmPage, LocalDateTime data) { // Interaction Diagram 수정필요
         this.alarms[currentAlarmPage].saveAlarmData(data);
@@ -37,5 +42,7 @@ public class Alarm {
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
-
+    public AlarmTime getAlarmTime(int currentAlarmpage){
+        return alarms[currentAlarmpage];
+    }
 }
