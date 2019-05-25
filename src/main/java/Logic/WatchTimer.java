@@ -47,7 +47,7 @@ public class WatchTimer extends TimerTask {
             this.remainedTimer = this.remainedTimer.minusSeconds(1);
         }
         if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000")){
-            cancel();
+            this.isActived = false;
         }
     }
 

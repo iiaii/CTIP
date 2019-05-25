@@ -1,14 +1,8 @@
 package Logic;
 import GUI.DigitalWatch;
-import com.sun.org.apache.bcel.internal.generic.LoadClass;
-import javafx.scene.paint.Stop;
-import sun.jvm.hotspot.utilities.Interval;
-
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import java.time.ZoneId;
 import java.util.Date;
@@ -33,7 +27,7 @@ public class WatchSystem extends TimerTask{
     public WatchSystem(Timer m_timer) {
         this.m_timer = m_timer;
         this.modeManager = new ModeManager(m_timer);
-        this.currentMode = this.modeManager.getTimekeeping();
+        this.currentMode = this.modeManager.getCurrentMode();
         this.isSetMode = false;
         this.isEditMode = false;
         this.currentCursor = 0;
@@ -73,19 +67,7 @@ public class WatchSystem extends TimerTask{
         else{
             System.out.println("errror");
         }
-        //return data;
     }
-
-    /* IN Timekeeping
-        currentCursor
-            0 -> Year1
-            1 -> year2
-            2 -> month
-            3 -> day
-            4 -> hour
-            5 -> min
-            6 -> second
-     */
     public LocalDateTime increaseData() {
         Object currentMode = modeManager.getCurrentMode();
         if(currentCursor==0){
@@ -177,7 +159,6 @@ public class WatchSystem extends TimerTask{
 
     public void pauseTimer() {
         ((WatchTimer)currentMode).pause();
-        modeManager.getWatchTimer().pause();
     }
 
     public void resetTimer() {
@@ -217,45 +198,35 @@ public class WatchSystem extends TimerTask{
     }
 
     public void enableAlarm() {
-        modeManager.getAlarm().enableAlarm(currentAlarmPage);
+        ((Alarm)currentMode).enableAlarm(currentAlarmPage);
     }
 
     public void disableAlarm() {
-        modeManager.getAlarm().disableAlarm(currentAlarmPage);
+        ((Alarm)currentMode).disableAlarm(currentAlarmPage);
     }
 
     public LocalDateTime changeAlarmPage() {
         currentAlarmPage = (currentAlarmPage+1) % 4;
-        return modeManager.getAlarm().loadAlarm(currentAlarmPage);
+        return  ((Alarm)currentMode).loadAlarm(currentAlarmPage);
     }
 
-    public LocalDateTime changePage() {
+    public void changePage() {
         currentDdayPage = (currentDdayPage+1)%2;
-        String data;
-        if(currentDdayPage==0){
-            tempTime = modeManager.getDday().loadStartDday();
-//            data =
-            return tempTime;
-        }
-        else{
-            tempTime2 = modeManager.getDday().loadEndDday();
-            return tempTime2;
-        }
     }
 
     public void saveDday() {
-        modeManager.getDday().saveDday((this.isEdited == true || modeManager.getDday().getExistStartDday() == true) ? tempTime : null,tempTime2); // 수정됐으면  temptime, 아니면 null
+        ((Dday)currentMode).saveDday((this.isEdited == true || ((Dday)currentMode).getExistStartDday() == true) ? tempTime : null,tempTime2); // 수정됐으면  temptime, 아니면 null
         exitEditMode();
     }
 
     public LocalDateTime resetDday() {
-        modeManager.getDday().reset();
-        return modeManager.getDday().loadEndDday();
+        ((Dday)currentMode).reset();
+        return ((Dday)currentMode).loadEndDday();
     }
 
     public double changeDdayFormat() {
-        modeManager.getDday().changeFormat();
-        return modeManager.getDday().getCalDday();
+        ((Dday)currentMode).changeFormat();
+        return ((Dday)currentMode).getCalDday();
     }
 
     public int getCurrentDdayPage() {
@@ -267,29 +238,25 @@ public class WatchSystem extends TimerTask{
     }
 
     public void activateStopwatch() {
-        modeManager.getStopwatch().activate();
+        ((StopWatch)currentMode).activate();
     }
 
     public void pauseStopwatch() {
-        modeManager.getStopwatch().pause();
+        ((StopWatch)currentMode).pause();
     }
 
     public void resetStopwatch() {
-        modeManager.getStopwatch().reset();
+        ((StopWatch)currentMode).reset();
     }
 
     public void changeMode() {
         // changemode할때마다 값 초기화해주기
 
         this.currentMode = modeManager.getNextMode();
-        Boolean[] setMode = modeManager.setMode;
-        int[] showMode = new int[6];
-        showMode[0] = this.modeManager.getTimekeeping().getDisplayFormat() == true ? 1 : 0;
 
         this.currentDdayPage = 0;
         this.currentAlarmPage = 0;
         this.isEdited = false;
-//        DigitalWatch.getInstance().showMode();
 
     }
 
@@ -368,7 +335,7 @@ public class WatchSystem extends TimerTask{
     }
 
     public void activateTimer() {
-        modeManager.getWatchTimer().activate();
+        ((WatchTimer)currentMode).activate();
     }
     /* gui part*/
     public void run() {
@@ -432,7 +399,7 @@ public class WatchSystem extends TimerTask{
             if(this.isEditMode == true) {
                 origin = this.tempTime;
             } else {
-                origin = ((TimeKeeping) mode).loadTime();
+                origin = (modeManager.getTimekeeping()).loadTime();
             }
             data = format.format(LocaltoDate(origin));
             return data;

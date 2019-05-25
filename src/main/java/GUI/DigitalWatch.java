@@ -18,6 +18,7 @@ public class DigitalWatch extends JFrame {
     private String[] iconNames = {"sun","timer","stopwatch","alarm","dday","intervaltimer"};
     private WatchCursor[] cursors = new WatchCursor[7];
     private WatchSystem ws;
+    private int[] drawedIcons = {-1,-1,-1,-1,-1,-1};
 
     public DigitalWatch() {
         /* Image Cache initialize */
@@ -183,7 +184,7 @@ public class DigitalWatch extends JFrame {
 
         Timer m_timer = new Timer();
         this.ws = new WatchSystem(m_timer);
-        m_timer.scheduleAtFixedRate(ws, 2000, 500);
+        m_timer.scheduleAtFixedRate(ws, 2000, 50);
     }
 
     public static DigitalWatch getInstance() {
@@ -200,7 +201,10 @@ public class DigitalWatch extends JFrame {
     public void showMode(int[] modes) { // {0,1,0,0,0,0}
         Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158)}; // disabled, color1, color2
         for(int i=0;i<this.icons.length;i++){
-            this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
+            if(this.drawedIcons[i] != modes[i]){
+                this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
+                this.drawedIcons[i] = modes[i];
+            }
             // modes 0이면 비활성화, 1이면 리빙코랄, 2면 보색
         }
     }
