@@ -19,7 +19,7 @@ public class WatchSystem extends TimerTask{
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {true,false,false,true,true};
+    public Boolean[] setMode = {true,true,false,true,false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
@@ -60,7 +60,7 @@ public class WatchSystem extends TimerTask{
         }
         else if(currentMode instanceof Dday){
             tempTime = ((Dday) currentMode).loadStartDday();
-
+            tempTime2 = ((Dday) currentMode).loadEndDday();
             currentCursor = 0;
         }
         else if(currentMode instanceof IntervalTimer){
@@ -405,6 +405,7 @@ public class WatchSystem extends TimerTask{
     public Object getCurrentMode(){
         return this.currentMode;
     }
+
     public String digitIdeal(Object mode) {
         String data,data2;
         Boolean displayFormat;
@@ -440,13 +441,13 @@ public class WatchSystem extends TimerTask{
             return data2+data;
         }
         else if(mode instanceof Dday){
-            format = new SimpleDateFormat("yyMMdd");
+            format = new SimpleDateFormat("yyyyMMdd");
             Boolean displayType = ((Dday) mode).getDisplayType();
-            data = format.format(LocaltoDate(((Dday) mode).loadStartDday()));
+            data = format.format(LocaltoDate(((Dday) mode).loadEndDday()));
             if(displayType==true)
-                data2 = "d-"+(int)((Dday) mode).getCalDday()%10000;
+                data2 = "d-" + String.format("%04d", (int)((Dday) mode).getCalDday()%10000);
             else
-                data2 = (Math.round(100* ((Dday) mode).getCalDday())/100)+"PE";
+                data2 = String.format("%04d", Math.round(((Dday)mode).getCalDday()*100)/100) + "PE";
             return data+data2;
         }
         else if(mode instanceof IntervalTimer) {
