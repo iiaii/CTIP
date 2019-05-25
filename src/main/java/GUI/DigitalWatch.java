@@ -18,6 +18,7 @@ public class DigitalWatch extends JFrame {
     private String[] iconNames = {"sun","timer","stopwatch","alarm","dday","intervaltimer"};
     private WatchCursor[] cursors = new WatchCursor[7];
     private WatchSystem ws;
+    private int[] drawedIcons = {-1,-1,-1,-1,-1,-1};
 
     public DigitalWatch() {
         /* Image Cache initialize */
@@ -183,7 +184,7 @@ public class DigitalWatch extends JFrame {
 
         Timer m_timer = new Timer();
         this.ws = new WatchSystem(m_timer);
-        m_timer.scheduleAtFixedRate(ws, 2000, 500);
+        m_timer.scheduleAtFixedRate(ws, 2000, 50);
     }
 
     public static DigitalWatch getInstance() {
@@ -198,9 +199,12 @@ public class DigitalWatch extends JFrame {
     }
 
     public void showMode(int[] modes) { // {0,1,0,0,0,0}
-        Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158)}; // disabled, color1, color2
+        Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158), new Color(255,0,0)}; // disabled, color1, color2
         for(int i=0;i<this.icons.length;i++){
-            this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
+            if(this.drawedIcons[i] != modes[i]){
+                this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
+                this.drawedIcons[i] = modes[i];
+            }
             // modes 0이면 비활성화, 1이면 리빙코랄, 2면 보색
         }
     }
@@ -219,13 +223,17 @@ public class DigitalWatch extends JFrame {
 
         public void buttonA() {
             if(ws.getIsSetMode() == false) {
-                Object mode = ws.getCurrentMode();
-                if(mode instanceof TimeKeeping) {
-                    ws.changeHourFormat();
-                }
+                if(ws.getIsEditMode() == false){
+                    Object mode = ws.getCurrentMode();
+                    if(mode instanceof TimeKeeping) {
+                        ws.changeHourFormat();
+                    }
 
-                if(mode instanceof Dday) {
-                    ws.changeDdayFormat();
+                    if(mode instanceof Dday) {
+                        ws.changeDdayFormat();
+                    }
+                } else {
+                    ws.changeCursor();
                 }
             } else {
                 ws.changeCursor();
@@ -244,7 +252,7 @@ public class DigitalWatch extends JFrame {
         public void buttonB() {
             if(ws.getIsSetMode() == true) {
                 //mode toggle
-                //ws.chooseModes();
+                ws.chooseModes();
             } else {
                 Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
@@ -302,7 +310,7 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonC() {
-
+            System.out.println("IsSetMode" + ws.getIsSetMode());
             if(ws.getIsSetMode() == true) {
                 //mode toggle
                 //ws.chooseModes();
@@ -341,11 +349,11 @@ public class DigitalWatch extends JFrame {
                 //none
             } else {
                 ws.enterEditMode();
+                System.out.println("enter edit mode");
             }
         }
 
         public void buttonD() {
-
             if(ws.getIsSetMode() == true) {
                 //none
             } else {
@@ -379,37 +387,19 @@ public class DigitalWatch extends JFrame {
         public void buttonDHold() {
             Boolean isEditMode = ws.getIsEditMode();
             Object mode = ws.getCurrentMode();
-            if (isEditMode == true) {
-                if (mode instanceof TimeKeeping) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof WatchTimer) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof Alarm) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof Dday) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof IntervalTimer) {
-                    //ws.exitEditMode();
-                }
-
-                if(ws.getIsSetMode() == true) {
-                    //ws.exitSetMode();
-                }
+            if(ws.getIsSetMode() == true) {
+                System.out.println("setmode false");
+                ws.exitSetMode();
             } else {
-                if (mode instanceof Dday) {
-                    ws.resetDday();
+                if (isEditMode == true) {
+                    ws.exitEditMode();
+                } else {
+                    if (mode instanceof Dday) {
+                        ws.resetDday();
+                    }
                 }
             }
         }
-
     }
 
     public static void main(String[] args) {

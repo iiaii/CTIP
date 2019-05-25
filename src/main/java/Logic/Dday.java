@@ -8,20 +8,36 @@ import java.util.TimerTask;
 import java.util.Timer;
 
 public class Dday extends TimerTask{
+    private Boolean existStartDday = false;
     private LocalDateTime startDday;
     private LocalDateTime endDday;
     private LocalDateTime currentDay; //추가 - 하루 지날 때마다 현재 날짜 TimeKeeping에서 정보 입력 해줘야할듯
     private Timer m_timer;
     private double calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
+
+    public Boolean getExistStartDday() {
+        return existStartDday;
+    }
+
     private Boolean displayType;
+    private TimeKeeping tm;
 
     public Dday(TimeKeeping tm, Timer m_timer) {
         this.m_timer = m_timer;
+        this.tm = tm;
         currentDay = tm.getCurrentTime();
-        startDday = currentDay;
-        endDday = currentDay.plusDays(30); //예시
-        m_timer.schedule(this, 0, 86400000);
-        this.displayType = false;
+        startDday = currentDay; // 초기화는 currentdDay로 하고 increasedata없으면 null 넣어주자
+        endDday = currentDay; //예시
+        m_timer.schedule(this, 0, 1000);
+        this.displayType = true;
+    }
+
+    public LocalDateTime getStartDday() {
+        return startDday;
+    }
+
+    public LocalDateTime getEndDday() {
+        return endDday;
     }
 
     public LocalDateTime loadStartDday(){
@@ -45,15 +61,16 @@ public class Dday extends TimerTask{
     }
 
     public void run() {
-        this.currentDay = this.currentDay.plusDays(1);
-        if(this.currentDay == this.endDday) {
+        currentDay = tm.getCurrentTime();
+        if(currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) {
             cancel();
         }
     }
 
     public double getCalDday() {
+        currentDay = tm.getCurrentTime();
         if(this.displayType) { //dday
-            this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday)+1;
+            this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday) + ((currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) == true ? 0 :1);
         }
         else { //%
             this.calDday = (double)(ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double)(ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
@@ -74,18 +91,28 @@ public class Dday extends TimerTask{
     }
 
     public void saveDday(LocalDateTime startDday, LocalDateTime endDday) {
-        this.startDday = startDday;
+        if(startDday != null) this.startDday = startDday;
+        this.existStartDday = (startDday != null);
         this.endDday = endDday;
     }
 
+    public void setCurrentDay(LocalDateTime currentDay) {
+        this.currentDay = currentDay;
+    }
+
     public void reset() {
+        existStartDday = false;
         startDday = this.currentDay;
         endDday = this.currentDay;
         cancel();
     }
 
     public void changeFormat() { //true면 d-day, false면 %
-        this.displayType = !this.displayType;
+        if(this.existStartDday == false) {
+            this.displayType = true;
+        } else {
+            this.displayType = !this.displayType;
+        }
     }
 
     public Date LocaltoDate(LocalDateTime time){
