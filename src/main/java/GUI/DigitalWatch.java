@@ -57,8 +57,10 @@ public class DigitalWatch extends JFrame {
         panel.setOpaque(false);
 
         icons = new WatchIcon[6];
+
         Color c = new Color(0, 144, 158);
-        Color[] iconColors = {new Color(242,140,56 ),new Color(221,221,221),c,new Color(255, 111, 97),c,new Color(221,221,221)};
+        //Color[] iconColors = {new Color(242,140,56 ),new Color(221,221,221),c,new Color(255, 111, 97),c,new Color(221,221,221)};
+        Color[] iconColors = {c,c,c,c,c,c};
         for(int i=0;i< icons.length;i++){
             icons[i] = new WatchIcon(iconNames[i], iconColors[i]);
             icons[i].setSize(40, 40);
@@ -217,7 +219,7 @@ public class DigitalWatch extends JFrame {
     class ClickEvent implements ButtonEvent {
 
         public void buttonA() {
-            if(ws.getSetMode() == false) {
+            if(ws.getIsSetMode() == false) {
                 Object mode = ws.getCurrentMode();
                 if(mode instanceof TimeKeeping) {
                     ws.changeHourFormat();
@@ -233,7 +235,7 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonAHold() {
-            if(ws.getSetMode() == false) {
+            if(ws.getIsSetMode() == false) {
                 ws.enterSetMode();
             } else {
                 //none
@@ -241,11 +243,11 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonB() {
-            if(ws.getSetMode() == true) {
+            if(ws.getIsSetMode() == true) {
                 //mode toggle
                 //ws.chooseModes();
             } else {
-                Boolean isEditMode = ws.getEditMode();
+                Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
                 if(isEditMode == false) {
                     if(mode instanceof WatchTimer){
@@ -268,7 +270,7 @@ public class DigitalWatch extends JFrame {
 
                     if(mode instanceof Alarm) {
                         // get alarm state
-                        if(((Alarm)mode).alarms[ws.getCurrentAlarmPage()].isEnabled == true) {
+                        if(((Alarm)mode).getAlarmTime(ws.getCurrentAlarmPage()).getEnabled() == true) {
                             ws.disableAlarm();
                         } else {
                             ws.enableAlarm();
@@ -297,12 +299,12 @@ public class DigitalWatch extends JFrame {
 
         public void buttonC() {
 
-            if(ws.getSetMode() == true) {
+            if(ws.getIsSetMode() == true) {
                 //mode toggle
                 //ws.chooseModes();
                 ws.saveMode();
             } else {
-                Boolean isEditMode = ws.getEditMode();
+                Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
                 if (isEditMode == true) {
                     if (mode instanceof TimeKeeping) {
@@ -331,7 +333,7 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonCHold() {
-            if(ws.getSetMode() == true) {
+            if(ws.getIsSetMode() == true) {
                 //none
             } else {
                 ws.enterEditMode();
@@ -340,10 +342,10 @@ public class DigitalWatch extends JFrame {
 
         public void buttonD() {
 
-            if(ws.getSetMode() == true) {
+            if(ws.getIsSetMode() == true) {
                 //none
             } else {
-                Boolean isEditMode = ws.getEditMode();
+                Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
                 if (isEditMode == true) {
                     if (mode instanceof WatchTimer) {
@@ -372,7 +374,7 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonDHold() {
-            Boolean isEditMode = ws.getEditMode();
+            Boolean isEditMode = ws.getIsEditMode();
             Object mode = ws.getCurrentMode();
             if (isEditMode == true) {
                 if (mode instanceof TimeKeeping) {
@@ -395,7 +397,7 @@ public class DigitalWatch extends JFrame {
                     //ws.exitEditMode();
                 }
 
-                if(ws.getSetMode() == true) {
+                if(ws.getIsSetMode() == true) {
                     //ws.exitSetMode();
                 }
             } else {

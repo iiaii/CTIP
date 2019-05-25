@@ -36,13 +36,17 @@ public class IntervalTimer extends TimerTask{
         }else{
             System.out.println("disable 하고 하셈.");
         }
-    }
+    }/*
     public String loadIntervalTimer() {
         String data,data2;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
         data = format.format(LocaltoDate(savedIntervalTimer));
         data2 = ""+iteration;
         return data2+data;
+    }
+    */
+    public LocalDateTime loadIntervalTimer(){
+        return savedIntervalTimer;
     }
     public void saveIntervalTimer(LocalDateTime data) {
         this.savedIntervalTimer = data;
@@ -58,6 +62,9 @@ public class IntervalTimer extends TimerTask{
     }
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    public int getIteration(){
+        return iteration;
     }
 
 }

@@ -1,10 +1,7 @@
 package Logic;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -51,10 +48,19 @@ public class StopWatch extends TimerTask{
         else
             System.out.println("비활성화 되지 않습니다.");
     }
+    /*
     public String LoadStopWatch() {
         String data;
         SimpleDateFormat format = new SimpleDateFormat("HHmmss");
         data = format.format(Date.from(currentStopwatch.atDate(LocalDate.now()).atZone((ZoneId.systemDefault())).toInstant()));
         return "dzzzzzz"+countDay+data;
+    }
+    */
+    public LocalTime loadStopWatch(){
+        return currentStopwatch;
+    }
+
+    public int getCountDay() {
+        return countDay;
     }
 }

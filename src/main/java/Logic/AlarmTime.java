@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class AlarmTime extends TimerTask {
     public LocalTime currentAlarm;
-    public Boolean isEnabled=false;
+    private Boolean isEnabled=false;
     private Timer m_timer;//new in this class
     private TimeKeeping timeKeeping; // new in this class
 
@@ -49,6 +49,11 @@ public class AlarmTime extends TimerTask {
     public void setEnabled(Boolean enabled) {
         this.isEnabled = enabled;
     }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
     @Override
     public void run(){
         LocalDateTime currentTime = timeKeeping.getCurrentTime();
@@ -59,4 +64,5 @@ public class AlarmTime extends TimerTask {
             System.out.println("BEEP!");
         }
     }
+
 }
