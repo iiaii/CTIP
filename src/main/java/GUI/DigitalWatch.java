@@ -347,28 +347,27 @@ public class DigitalWatch extends JFrame {
             } else {
                 Boolean isEditMode = ws.getEditMode();
                 Object mode = ws.getCurrentMode();
+                System.out.println(isEditMode);
                 if (isEditMode == true) {
-                    if (mode instanceof WatchTimer) {
-                        ws.resetTimer();
-                    }
-
-                    if (mode instanceof StopWatch) {
-                        ws.resetStopwatch();
-                    }
-
                     if (mode instanceof Alarm) {
                         ws.resetAlarm();
                     }
 
                     if (mode instanceof Dday) {
-                        ws.changePage();
-                    }
-
-                    if (mode instanceof IntervalTimer) {
-                        ws.resetIntervalTimer();
+                        ws.changePage();//dday changepage가 없음
                     }
                 } else {
-                    ws.changeMode();
+                    if(mode instanceof WatchTimer) {
+                        ws.resetTimer();
+                    }
+
+                    if(mode instanceof StopWatch) {
+                        ws.resetStopwatch();
+                    }
+
+                    if(mode instanceof Alarm) {
+                        ws.changeAlarmPage();
+                    }
                 }
             }
         }

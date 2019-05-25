@@ -6,7 +6,7 @@ import java.util.Timer;
 public class ModeManager {
 
     private int currentMode = 0;
-    public Boolean[] setMode = new Boolean[5]; // watchTimer,stopwatch,alarm,dday,intervaltimer
+    public Boolean[] setMode = {false,false,false,false,false}; // watchTimer,stopwatch,alarm,dday,intervaltimer
 
     private TimeKeeping timekeeping=null;
     private WatchTimer watchTimer=null;
@@ -23,13 +23,7 @@ public class ModeManager {
         this.currentMode = 0;
         this.m_timer = m_timer;
         this.timekeeping = new TimeKeeping(m_timer);
-        this.watchTimer = new WatchTimer(m_timer,this.timekeeping);
-        this.stopwatch = new StopWatch(m_timer);
-        this.alarm  = new Alarm(m_timer,this.timekeeping);
         modes.add(this.timekeeping);
-        modes.add(this.watchTimer);
-        modes.add(this.stopwatch);
-        modes.add(this.alarm);
     }
 
     public TimeKeeping getTimekeeping() {
@@ -80,6 +74,11 @@ public class ModeManager {
         this.intervaltimer = intervaltimer;
     }
 
+
+    public int getCurrentModeIndex() {
+        return this.currentMode;
+    }
+
     public Object getCurrentMode() {
         return modes.get(currentMode);
     }
@@ -111,14 +110,17 @@ public class ModeManager {
             this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
             this.setMode[0] = true;
         }
+        if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.watchTimer);
         return this.watchTimer;
     }
 
     public void destoryTimer() {
-        this.watchTimer.reset();
-        modes.remove(this.watchTimer);
-        this.watchTimer = null;
+        if(this.watchTimer != null) {
+            this.watchTimer.reset();
+            modes.remove(this.watchTimer);
+            this.watchTimer = null;
+        }
         this.setMode[0] = false;
     }
 
@@ -126,15 +128,18 @@ public class ModeManager {
     public StopWatch createStopwatch() {
         this.stopwatch = new StopWatch(m_timer);
         this.setMode[1] = true;
+        if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.stopwatch);
         // TODO implement here
         return this.stopwatch;
     }
 
     public void destroyStopwatch() {
-        this.stopwatch.reset();
-        modes.remove(this.stopwatch);
-        this.stopwatch = null;
+        if(this.stopwatch != null) {
+            this.stopwatch.reset();
+            modes.remove(this.stopwatch);
+            this.stopwatch = null;
+        }
         this.setMode[1] = false;
     }
 
@@ -142,16 +147,17 @@ public class ModeManager {
     public Alarm createAlarm() {
         this.alarm = new Alarm(m_timer,timekeeping);
         this.setMode[2] = true;
+        if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.alarm);
         return this.alarm;
     }
 
     public void destroyAlarm() {
-        this.alarm.disableAlarm(0);
-        this.alarm.disableAlarm(1);
-        this.alarm.disableAlarm(2);
-        this.alarm.disableAlarm(3);
-//        this.remove(this.alarm);
+        if(this.alarm != null) {
+            for(int i=0;i<4;i++){
+                    this.alarm.disableAlarm(i);
+            }
+        }
         this.alarm = null;
         this.setMode[2] = false;
     }
@@ -160,14 +166,17 @@ public class ModeManager {
     public Dday createDday() {
         this.dday = new Dday();
         this.setMode[3] = true;
+        if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.dday);
         return this.dday;
     }
 
     public void destroyDday() {
-        this.dday.reset();
-        modes.remove(dday);
-        this.dday = null;
+        if(this.dday != null) {
+            this.dday.reset();
+            modes.remove(dday);
+            this.dday = null;
+        }
         this.setMode[3] = false;
     }
 
@@ -175,14 +184,17 @@ public class ModeManager {
     public IntervalTimer createIntervalTimer() {
         this.intervaltimer = new IntervalTimer(m_timer);
         this.setMode[4] = true;
+        if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.intervaltimer);
         return this.intervaltimer;
     }
 
     public void destroyIntervalTimer() {
-        this.intervaltimer.disable();
-        modes.remove(intervaltimer);
-        this.intervaltimer = null;
+        if(this.intervaltimer != null) {
+            this.intervaltimer.disable();
+            modes.remove(intervaltimer);
+            this.intervaltimer = null;
+        }
         this.setMode[4] = false;
     }
 
