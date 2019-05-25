@@ -130,21 +130,19 @@ public class WatchSystem extends TimerTask{
 
     public void changeCursor() {
         Object currentMode = modeManager.getCurrentMode();
-        if(currentMode instanceof TimeKeeping){
-            currentCursor = (currentCursor+1) % 7;
-        }
-        else if(currentMode instanceof Dday){
-            currentCursor = (currentCursor+1) % 4;
-        }
-        else if(currentMode instanceof Alarm || currentMode instanceof WatchTimer ||
-                currentMode instanceof IntervalTimer){
-            currentCursor = (currentCursor) % 3 + 4; // 0, 1, 2 //4 5 6
-        }
-        else if(currentMode == null){
-            currentCursor = (currentCursor+1) %5;
-        }
-        else{
-            //error
+        if(isSetMode == true){
+            currentModeCursor = (currentModeCursor + 1) % 5;
+        } else {
+            if(currentMode instanceof TimeKeeping){
+                currentCursor = (currentCursor+1) % 7;
+            }
+            else if(currentMode instanceof Dday){
+                currentCursor = (currentCursor+1) % 4;
+            }
+            else if(currentMode instanceof Alarm || currentMode instanceof WatchTimer ||
+                    currentMode instanceof IntervalTimer){
+                currentCursor = (currentCursor) % 3 + 4; // 0, 1, 2 //4 5 6
+            }
         }
     }
 
@@ -261,10 +259,9 @@ public class WatchSystem extends TimerTask{
     }
 
     public void chooseModes() {
-        if(setMode[currentCursor]==true)
-            setMode[currentCursor] = false;
-        else
-            setMode[currentCursor] = true;
+        System.out.println(setMode[currentModeCursor]);
+        setMode[currentModeCursor] = !setMode[currentModeCursor];
+        System.out.println(setMode[currentModeCursor]);
     }
 
     public void saveMode() {
@@ -315,11 +312,13 @@ public class WatchSystem extends TimerTask{
 
     public void exitSetMode(){
         isSetMode = false;
+        currentModeCursor = 0;
+        this.currentMode = modeManager.getCurrentMode();
     }
 
     public void exitEditMode() {
         isEditMode = false;
-        currentDdayPage = 0 ;
+        currentDdayPage = 0;
     }
     public void muteBeep() {
 
@@ -501,20 +500,34 @@ public class WatchSystem extends TimerTask{
                 icon[i+1] = 2;
             }
         }
-        if(currentMode instanceof WatchTimer){
-            icon[1]=1;
-        }
-        else if(currentMode instanceof StopWatch){
-            icon[2]=1;
-        }
-        else if(currentMode instanceof Alarm){
-            icon[3]=1;
-        }
-        else if(currentMode instanceof Dday){
-            icon[4]=1;
-        }
-        else if(currentMode instanceof IntervalTimer) {
-            icon[5]=1;
+        if(isSetMode == true) {
+            for(int i=0;i<5;i++){
+                if(i == currentModeCursor && setMode[i] == true)
+                    icon[i+1] = 2;
+                else if(i == currentModeCursor && setMode[i] == false)
+                    icon[i+1] = 1;
+                else if(i != currentModeCursor && setMode[i] == false)
+                    icon[i+1] = 0;
+                else
+                    icon[i+1] = 3;
+            }
+
+        } else {
+            if(currentMode instanceof WatchTimer){
+                icon[1]=1;
+            }
+            else if(currentMode instanceof StopWatch){
+                icon[2]=1;
+            }
+            else if(currentMode instanceof Alarm){
+                icon[3]=1;
+            }
+            else if(currentMode instanceof Dday){
+                icon[4]=1;
+            }
+            else if(currentMode instanceof IntervalTimer) {
+                icon[5]=1;
+            }
         }
         return icon;
     }

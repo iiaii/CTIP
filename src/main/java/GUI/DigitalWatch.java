@@ -199,7 +199,7 @@ public class DigitalWatch extends JFrame {
     }
 
     public void showMode(int[] modes) { // {0,1,0,0,0,0}
-        Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158)}; // disabled, color1, color2
+        Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158), new Color(255,0,0)}; // disabled, color1, color2
         for(int i=0;i<this.icons.length;i++){
             if(this.drawedIcons[i] != modes[i]){
                 this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
@@ -252,7 +252,7 @@ public class DigitalWatch extends JFrame {
         public void buttonB() {
             if(ws.getIsSetMode() == true) {
                 //mode toggle
-                //ws.chooseModes();
+                ws.chooseModes();
             } else {
                 Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
@@ -310,7 +310,7 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonC() {
-
+            System.out.println("IsSetMode" + ws.getIsSetMode());
             if(ws.getIsSetMode() == true) {
                 //mode toggle
                 //ws.chooseModes();

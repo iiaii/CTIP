@@ -96,15 +96,6 @@ public class ModeManager {
         return this.setMode;
     }
 
-
-    public int toggleMode(int modeNume) {
-        if(setMode[modeNume]==true)
-            setMode[modeNume] = false;
-        else
-            setMode[modeNume] = true;
-        return 0;
-    }
-
     public WatchTimer createTimer() {
         if(!setMode[0]){
             this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
@@ -112,6 +103,7 @@ public class ModeManager {
         }
         if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.watchTimer);
+        currentMode = 0;
         return this.watchTimer;
     }
 
@@ -122,6 +114,7 @@ public class ModeManager {
             this.watchTimer = null;
         }
         this.setMode[0] = false;
+        currentMode = 0;
     }
 
 
@@ -130,6 +123,7 @@ public class ModeManager {
         this.setMode[1] = true;
         if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.stopwatch);
+        currentMode = 0;
         // TODO implement here
         return this.stopwatch;
     }
@@ -141,6 +135,7 @@ public class ModeManager {
             this.stopwatch = null;
         }
         this.setMode[1] = false;
+        currentMode = 0;
     }
 
 
@@ -149,6 +144,7 @@ public class ModeManager {
         this.setMode[2] = true;
         if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.alarm);
+        currentMode = 0;
         return this.alarm;
     }
 
@@ -160,6 +156,7 @@ public class ModeManager {
         }
         this.alarm = null;
         this.setMode[2] = false;
+        currentMode = 0;
     }
 
 
@@ -168,6 +165,7 @@ public class ModeManager {
         this.setMode[3] = true;
         if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.dday);
+        currentMode = 0;
         return this.dday;
     }
 
@@ -178,6 +176,7 @@ public class ModeManager {
             this.dday = null;
         }
         this.setMode[3] = false;
+        currentMode = 0;
     }
 
 
@@ -186,6 +185,7 @@ public class ModeManager {
         this.setMode[4] = true;
         if(modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.intervaltimer);
+        currentMode = 0;
         return this.intervaltimer;
     }
 
@@ -196,6 +196,7 @@ public class ModeManager {
             this.intervaltimer = null;
         }
         this.setMode[4] = false;
+        currentMode = 0;
     }
 
 
