@@ -219,13 +219,17 @@ public class DigitalWatch extends JFrame {
 
         public void buttonA() {
             if(ws.getIsSetMode() == false) {
-                Object mode = ws.getCurrentMode();
-                if(mode instanceof TimeKeeping) {
-                    ws.changeHourFormat();
-                }
+                if(ws.getIsEditMode() == false){
+                    Object mode = ws.getCurrentMode();
+                    if(mode instanceof TimeKeeping) {
+                        ws.changeHourFormat();
+                    }
 
-                if(mode instanceof Dday) {
-                    ws.changeDdayFormat();
+                    if(mode instanceof Dday) {
+                        ws.changeDdayFormat();
+                    }
+                } else {
+                    ws.changeCursor();
                 }
             } else {
                 ws.changeCursor();
@@ -341,11 +345,11 @@ public class DigitalWatch extends JFrame {
                 //none
             } else {
                 ws.enterEditMode();
+                System.out.println("enter edit mode");
             }
         }
 
         public void buttonD() {
-
             if(ws.getIsSetMode() == true) {
                 //none
             } else {
@@ -379,37 +383,19 @@ public class DigitalWatch extends JFrame {
         public void buttonDHold() {
             Boolean isEditMode = ws.getIsEditMode();
             Object mode = ws.getCurrentMode();
-            if (isEditMode == true) {
-                if (mode instanceof TimeKeeping) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof WatchTimer) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof Alarm) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof Dday) {
-                    //ws.exitEditMode();
-                }
-
-                if (mode instanceof IntervalTimer) {
-                    //ws.exitEditMode();
-                }
-
-                if(ws.getIsSetMode() == true) {
-                    //ws.exitSetMode();
-                }
+            if(ws.getIsSetMode() == true) {
+                System.out.println("setmode false");
+                ws.exitSetMode();
             } else {
-                if (mode instanceof Dday) {
-                    ws.resetDday();
+                if (isEditMode == true) {
+                    ws.exitEditMode();
+                } else {
+                    if (mode instanceof Dday) {
+                        ws.resetDday();
+                    }
                 }
             }
         }
-
     }
 
     public static void main(String[] args) {

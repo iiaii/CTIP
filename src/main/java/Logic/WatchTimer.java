@@ -81,6 +81,7 @@ public class WatchTimer extends TimerTask {
 
     public void saveTimer(LocalDateTime data) {
         this.remainedTimer = data;
+        this.isActived = false;
     }
 
     public void ring() {
