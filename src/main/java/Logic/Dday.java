@@ -14,15 +14,8 @@ public class Dday extends TimerTask{
     private double calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
     private Boolean displayType = true;
 
-    public String loadStartDday() {
-        String data, data2;
-        SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
-        data = format.format(LocaltoDate(startDday));
-        if(displayType==true)
-            data2 = "d-"+(int)getCalDday()%10000;
-        else
-            data2 = (Math.round(100*getCalDday())/100)+"PE";
-        return data+data2;
+    public LocalDateTime loadStartDday(){
+        return startDday;
     }
 
     public void setStartDday(LocalDateTime startDday) {
