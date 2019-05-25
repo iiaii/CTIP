@@ -66,7 +66,8 @@ public class WatchTimer extends TimerTask {
     }
 
     public void activate() {
-        this.isActived = true;
+        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
+        this.isActived = !formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000");
     }
 
     public void pause() {

@@ -45,7 +45,6 @@ public class WatchCursor extends JPanel {
             this.add(this.digit2);
         } else {
             this.digit2.setSegment(this.segments.charAt(1));
-            System.out.println("??" + this.segments.charAt(1));
         }
     }
 

@@ -259,8 +259,6 @@ public class DigitalWatch extends JFrame {
                 if(isEditMode == false) {
                     if(mode instanceof WatchTimer){
                         WatchTimer t = (WatchTimer)mode;
-                        System.out.println(t.getActived());
-//                        System.out.println(t.getRemainedTimer());
                         if(t.getActived() == true){
                             ws.pauseTimer();
                         } else {
@@ -310,7 +308,6 @@ public class DigitalWatch extends JFrame {
         }
 
         public void buttonC() {
-            System.out.println("IsSetMode" + ws.getIsSetMode());
             if(ws.getIsSetMode() == true) {
                 //mode toggle
                 //ws.chooseModes();
@@ -349,7 +346,6 @@ public class DigitalWatch extends JFrame {
                 //none
             } else {
                 ws.enterEditMode();
-                System.out.println("enter edit mode");
             }
         }
 
@@ -359,7 +355,6 @@ public class DigitalWatch extends JFrame {
             } else {
                 Boolean isEditMode = ws.getIsEditMode();
                 Object mode = ws.getCurrentMode();
-                System.out.println(isEditMode);
                 if (isEditMode == true) {
                     if (mode instanceof Alarm) {
                         ws.resetAlarm();
@@ -388,7 +383,6 @@ public class DigitalWatch extends JFrame {
             Boolean isEditMode = ws.getIsEditMode();
             Object mode = ws.getCurrentMode();
             if(ws.getIsSetMode() == true) {
-                System.out.println("setmode false");
                 ws.exitSetMode();
             } else {
                 if (isEditMode == true) {

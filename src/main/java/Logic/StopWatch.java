@@ -23,7 +23,6 @@ public class StopWatch extends TimerTask{
             this.currentStopwatch = this.currentStopwatch.plusSeconds(1);
             if(this.currentStopwatch.equals(LocalTime.MAX.plusNanos(1))) {
                 countDay+=1;
-                System.out.println(countDay);
                 //pause();
             }
         }
