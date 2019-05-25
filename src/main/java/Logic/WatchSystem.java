@@ -87,7 +87,7 @@ public class WatchSystem extends TimerTask{
         Object currentMode = modeManager.getCurrentMode();
         if(currentCursor==0){
             if(currentMode instanceof TimeKeeping || currentMode instanceof Dday){
-                tempTime.plusYears(10);
+                tempTime.plusYears(100);
             }
             else{
                 return null; //error
@@ -366,6 +366,7 @@ public class WatchSystem extends TimerTask{
                 //String showTime = sdf.format(Date.from(((TimeKeeping)this.currentMode).getCurrentTime().atZone(ZoneId.systemDefault()).toInstant()));
                 data  = ((TimeKeeping) (this.currentMode)).loadTime();
                 gui.showDigit(data);
+                System.out.println(data);
             }
             if(this.currentMode instanceof WatchTimer) {
                 //SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -381,6 +382,14 @@ public class WatchSystem extends TimerTask{
                 data = ((StopWatch) this.currentMode).LoadStopWatch();
                 gui.showDigit(data);
             }
+//            if(this.currentMode instanceof Dday){
+//                data = ((Dday)this.currentMode).loadStartDday();
+//                gui.showDigit(data);
+//            }
+//            if(this.currentMode instanceof IntervalTimer){
+//                data = ((IntervalTimer)this.currentMode).loadIntervalTimer();
+//                gui.showDigit(data);
+//            }
         }catch (Exception e){
             System.out.println("나한테왜그래");
             e.printStackTrace();

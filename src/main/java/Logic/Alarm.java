@@ -37,8 +37,5 @@ public class Alarm {
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
-//    public void ring() {
-//
-//    } Deleted in Alarm
 
 }

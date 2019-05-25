@@ -251,7 +251,7 @@ public class DigitalWatch extends JFrame {
                     if(mode instanceof WatchTimer){
                         WatchTimer t = (WatchTimer)mode;
                         System.out.println(t.getActived());
-                        System.out.println(t.getRemainedTimer());
+//                        System.out.println(t.getRemainedTimer());
                         if(t.getActived() == true){
                             ws.pauseTimer();
                         } else {

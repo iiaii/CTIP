@@ -13,7 +13,6 @@ public class Dday extends TimerTask{
     private LocalDateTime currentDay; //추가 - 하루 지날 때마다 현재 날짜 TimeKeeping에서 정보 입력 해줘야할듯
     private double calDday; //추가 - 계산된 dday, 두 가지 포맷 존재.
     private Boolean displayType = true;
-
     public String loadStartDday() {
         String data, data2;
         SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
