@@ -104,7 +104,7 @@ public class Dday extends TimerTask{
         existStartDday = false;
         startDday = this.currentDay;
         endDday = this.currentDay;
-        cancel();
+        //cancel();
     }
 
     public void changeFormat() { //true면 d-day, false면 %

@@ -296,7 +296,7 @@ public class DigitalWatch extends JFrame {
                         if(t.getIsEnabled()){
                             ws.disableIntervalTimer();
                         }else{
-                            ws.enablentervalTimer(); // 오타임
+                            ws.enableIntervalTimer(); // 오타임
                         }
                     }
                 } else {
@@ -324,6 +324,7 @@ public class DigitalWatch extends JFrame {
                     }
 
                     if (mode instanceof WatchTimer) {
+                        System.out.println("save WatchTimer");
                         ws.saveTimer();
                     }
 

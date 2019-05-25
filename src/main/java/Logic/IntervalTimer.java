@@ -72,7 +72,8 @@ public class IntervalTimer extends TimerTask{
         return remainedIntervalTimer;
     }
     public void saveIntervalTimer(LocalDateTime data) {
-        this.savedIntervalTimer = data;
+        if(!isEnabled)
+            this.savedIntervalTimer = data;
     }
 
     public Boolean getEnabled() {

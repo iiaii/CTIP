@@ -111,7 +111,7 @@ public class ModeManager {
 
     public WatchTimer createTimer() {
         if (!setMode[0]) {
-            this.watchTimer = new WatchTimer(m_timer, this.timekeeping);
+            this.watchTimer = new WatchTimer(m_timer);
             this.setMode[0] = true;
         }
         if (modes.size() == 0) modes.add(this.timekeeping);

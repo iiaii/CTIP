@@ -13,26 +13,23 @@ public class WatchTimer extends TimerTask {
     private LocalDateTime savedTimer;
     private LocalDateTime remainedTimer;
     private Boolean isActived;
-    private TimeKeeping timeKeeping;
     private Timer m_timer;
     private WatchTimer newTimer;
     public Boolean getActived() {
         return isActived;
     }
 
-    public WatchTimer(Timer m_timer, TimeKeeping timeKeeping){
+    public WatchTimer(Timer m_timer){
         this.isActived = false;
         this.m_timer = m_timer;
-        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
-        this.timeKeeping = timeKeeping;
+        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         this.remainedTimer = this.savedTimer;
         this.m_timer.schedule(this, 0, 1000);
     }
     public WatchTimer(){
         this.isActived = false;
         this.m_timer = m_timer;
-        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
-        this.timeKeeping = timeKeeping;
+        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         this.remainedTimer = this.savedTimer;
     }
     public LocalDateTime getSavedTimer(){
@@ -66,7 +63,9 @@ public class WatchTimer extends TimerTask {
     }
 
     public void activate() {
-        this.isActived = true;
+        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
+        if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000") == false)
+            this.isActived = true;
     }
 
     public void pause() {
@@ -90,6 +89,7 @@ public class WatchTimer extends TimerTask {
 
     public void saveTimer(LocalDateTime data) {
         this.savedTimer = data;
+        this.remainedTimer = savedTimer;
         this.isActived = false;
     }
 

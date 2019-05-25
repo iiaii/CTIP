@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Timer;
@@ -168,7 +169,7 @@ public class WatchSystem extends TimerTask{
         exitEditMode();
     }
 
-    public void enablentervalTimer() {
+    public void enableIntervalTimer() {
         ((IntervalTimer)currentMode).enable();
     }
 
@@ -182,7 +183,8 @@ public class WatchSystem extends TimerTask{
     }
 
     public void resetIntervalTimer() {
-        ((IntervalTimer)currentMode).reset();
+        tempTime = LocalDateTime.of(LocalDate.of(0,1,1), LocalTime.of(0,0,0));
+        //((IntervalTimer)currentMode).reset();
     }
 
     public void saveAlarm() {
@@ -415,7 +417,7 @@ public class WatchSystem extends TimerTask{
         else if(mode instanceof StopWatch){
             format = new SimpleDateFormat("HHmmss");
             if(this.isEditMode == true) {
-                data = "zzzzzzzz" + format.format(this.tempTime);
+                data = "zzzzzzzz" + format.format(LocaltoDate(this.tempTime));
             } else {
                 // 10일넘으면 좆된다시발
                 data = "dzzzzzz"+((StopWatch) mode).getCountDay() + format.format(Date.from(((StopWatch) mode).loadStopWatch().atDate(LocalDate.now()).atZone((ZoneId.systemDefault())).toInstant()));
