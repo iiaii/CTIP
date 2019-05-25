@@ -20,11 +20,13 @@ public class IntervalTimer extends TimerTask{
         this.m_timer = m_timer;
         this.iteration = 0;
         this.isEnabled = false;
-        this.savedIntervalTimer = LocalDateTime.of(0,1,1,0,1,0,0);
+        this.savedIntervalTimer = LocalDateTime.of(2019,1,1,0,0,2,0);
         this.remainedIntervalTimer = savedIntervalTimer;
         m_timer.schedule(this, 0, 1000);
     }
-
+    public Boolean getIsEnabled(){
+        return this.isEnabled;
+    }
     public void enable() {
         if(this.remainedIntervalTimer == null)
             this.remainedIntervalTimer = LocalDateTime.of(this.savedIntervalTimer.toLocalDate(), this.savedIntervalTimer.toLocalTime());
@@ -33,7 +35,7 @@ public class IntervalTimer extends TimerTask{
 
     public void disable() {
         this.isEnabled = false;
-        saveIntervalTimer(this.remainedIntervalTimer);
+//        saveIntervalTimer(this.remainedIntervalTimer);
     }
 
     public void reset() {
@@ -56,7 +58,7 @@ public class IntervalTimer extends TimerTask{
     }
     */
     public LocalDateTime loadIntervalTimer(){
-        return savedIntervalTimer;
+        return remainedIntervalTimer;
     }
     public void saveIntervalTimer(LocalDateTime data) {
         this.savedIntervalTimer = data;
@@ -65,8 +67,9 @@ public class IntervalTimer extends TimerTask{
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(this.isEnabled){
             this.remainedIntervalTimer = this.remainedIntervalTimer.minusSeconds(1);
-            if(formatTime.format(LocaltoDate(this.remainedIntervalTimer)).equals("000000")){
+            if(formatTime.format(LocaltoDate(this.remainedIntervalTimer)).equals("235959")){
                 this.remainedIntervalTimer = savedIntervalTimer;
+                this.iteration+=1;
                 System.out.println("beep");
             }
         }

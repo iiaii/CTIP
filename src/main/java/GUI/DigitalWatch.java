@@ -286,8 +286,11 @@ public class DigitalWatch extends JFrame {
 
                     if(mode instanceof IntervalTimer) {
                         IntervalTimer t = (IntervalTimer)mode;
-                        ws.disableIntervalTimer();
-                        ws.enablentervalTimer(); // 오타임
+                        if(t.getIsEnabled()){
+                            ws.disableIntervalTimer();
+                        }else{
+                            ws.enablentervalTimer(); // 오타임
+                        }
                     }
                 } else {
                     ws.increaseData();

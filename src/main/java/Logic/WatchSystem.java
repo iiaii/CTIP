@@ -19,7 +19,7 @@ public class WatchSystem extends TimerTask{
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {true,true,true,false,false};
+    public Boolean[] setMode = {true,false,false,true,true};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
@@ -280,7 +280,7 @@ public class WatchSystem extends TimerTask{
         showMode[0] = this.modeManager.getTimekeeping().getDisplayFormat() == true ? 1 : 0;
 
         for(int i=0;i<setMode.length;i++){
-
+            System.out.println(setMode[i]);
         }
 //        DigitalWatch.getInstance().showMode();
 
@@ -298,6 +298,7 @@ public class WatchSystem extends TimerTask{
         for(int i=0;i<5;i++){
             if(setMode[i])
                 count++;
+            System.out.println(setMode[i]);
         }
         if(count!=3){
             return;
@@ -331,7 +332,7 @@ public class WatchSystem extends TimerTask{
             modeManager.createIntervalTimer();
         }
         else{
-            modeManager.destroyDday();
+            modeManager.destroyIntervalTimer();
         }
         // exitSetMode();
         //selected Mode
@@ -449,10 +450,22 @@ public class WatchSystem extends TimerTask{
             return data+data2;
         }
         else if(mode instanceof IntervalTimer) {
+            String zNum = "";
+            int IterationLength = 0;
             format = new SimpleDateFormat("HHmmss");
             data = format.format(LocaltoDate(((IntervalTimer) mode).loadIntervalTimer()));
-            data2 = "" + ((IntervalTimer) mode).getIteration();
-            return data2 + data;
+            IterationLength = (((IntervalTimer)mode).getIteration() > 0) ? (int)(Math.log10(((IntervalTimer)mode).getIteration())+1) : 0;
+            for(int i = 0; i < 8-IterationLength; i++){
+                zNum += "z";
+            }
+            String tmpString = (IterationLength == 0) ? "": String.valueOf(((IntervalTimer)mode).getIteration());
+            String finIteration = "";
+            if(IterationLength == 0){
+                finIteration = "zzzzzzz0";
+            }else {
+                finIteration = zNum + tmpString;
+            }
+            return finIteration+data;
         }
         return "zzzzzzzzzzzzzzzzz";
     }

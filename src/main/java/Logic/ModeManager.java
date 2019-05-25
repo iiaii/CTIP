@@ -164,6 +164,7 @@ public class ModeManager {
 
 
     public Dday createDday() {
+        System.out.println("test");
         this.dday = new Dday();
         this.setMode[3] = true;
         if(modes.size() == 0) modes.add(this.timekeeping);
