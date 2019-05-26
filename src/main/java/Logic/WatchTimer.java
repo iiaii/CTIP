@@ -37,7 +37,7 @@ public class WatchTimer extends TimerTask {
         this.remainedTimer = this.savedTimer;
     }
 
-    public LocalDateTime getSavedTimer(){
+    public LocalDateTime getSavedTimer() {
         return this.savedTimer;
     }
 
