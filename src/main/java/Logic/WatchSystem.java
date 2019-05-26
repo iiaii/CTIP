@@ -123,8 +123,6 @@ public class WatchSystem extends TimerTask {
 
     public void enterEditMode() {
         isEditMode = true;
-        //String data = "zzzzzzzzzzzzzzzzz";
-        //Object currentMode = modeManager.getCurrentMode();
         if (currentMode instanceof TimeKeeping) {
             tempTime = ((TimeKeeping) currentMode).loadTime();
             currentCursor = 0;
@@ -377,9 +375,6 @@ public class WatchSystem extends TimerTask {
             modeManager.destroyIntervalTimer();
         }
         exitSetMode();
-        //selected Mode
-        //this.watchTimer = modeManager.createTimer();
-        return;
     }
 
     public void exitSetMode() {
@@ -411,7 +406,6 @@ public class WatchSystem extends TimerTask {
 
     /* gui part*/
     public void run() {
-        //Date date = java.util.Date.from(watchTimer.getRemainedTimer().atZone(ZoneId.systemDefault()).toInstant());
         DigitalWatch gui = DigitalWatch.getInstance();
         String data;
         int icon[] = new int[6];
@@ -493,7 +487,15 @@ public class WatchSystem extends TimerTask {
                 data = "zzzzzzzz" + format.format(Date.from(this.tempTime.atZone(ZoneId.systemDefault()).toInstant()));
             } else {
                 // 10일넘으면 좆된다시발
-                data = "dzzzzzz" + ((StopWatch) mode).getCountDay() + format.format(Date.from(((StopWatch) mode).loadStopWatch().atDate(LocalDate.now()).atZone((ZoneId.systemDefault())).toInstant()));
+                int CountDayLength = 0;
+                String zNum = "d";
+
+                CountDayLength = (((StopWatch) mode).getCountDay() % 10000000 > 0) ? (int) (Math.log10(((StopWatch) mode).getCountDay() % 10000000) + 1) : 1;
+                for (int i = 0; i < 7 - CountDayLength; i++) {
+                    zNum += "z";
+                }
+                System.out.println(zNum);
+                data = zNum + (((StopWatch) mode).getCountDay() % 10000000)  + format.format(Date.from(((StopWatch) mode).loadStopWatch().atDate(LocalDate.now()).atZone((ZoneId.systemDefault())).toInstant()));
             }
             return data;
         } else if (mode instanceof Alarm) {

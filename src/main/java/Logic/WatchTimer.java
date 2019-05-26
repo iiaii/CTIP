@@ -103,7 +103,6 @@ public class WatchTimer extends TimerTask {
     }
 
     public void ring() {
-        System.out.println("ring in WatchTimer");
         DigitalWatch.getInstance().beep();
     }
 

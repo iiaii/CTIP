@@ -88,7 +88,6 @@ public class IntervalTimer extends TimerTask {
     }
 
     public void ring() {
-        System.out.println("Ring in interval timer");
         DigitalWatch.getInstance().beep();
     }
 
