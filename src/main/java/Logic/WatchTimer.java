@@ -1,5 +1,7 @@
 package Logic;
 
+import GUI.DigitalWatch;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,26 +15,23 @@ public class WatchTimer extends TimerTask {
     private LocalDateTime savedTimer;
     private LocalDateTime remainedTimer;
     private Boolean isActived;
-    private TimeKeeping timeKeeping;
     private Timer m_timer;
     private WatchTimer newTimer;
     public Boolean getActived() {
         return isActived;
     }
 
-    public WatchTimer(Timer m_timer, TimeKeeping timeKeeping){
+    public WatchTimer(Timer m_timer){
         this.isActived = false;
         this.m_timer = m_timer;
-        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
-        this.timeKeeping = timeKeeping;
+        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         this.remainedTimer = this.savedTimer;
         this.m_timer.schedule(this, 0, 1000);
     }
     public WatchTimer(){
         this.isActived = false;
         this.m_timer = m_timer;
-        this.savedTimer = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
-        this.timeKeeping = timeKeeping;
+        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         this.remainedTimer = this.savedTimer;
     }
     public LocalDateTime getSavedTimer(){
@@ -57,10 +56,12 @@ public class WatchTimer extends TimerTask {
             if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000") == true){
                 this.isActived = false;
                 this.remainedTimer = LocalDateTime.of(this.savedTimer.toLocalDate(), this.savedTimer.toLocalTime());
-                ring();
             } else {
 
                 this.remainedTimer = this.remainedTimer.minusSeconds(1);
+                if(formatTime.format(LocaltoDate(this.remainedTimer)).equals("000000") == true){
+                    ring();
+                }
             }
         }
     }
@@ -77,7 +78,7 @@ public class WatchTimer extends TimerTask {
 
     public void reset() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(timeKeeping.getCurrentTime().toLocalDate(), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(!this.isActived){
             this.savedTimer = initDateTime;
@@ -91,12 +92,15 @@ public class WatchTimer extends TimerTask {
 
     public void saveTimer(LocalDateTime data) {
         this.savedTimer = data;
+        this.remainedTimer = savedTimer;
         this.isActived = false;
     }
 
     public void ring() {
-        System.out.println("beep");
+        System.out.println("ring in WatchTimer");
+        DigitalWatch.getInstance().beep();
     }
+
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }

@@ -1,6 +1,9 @@
 package Logic;
+import GUI.DigitalWatch;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -9,6 +12,7 @@ import java.util.Timer;
 
 public class Dday extends TimerTask{
     private Boolean existStartDday = false;
+    private Boolean existEndDday = false;
     private LocalDateTime startDday;
     private LocalDateTime endDday;
     private LocalDateTime currentDay; //추가 - 하루 지날 때마다 현재 날짜 TimeKeeping에서 정보 입력 해줘야할듯
@@ -27,7 +31,7 @@ public class Dday extends TimerTask{
         this.tm = tm;
         currentDay = tm.getCurrentTime();
         startDday = currentDay; // 초기화는 currentdDay로 하고 increasedata없으면 null 넣어주자
-        endDday = currentDay; //예시
+        endDday = currentDay;
         m_timer.schedule(this, 0, 1000);
         this.displayType = true;
     }
@@ -62,8 +66,10 @@ public class Dday extends TimerTask{
 
     public void run() {
         currentDay = tm.getCurrentTime();
-        if(currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) {
-            cancel();
+        // endDay설정되어있을때만 조건맞을때 실행
+        if(existEndDday && (currentDay.getYear() == endDday.getYear()) && (currentDay.getDayOfYear() == endDday.getDayOfYear())) {
+            existEndDday = false; // 한번만 울려주게 하기 위해서 설정함
+            ring();
         }
     }
 
@@ -74,6 +80,12 @@ public class Dday extends TimerTask{
         }
         else { //%
             this.calDday = (double)(ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double)(ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
+
+            if(Double.isNaN(this.calDday)) {
+                // 0 나누기 0 이 발생함
+                // startDday, endDday, currentDay 똑같을 때 발생
+                if(ChronoUnit.DAYS.between(this.startDday, currentDay) == ChronoUnit.DAYS.between(this.startDday, this.endDday)) return 100;
+            }
         }
         return calDday;
     }
@@ -94,6 +106,7 @@ public class Dday extends TimerTask{
         if(startDday != null) this.startDday = startDday;
         this.existStartDday = (startDday != null);
         this.endDday = endDday;
+        this.existEndDday = true;
     }
 
     public void setCurrentDay(LocalDateTime currentDay) {
@@ -104,7 +117,9 @@ public class Dday extends TimerTask{
         existStartDday = false;
         startDday = this.currentDay;
         endDday = this.currentDay;
-        cancel();
+        this.existEndDday = false;
+        this.displayType = true;
+        //cancel();
     }
 
     public void changeFormat() { //true면 d-day, false면 %
@@ -113,6 +128,11 @@ public class Dday extends TimerTask{
         } else {
             this.displayType = !this.displayType;
         }
+    }
+
+    public void ring(){
+        System.out.println("ring in Dday");
+        DigitalWatch.getInstance().beep();
     }
 
     public Date LocaltoDate(LocalDateTime time){

@@ -35,7 +35,7 @@ class WatchSystemTest {
     }
 
     @Test
-    void enablentervalTimer() {
+    void enableIntervalTimer() {
     }
 
     @Test

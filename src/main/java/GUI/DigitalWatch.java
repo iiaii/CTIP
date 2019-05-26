@@ -1,9 +1,15 @@
 package GUI;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -19,8 +25,11 @@ public class DigitalWatch extends JFrame {
     private WatchCursor[] cursors = new WatchCursor[7];
     private WatchSystem ws;
     private int[] drawedIcons = {-1,-1,-1,-1,-1,-1};
+    private Bell bell = new Bell();
 
     public DigitalWatch() {
+        // Beep sound initialize
+
         /* Image Cache initialize */
         for(int i=0;i<6;i++){
             IconImages.getImage(iconNames[i]);
@@ -222,164 +231,192 @@ public class DigitalWatch extends JFrame {
     class ClickEvent implements ButtonEvent {
 
         public void buttonA() {
-            if(ws.getIsSetMode() == false) {
-                if(ws.getIsEditMode() == false){
-                    Object mode = ws.getCurrentMode();
-                    if(mode instanceof TimeKeeping) {
-                        ws.changeHourFormat();
-                    }
+            if(bell.isPlaying()) {
+                ws.muteBeep();
+            } else {
+                if(ws.getIsSetMode() == false) {
+                    if(ws.getIsEditMode() == false){
+                        Object mode = ws.getCurrentMode();
+                        if(mode instanceof TimeKeeping) {
+                            ws.changeHourFormat();
+                        }
 
-                    if(mode instanceof Dday) {
-                        ws.changeDdayFormat();
+                        if(mode instanceof Dday) {
+                            ws.changeDdayFormat();
+                        }
+                    } else {
+                        ws.changeCursor();
                     }
                 } else {
                     ws.changeCursor();
                 }
-            } else {
-                ws.changeCursor();
             }
-
         }
 
         public void buttonAHold() {
+            ws.muteBeep();
             if(ws.getIsSetMode() == false) {
-                ws.enterSetMode();
+                if(ws.getIsEditMode() == false) // 에딧보드일때는 셋모드로 진입불가능
+                    ws.enterSetMode();
             } else {
                 //none
             }
         }
 
         public void buttonB() {
-            if(ws.getIsSetMode() == true) {
-                //mode toggle
-                ws.chooseModes();
+            if(bell.isPlaying()) {
+                ws.muteBeep();
             } else {
-                Boolean isEditMode = ws.getIsEditMode();
-                Object mode = ws.getCurrentMode();
-                if(isEditMode == false) {
-                    if(mode instanceof WatchTimer){
-                        WatchTimer t = (WatchTimer)mode;
-                        if(t.getActived() == true){
-                            ws.pauseTimer();
-                        } else {
-                            ws.activateTimer();
-                        }
-                    }
-
-                    if(mode instanceof StopWatch){
-                        StopWatch t = (StopWatch)mode;
-                        if(t.getActivated() == true){
-                            ws.pauseStopwatch();
-                        } else {
-                            ws.activateStopwatch();
-                        }
-                    }
-
-                    if(mode instanceof Alarm) {
-                        // get alarm state
-                        if(((Alarm)mode).getAlarmTime(ws.getCurrentAlarmPage()).getEnabled() == true) {
-                            ws.disableAlarm();
-                        } else {
-                            ws.enableAlarm();
-                        }
-                    }
-
-                    if(mode instanceof Dday) {
-                        Dday t = (Dday)mode;
-                        // none
-                    }
-
-                    if(mode instanceof IntervalTimer) {
-                        IntervalTimer t = (IntervalTimer)mode;
-                        if(t.getIsEnabled()){
-                            ws.disableIntervalTimer();
-                        }else{
-                            ws.enablentervalTimer(); // 오타임
-                        }
-                    }
+                if(ws.getIsSetMode() == true) {
+                    //mode toggle
+                    ws.chooseModes();
                 } else {
-                    ws.increaseData();
+                    Boolean isEditMode = ws.getIsEditMode();
+                    Object mode = ws.getCurrentMode();
+                    if (isEditMode == false) {
+                        if (mode instanceof WatchTimer) {
+                            WatchTimer t = (WatchTimer) mode;
+                            if (t.getActived() == true) {
+                                ws.pauseTimer();
+                            } else {
+                                ws.activateTimer();
+                            }
+                        }
+
+                        if (mode instanceof StopWatch) {
+                            StopWatch t = (StopWatch) mode;
+                            if (t.getActivated() == true) {
+                                ws.pauseStopwatch();
+                            } else {
+                                ws.activateStopwatch();
+                            }
+                        }
+
+                        if (mode instanceof Alarm) {
+                            // get alarm state
+                            if (((Alarm) mode).getAlarmTime(ws.getCurrentAlarmPage()).getEnabled() == true) {
+                                ws.disableAlarm();
+                            } else {
+                                ws.enableAlarm();
+                            }
+                        }
+
+                        if (mode instanceof Dday) {
+                            Dday t = (Dday) mode;
+                            // none
+                        }
+
+                        if (mode instanceof IntervalTimer) {
+                            IntervalTimer t = (IntervalTimer) mode;
+                            if (t.getIsEnabled()) {
+                                ws.disableIntervalTimer();
+                            } else {
+                                ws.enableIntervalTimer(); // 오타임
+                            }
+                        }
+                    } else {
+                        ws.increaseData();
+                    }
                 }
             }
         }
 
         public void buttonBHold() {
             ///nope
+            ws.muteBeep();
         }
 
         public void buttonC() {
-            if(ws.getIsSetMode() == true) {
-                //mode toggle
-                //ws.chooseModes();
-                ws.saveMode();
+            if(bell.isPlaying()) {
+                ws.muteBeep();
             } else {
-                Boolean isEditMode = ws.getIsEditMode();
-                Object mode = ws.getCurrentMode();
-                if (isEditMode == true) {
-                    if (mode instanceof TimeKeeping) {
-                        ws.saveTime();
-                    }
-
-                    if (mode instanceof WatchTimer) {
-                        ws.saveTimer();
-                    }
-
-                    if (mode instanceof Alarm) {
-                        ws.saveAlarm();
-                    }
-
-                    if (mode instanceof Dday) {
-                        ws.saveDday();
-                    }
-
-                    if (mode instanceof IntervalTimer) {
-                        ws.saveIntervalTimer();
-                    }
+                if (ws.getIsSetMode() == true) {
+                    //mode toggle
+                    //ws.chooseModes();
+                    ws.saveMode();
                 } else {
-                    ws.changeMode();
+                    Boolean isEditMode = ws.getIsEditMode();
+                    Object mode = ws.getCurrentMode();
+                    if (isEditMode == true) {
+                        if (mode instanceof TimeKeeping) {
+                            ws.saveTime();
+                        }
+
+                        if (mode instanceof WatchTimer) {
+                            System.out.println("save WatchTimer");
+                            ws.saveTimer();
+                        }
+
+                        if (mode instanceof Alarm) {
+                            ws.saveAlarm();
+                        }
+
+                        if (mode instanceof Dday) {
+                            ws.saveDday();
+                        }
+
+                        if (mode instanceof IntervalTimer) {
+                            ws.saveIntervalTimer();
+                        }
+                    } else {
+                        ws.changeMode();
+                    }
                 }
             }
         }
 
         public void buttonCHold() {
+            ws.muteBeep();
             if(ws.getIsSetMode() == true) {
                 //none
             } else {
-                ws.enterEditMode();
+                Object mode = ws.getCurrentMode();
+                if(!(mode instanceof StopWatch)) {
+                    ws.enterEditMode();
+                }
             }
         }
 
         public void buttonD() {
-            if(ws.getIsSetMode() == true) {
-                //none
+            if(bell.isPlaying()) {
+                ws.muteBeep();
             } else {
-                Boolean isEditMode = ws.getIsEditMode();
-                Object mode = ws.getCurrentMode();
-                if (isEditMode == true) {
-                    if (mode instanceof Alarm) {
-                        ws.resetAlarm();
-                    }
-
-                    if (mode instanceof Dday) {
-                        ws.changePage();//dday changepage가 없음
-                    }
+                if(ws.getIsSetMode() == true) {
+                    //none
                 } else {
-                    if(mode instanceof WatchTimer) {
-                        ws.resetTimer();
-                    }
+                    Boolean isEditMode = ws.getIsEditMode();
+                    Object mode = ws.getCurrentMode();
+                    if (isEditMode == true) {
+                        if (mode instanceof Alarm) {
+                            ws.resetAlarm();
+                        }
 
-                    if(mode instanceof StopWatch) {
-                        ws.resetStopwatch();
-                    }
+                        if (mode instanceof Dday) {
+                            ws.changePage();//dday changepage가 없음
+                        }
 
-                    if(mode instanceof Alarm) {
-                        ws.changeAlarmPage();
+                        if (mode instanceof IntervalTimer) {
+                            ws.resetIntervalTimer();
+                        }
+                    } else {
+                        if (mode instanceof WatchTimer) {
+                            ws.resetTimer();
+                        }
+
+                        if (mode instanceof StopWatch) {
+                            ws.resetStopwatch();
+                        }
+
+                        if (mode instanceof Alarm) {
+                            ws.changeAlarmPage();
+                        }
                     }
                 }
             }
         }
 
         public void buttonDHold() {
+            ws.muteBeep();
             Boolean isEditMode = ws.getIsEditMode();
             Object mode = ws.getCurrentMode();
             if(ws.getIsSetMode() == true) {
@@ -394,6 +431,48 @@ public class DigitalWatch extends JFrame {
                 }
             }
         }
+    }
+
+    class Bell extends Thread {
+        private AudioInputStream audioIn;
+        private Clip clip;
+        private Boolean isBeeping = false;
+
+        public Bell() {
+            File f = new File("./beep-4.wav");
+            try {
+                audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+                clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.stop();
+            } catch (Exception e){
+
+            }
+        }
+        public void run(){
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+        }
+
+        public void play(){
+            this.run();
+        }
+
+        public void pause(){
+            clip.stop();
+        }
+
+        public Boolean isPlaying(){
+            return clip.isActive();
+        }
+    }
+
+    public void beep(){
+        bell.play();
+    }
+
+    public void muteBeep() {
+        bell.pause();
     }
 
     public static void main(String[] args) {

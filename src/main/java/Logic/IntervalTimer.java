@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import GUI.DigitalWatch;
 import  sun.audio.*;    //import the sun.audio package
 import  java.io.*;
 
@@ -40,7 +41,8 @@ public class IntervalTimer extends TimerTask{
         this.m_timer = m_timer;
         this.iteration = 0;
         this.isEnabled = false;
-        this.savedIntervalTimer = LocalDateTime.of(2019,1,1,0,0,2,0);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+        this.savedIntervalTimer = initDateTime;
         this.remainedIntervalTimer = savedIntervalTimer;
         m_timer.schedule(this, 0, 1000);
     }
@@ -48,9 +50,12 @@ public class IntervalTimer extends TimerTask{
         return this.isEnabled;
     }
     public void enable() {
-        if(this.remainedIntervalTimer == null)
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+        if(!sdf.format(LocaltoDate(this.savedIntervalTimer)).equals("000000")) { // 저장된 intervaltimer이 000000이면 동작하지않음 말도안돼 십라
+            this.isEnabled = true;
+        }
+        if(sdf.format(LocaltoDate(this.remainedIntervalTimer)).equals("000000"))
             this.remainedIntervalTimer = LocalDateTime.of(this.savedIntervalTimer.toLocalDate(), this.savedIntervalTimer.toLocalTime());
-        this.isEnabled = true;
     }
 
     public void disable() {
@@ -58,21 +63,16 @@ public class IntervalTimer extends TimerTask{
 //        saveIntervalTimer(this.remainedIntervalTimer);
     }
 
-    public void reset() {
-        LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDate tmpDate = LocalDate.of(0,1,1);
-        LocalDateTime initDateTime = LocalDateTime.of(tmpDate, tmpTime);
-
-        if(!this.isEnabled){
-            this.savedIntervalTimer = initDateTime;
-            this.remainedIntervalTimer = initDateTime;
-        }
-    }
     public LocalDateTime loadIntervalTimer(){
         return remainedIntervalTimer;
     }
+
     public void saveIntervalTimer(LocalDateTime data) {
-        this.savedIntervalTimer = data;
+        if(!isEnabled) {
+            this.savedIntervalTimer = data;
+            this.remainedIntervalTimer = data;
+            this.iteration = 0;
+        }
     }
 
     public Boolean getEnabled() {
@@ -84,38 +84,24 @@ public class IntervalTimer extends TimerTask{
     }
 
     public void ring() {
-        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(this.isEnabled){
-            this.remainedIntervalTimer = this.remainedIntervalTimer.minusSeconds(1);
-            if(formatTime.format(LocaltoDate(this.remainedIntervalTimer)).equals("235959")){
-                this.remainedIntervalTimer = savedIntervalTimer;
-                this.iteration+=1;
-                InputStream in = null;
-                try {
-                    in = new FileInputStream("beep-4.wav");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                AudioStream as = null;
-                try {
-                    as = new AudioStream(in);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // Use the static class member "player" from class AudioPlayer to play
-                // clip.
-                AudioPlayer.player.start(as);
-
-                // Similarly, to stop the audio.
-                AudioPlayer.player.stop(as);
-            }
-        }
+        System.out.println("Ring in interval timer");
+        DigitalWatch.getInstance().beep();
     }
 
     @Override
     public void run(){
-        ring();
+        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
+        if(this.isEnabled){
+            if(formatTime.format(LocaltoDate(this.remainedIntervalTimer)).equals("000000")){
+                this.remainedIntervalTimer = savedIntervalTimer.minusSeconds(1);
+                iteration++;
+            } else {
+                this.remainedIntervalTimer = this.remainedIntervalTimer.minusSeconds(1);
+                if(formatTime.format(LocaltoDate(this.remainedIntervalTimer)).equals("000000")){ // 깎인 것이 0이면
+                    ring();
+                }
+            }
+        }
     }
     public Date LocaltoDate(LocalDateTime time){
         return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());

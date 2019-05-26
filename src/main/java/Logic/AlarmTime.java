@@ -1,4 +1,6 @@
 package Logic;
+import GUI.DigitalWatch;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -52,8 +54,7 @@ public class AlarmTime extends TimerTask {
     }
 
     public void ring() {
-        System.out.println("BEEP!");
-        this.isEnabled = false;
+        DigitalWatch.getInstance().beep();
     }
     public Boolean getEnabled() {
         return isEnabled;

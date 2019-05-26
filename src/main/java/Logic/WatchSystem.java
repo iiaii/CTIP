@@ -1,9 +1,12 @@
 package Logic;
 import GUI.DigitalWatch;
+import sun.jvm.hotspot.utilities.Interval;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Timer;
@@ -14,7 +17,7 @@ public class WatchSystem extends TimerTask{
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage=0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {true,true,false,false,true};
+    public Boolean[] setMode = {true,true,false,true,false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     public ModeManager modeManager;
@@ -48,6 +51,8 @@ public class WatchSystem extends TimerTask{
             currentCursor = 0;
         }
         else if(currentMode instanceof WatchTimer){
+            if(((WatchTimer)currentMode).getActived() == true)
+                isEditMode = false;
             tempTime = ((WatchTimer) currentMode).loadTimer();
             currentCursor = 4;
         }
@@ -61,7 +66,9 @@ public class WatchSystem extends TimerTask{
             currentCursor = 0;
         }
         else if(currentMode instanceof IntervalTimer){
-            tempTime = ((IntervalTimer) currentMode).loadIntervalTimer();
+            if(((IntervalTimer)currentMode).getIsEnabled() == true)
+                isEditMode = false;
+            tempTime = ((IntervalTimer) currentMode).getSavedIntervalTimer();
             currentCursor = 4;
         }
         else{
@@ -160,7 +167,9 @@ public class WatchSystem extends TimerTask{
     }
 
     public void resetTimer() {
-        ((WatchTimer)currentMode).reset();
+        if(((WatchTimer)currentMode).getActived() == false){
+            ((WatchTimer)currentMode).reset();
+        }
     }
 
     public void saveTimer() {
@@ -168,7 +177,7 @@ public class WatchSystem extends TimerTask{
         exitEditMode();
     }
 
-    public void enablentervalTimer() {
+    public void enableIntervalTimer() {
         ((IntervalTimer)currentMode).enable();
     }
 
@@ -182,7 +191,10 @@ public class WatchSystem extends TimerTask{
     }
 
     public void resetIntervalTimer() {
-        ((IntervalTimer)currentMode).reset();
+        tempTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+        ((IntervalTimer)currentMode).saveIntervalTimer(tempTime);
+        exitEditMode();
+        //((IntervalTimer)currentMode).reset();
     }
 
     public void saveAlarm() {
@@ -190,9 +202,10 @@ public class WatchSystem extends TimerTask{
         exitEditMode();
     }
 
-    public LocalDateTime resetAlarm() {
-        tempTime = null;
-        return tempTime;
+    public void resetAlarm() {
+        tempTime = LocalDateTime.of(LocalDate.of(0,1,1), LocalTime.of(0,0,0));
+        ((Alarm)currentMode).saveAlarm(currentAlarmPage, tempTime);
+        exitEditMode();
     }
 
     public void enableAlarm() {
@@ -234,7 +247,6 @@ public class WatchSystem extends TimerTask{
     public int getCurrentAlarmPage() {
         return currentAlarmPage;
     }
-
     public void activateStopwatch() {
         ((StopWatch)currentMode).activate();
     }
@@ -244,9 +256,10 @@ public class WatchSystem extends TimerTask{
     }
 
     public void resetStopwatch() {
-        ((StopWatch)currentMode).reset();
+        if(((StopWatch)currentMode).getActivated() == false) {
+            ((StopWatch) currentMode).reset();
+        }
     }
-
     public void changeMode() {
         this.currentMode = modeManager.getNextMode();
         this.currentDdayPage = 0;
@@ -318,8 +331,7 @@ public class WatchSystem extends TimerTask{
         currentDdayPage = 0;
     }
     public void muteBeep() {
-
-        return;
+        DigitalWatch.getInstance().muteBeep();
     }
 
     public Boolean[] enterSetMode() {
@@ -417,7 +429,7 @@ public class WatchSystem extends TimerTask{
         else if(mode instanceof StopWatch){
             format = new SimpleDateFormat("HHmmss");
             if(this.isEditMode == true) {
-                data = "zzzzzzzz" + format.format(this.tempTime);
+                data = "zzzzzzzz" + format.format(LocaltoDate(this.tempTime));
             } else {
                 // 10일넘으면 좆된다시발
                 data = "dzzzzzz"+((StopWatch) mode).getCountDay() + format.format(Date.from(((StopWatch) mode).loadStopWatch().atDate(LocalDate.now()).atZone((ZoneId.systemDefault())).toInstant()));
@@ -427,7 +439,7 @@ public class WatchSystem extends TimerTask{
         else if(mode instanceof Alarm){
             format = new SimpleDateFormat("HHmmss");
             if(this.isEditMode == true) {
-                data = "zzzzzzzz" + format.format(this.tempTime);
+                data = "zzzzzzzz" + format.format(LocaltoDate(this.tempTime));
             } else {
                 data = format.format(LocaltoDate(((Alarm) mode).loadAlarm(currentAlarmPage)));
                 if(((Alarm) mode).getAlarmTime(currentAlarmPage).getEnabled() == true)
@@ -464,7 +476,7 @@ public class WatchSystem extends TimerTask{
             String finIteration = "";
             format = new SimpleDateFormat("HHmmss");
             if(this.isEditMode == true) {
-                finIteration = format.format(this.tempTime);
+                finIteration = "zzzzzzzz" + format.format(LocaltoDate(this.tempTime));
             } else {
                 String zNum = "";
                 int IterationLength = 0;
