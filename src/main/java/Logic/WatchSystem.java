@@ -334,9 +334,7 @@ public class WatchSystem extends TimerTask {
     }
 
     public void chooseModes() {
-        System.out.println(setMode[currentModeCursor]);
         setMode[currentModeCursor] = !setMode[currentModeCursor];
-        System.out.println(setMode[currentModeCursor]);
     }
 
     public void saveMode() {
@@ -426,7 +424,6 @@ public class WatchSystem extends TimerTask {
                 gui.selectCursor(-1);
             }
         } catch (Exception e) {
-            System.out.println("나한테왜그래");
             e.printStackTrace();
         }
     }
@@ -494,7 +491,6 @@ public class WatchSystem extends TimerTask {
                 for (int i = 0; i < 7 - CountDayLength; i++) {
                     zNum += "z";
                 }
-                System.out.println(zNum);
                 data = zNum + (((StopWatch) mode).getCountDay() % 10000000)  + format.format(Date.from(((StopWatch) mode).loadStopWatch().atDate(LocalDate.now()).atZone((ZoneId.systemDefault())).toInstant()));
             }
             return data;
