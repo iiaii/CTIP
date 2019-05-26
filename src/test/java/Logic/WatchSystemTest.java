@@ -1,5 +1,6 @@
 package Logic;
 
+import GUI.DigitalWatch;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,11 +19,17 @@ class WatchSystemTest {
     StopWatch sw = new StopWatch(m_timer);
     Dday d = new Dday(tk, m_timer);
     Alarm alarm = new Alarm(m_timer, tk);
+    ModeManager mM = new ModeManager(m_timer);
     @Test
     void enterEditMode() {
-        ws.modeManager.setCurrentMode(0);
+        ws.setCurrentMode(wt);
+        wt.setActived(true);
+        assertFalse(ws.getEdited());
+        LocalDateTime tmpDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+        wt.setRemainedTimer(tmpDateTime);
         ws.enterEditMode();
-//        assertEquals(ws.modeManager.getTimekeeping().loadTime(), tk.loadTime());
+        assertEquals(ws.getTempTime(), tmpDateTime);
+        assertEquals(ws.getCurrentCursor(), 4);
     }
 
     @Test
@@ -100,8 +107,19 @@ class WatchSystemTest {
     @Test
     void enableIntervalTimer() {
         ws.setCurrentMode(it);
+
+        LocalTime tmpTime = LocalTime.of(0,0,0);
+        LocalTime tmpTime2 = LocalTime.of(0,10,0);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
+        LocalDateTime initDateTime2 = LocalDateTime.of(LocalDate.now(), tmpTime2);
+        it.setSavedIntervalTimer(initDateTime2);
+        it.setRemainedIntervalTimer(initDateTime);
+
         ws.enableIntervalTimer();
-        assertEquals(it.getIsEnabled(), true);
+
+        assertTrue(it.getIsEnabled());
+        assertEquals(it.getRemainedIntervalTimer(), it.getSavedIntervalTimer());
+
     }
 
     @Test
@@ -126,11 +144,13 @@ class WatchSystemTest {
     @Test
     void resetIntervalTimer() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(0,1,1), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         ws.setCurrentMode(it);
         it.setEnabled(false);
         ws.resetIntervalTimer();
         assertEquals(it.getSavedIntervalTimer(), initDateTime);
+        assertEquals(it.getRemainedIntervalTimer(), initDateTime);
+        assertEquals(it.getIteration(), 0);
     }
 
     @Test
@@ -146,8 +166,13 @@ class WatchSystemTest {
 
     @Test
     void resetAlarm() {
+        LocalDateTime tempTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
+        ws.setCurrentMode(alarm);
+        ws.setCurrentAlarmPage(0);
+        ws.setTempTime(tempTime);
+        alarm.getAlarmTime(0).setCurrentAlarm(tempTime);
         ws.resetAlarm();
-        assertEquals(ws.getTempTime(), null);
+        assertEquals(ws.getModeManager().getAlarm().getAlarmTime(0).getCurrentAlarm(), tempTime);
     }
 
     @Test
@@ -169,11 +194,10 @@ class WatchSystemTest {
 
     @Test
     void changeAlarmPage() {
-//        ws.setCurrentMode(alarm);
-//        ws.setCurrentAlarmPage(0);
-//        ws.changeAlarmPage();
-//        assertEquals(alarm.getAlarmTime(0).loadAlarmData(),
-//                );
+        ws.setCurrentMode(alarm);
+        ws.setCurrentAlarmPage(3);
+        ws.changeAlarmPage();
+        assertEquals(0, ws.getCurrentAlarmPage());
 
     }
 
@@ -190,14 +214,19 @@ class WatchSystemTest {
     @Test
     void saveDday() {
         ws.setCurrentMode(d);
-        ws.setEdited(true);
-        ws.modeManager.getDday().setExistStartDday(true);
-
+        ws.setEdited(false);
+        LocalDateTime tmpDateTime= d.getStartDday();
+        ws.saveDday();
+        assertEquals(d.getStartDday(), tmpDateTime);
         LocalTime tmpTime = LocalTime.of(0,0,0);
         LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(2019,5,26), tmpTime);
+        LocalDateTime initDateTime2 = LocalDateTime.of(LocalDate.of(2019,5,27), tmpTime);
         ws.setTempTime(initDateTime);
+        ws.setTempTime2(initDateTime2);
+        ws.setEdited(true);
         ws.saveDday();
         assertEquals(d.getStartDday(), initDateTime);
+        assertEquals(d.getEndDday(), initDateTime2);
         assertEquals(d.getExistStartDday(), true);
     }
 
@@ -252,14 +281,6 @@ class WatchSystemTest {
     }
 
     @Test
-    void changeMode() {
-//        ws.modeManager.getNextMode();
-//        assertEquals(ws.getCurrentDdayPage(), 0);
-//        assertEquals(ws.getCurrentAlarmPage(), 0);
-//        assertFalse(ws.getEdited());
-    }
-
-    @Test
     void chooseModes() {
         ws.setCurrentCursor(0);
         Boolean[] tmp = {true,true,false,false,true};
@@ -273,16 +294,18 @@ class WatchSystemTest {
         Boolean[] tmp = {true,true,false,false,true};
         ws.setSetMode(tmp);
         ws.saveMode();
-        assertNotNull(ws.modeManager.getWatchTimer());
-        assertNotNull(ws.modeManager.getStopwatch());
-        assertNotNull(ws.modeManager.getIntervaltimer());
+        assertNotNull(ws.getModeManager().getWatchTimer());
+        assertNotNull(ws.getModeManager().getStopwatch());
+        assertNotNull(ws.getModeManager().getIntervaltimer());
     }
     @Test
     void exitSetMode(){
         assertFalse(ws.getIsSetMode());
-        assertEquals(ws.getCurrentMode(), 0);
-        ws.modeManager.setCurrentMode(0);
-//        assertEquals(ws.getCurrentMode(), ws.getCurrentMode());
+        assertEquals(ws.getCurrentModeCursor(), 0);
+        ws.setCurrentMode(ws.getModeManager().getWatchTimer());
+        ws.enterSetMode();
+        ws.exitSetMode();
+        assertEquals(ws.getCurrentMode(), ws.getModeManager().getTimekeeping());
     }
 
     @Test
@@ -293,10 +316,19 @@ class WatchSystemTest {
 
     @Test
     void muteBeep() {
+        ws.muteBeep();
+        assertFalse(DigitalWatch.getInstance().getBell().isPlaying());
     }
 
     @Test
     void enterSetMode() {
+        ws.setCurrentMode(ws.getModeManager().getTimekeeping());
+        ws.enterSetMode();
+        assertTrue(ws.getIsSetMode());
+        ws.exitSetMode();
+        ws.setCurrentMode(ws.getModeManager().getStopwatch());
+        ws.enterSetMode();
+        assertTrue(ws.getIsSetMode());
     }
 
     @Test
@@ -309,5 +341,19 @@ class WatchSystemTest {
         wt.setRemainedTimer(initDateTime);
         ws.activateTimer();
         assertFalse(wt.getActived());
+    }
+
+
+    @Test
+    void changeMode() {
+        Boolean[] tmpSetMode = {true, true, true, false, false};
+        ws.setSetMode(tmpSetMode);
+        ws.saveMode();
+        Object nextMode = ws.getModeManager().getWatchTimer();
+        ws.changeMode();
+        assertEquals(ws.getCurrentMode(), nextMode);
+        assertEquals(ws.getCurrentDdayPage(), 0);
+        assertEquals(ws.getCurrentAlarmPage(), 0);
+        assertFalse(ws.getEdited());
     }
 }

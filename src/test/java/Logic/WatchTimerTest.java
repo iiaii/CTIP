@@ -1,5 +1,6 @@
 package Logic;
 
+import GUI.DigitalWatch;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Timer;
@@ -13,11 +14,13 @@ class WatchTimerTest {
 
     TimeKeeping tk = new TimeKeeping(m_timer);
     WatchTimer wt = new WatchTimer(m_timer);
-
     @Test
     void activate() {
+        LocalTime tmpTime = LocalTime.of(0,0,0);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
+        wt.setRemainedTimer(initDateTime);
         wt.activate();
-        assertEquals(wt.getActived(), true);
+        assertFalse(wt.getActived());
     }
 
     @Test
@@ -29,7 +32,7 @@ class WatchTimerTest {
     @Test
     void reset() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         wt.reset();
         assertEquals(wt.getRemainedTimer(), initDateTime);
         assertEquals(wt.getSavedTimer(), initDateTime);
@@ -37,9 +40,11 @@ class WatchTimerTest {
 
     @Test
     void loadTimer() {
-        LocalDateTime loadDateTime = wt.loadTimer();
+        LocalTime tmpTime = LocalTime.of(0,0,0);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
+        wt.setRemainedTimer(initDateTime);
         LocalDateTime getRemainedTime = wt.getRemainedTimer();
-        assertEquals(loadDateTime, getRemainedTime);
+        assertEquals(getRemainedTime, initDateTime);
     }
 
     @Test
@@ -48,14 +53,13 @@ class WatchTimerTest {
         LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tmpTime);
         wt.saveTimer(initDateTime);
         assertEquals(wt.getSavedTimer(), initDateTime);
+        assertEquals(wt.getRemainedTimer(), initDateTime);
+        assertFalse(wt.getActived());
     }
 
     @Test
     void ring() {
-        LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tmpTime);
-        wt.setRemainedTimer(initDateTime);
         wt.ring();
-        assertEquals(wt.getActived(), false);
+        assertTrue(DigitalWatch.getInstance().getBell().isPlaying());
     }
 }

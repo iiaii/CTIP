@@ -15,9 +15,9 @@ class AlarmTest {
     private Alarm alarm = new Alarm(m_timer, timeKeeping);
     @Test
     void loadAlarm() {
-        LocalDateTime loadAlarmpage = alarm.loadAlarm(0);
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        assertEquals(loadAlarmpage.toLocalTime(), tmpTime);
+        alarm.getAlarmTime(0).setCurrentAlarm(LocalDateTime.of(LocalDate.now(), tmpTime));
+        assertEquals(alarm.getAlarmTime(0).getCurrentAlarm(), LocalDateTime.of(LocalDate.now(),tmpTime));
     }
 
     @Test

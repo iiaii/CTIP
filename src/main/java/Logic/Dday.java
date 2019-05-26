@@ -27,6 +27,22 @@ public class Dday extends TimerTask {
     private Boolean displayType;
     private TimeKeeping tm;
 
+    public void setExistStartDday(Boolean existStartDday) {
+        this.existStartDday = existStartDday;
+    }
+
+    public Boolean getExistEndDday() {
+        return existEndDday;
+    }
+
+    public void setExistEndDday(Boolean existEndDday) {
+        this.existEndDday = existEndDday;
+    }
+
+    public void setCalDday(double calDday) {
+        this.calDday = calDday;
+    }
+
     public Dday(TimeKeeping tm, Timer m_timer) {
         this.m_timer = m_timer;
         this.tm = tm;

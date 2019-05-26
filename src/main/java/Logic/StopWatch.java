@@ -29,6 +29,14 @@ public class StopWatch extends TimerTask {
         }
     }
 
+    public void setActivated(Boolean activated) {
+        isActivated = activated;
+    }
+
+    public void setCountDay(int countDay) {
+        this.countDay = countDay;
+    }
+
     public LocalTime getCurrentStopwatch() {
         return currentStopwatch;
     }
@@ -55,8 +63,7 @@ public class StopWatch extends TimerTask {
             currentStopwatch = LocalTime.of(0, 0, 0);
             this.isActivated = false;
             this.countDay = 0;
-        } else
-            System.out.println("비활성화 되지 않습니다.");
+        }
     }
 
     public LocalTime loadStopWatch() {

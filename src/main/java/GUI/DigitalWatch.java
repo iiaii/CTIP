@@ -27,6 +27,9 @@ public class DigitalWatch extends JFrame {
     private int[] drawedIcons = {-1,-1,-1,-1,-1,-1};
     private Bell bell = new Bell();
 
+    public Bell getBell() {
+        return bell;
+    }
     public DigitalWatch() {
         for(int i=0;i<6;i++){
             IconImages.getImage(iconNames[i]);
@@ -358,10 +361,7 @@ public class DigitalWatch extends JFrame {
             if(ws.getIsSetMode() == true) {
                 //none
             } else {
-                Object mode = ws.getCurrentMode();
-                if(!(mode instanceof StopWatch)) {
-                    ws.enterEditMode();
-                }
+                ws.enterEditMode();
             }
         }
 
@@ -421,7 +421,7 @@ public class DigitalWatch extends JFrame {
         }
     }
 
-    class Bell extends Thread {
+    public class Bell extends Thread {
         private AudioInputStream audioIn;
         private Clip clip;
         private Boolean isBeeping = false;

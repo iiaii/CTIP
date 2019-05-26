@@ -13,16 +13,16 @@ class TimeKeepingTest {
     TimeKeeping tk = new TimeKeeping(m_timer);
     @Test
     void loadTime() {
-        LocalDateTime currentTime = tk.getCurrentTime();
-        LocalDateTime loadTime = tk.loadTime();
-        assertEquals(currentTime, loadTime);
+        LocalTime initTime = LocalTime.of(0,0,0);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), initTime);
+        tk.setCurrentTime(initDateTime);
+        assertEquals(tk.loadTime(), initDateTime);
     }
 
     @Test
     void saveTime() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tmpTime);
-
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         tk.saveTime(initDateTime);
         assertEquals(tk.getCurrentTime(), initDateTime);
     }
@@ -30,6 +30,6 @@ class TimeKeepingTest {
     @Test
     void setHourformat() {
         tk.setHourformat();
-        assertEquals(tk.getDisplayFormat(), false);
+        assertFalse(tk.getDisplayFormat());
     }
 }

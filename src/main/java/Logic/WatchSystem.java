@@ -22,12 +22,20 @@ public class WatchSystem extends TimerTask {
     public Boolean[] setMode = {true, true, true, false, false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
-    public ModeManager modeManager;
+    private ModeManager modeManager;
     private Boolean isEditMode = false;
     private Boolean isSetMode = false;
     private Object currentMode = null;
     private Timer m_timer;
     private Boolean isEdited = false;
+
+    public ModeManager getModeManager() {
+        return modeManager;
+    }
+
+    public void setModeManager(ModeManager modeManager) {
+        this.modeManager = modeManager;
+    }
 
     public WatchSystem(Timer m_timer) {
         this.m_timer = m_timer;
@@ -43,6 +51,75 @@ public class WatchSystem extends TimerTask {
         this.tempTime2 = null;
         this.saveMode();
     }
+
+    public int getCurrentCursor() {
+        return currentCursor;
+    }
+
+    public void setCurrentCursor(int currentCursor) {
+        this.currentCursor = currentCursor;
+    }
+
+    public int getCurrentModeCursor() {
+        return currentModeCursor;
+    }
+
+    public void setCurrentModeCursor(int currentModeCursor) {
+        this.currentModeCursor = currentModeCursor;
+    }
+
+    public void setCurrentDdayPage(int currentDdayPage) {
+        this.currentDdayPage = currentDdayPage;
+    }
+
+    public void setCurrentAlarmPage(int currentAlarmPage) {
+        this.currentAlarmPage = currentAlarmPage;
+    }
+
+    public Boolean[] getSetMode() {
+        return setMode;
+    }
+
+    public void setSetMode(Boolean setMode) {
+        isSetMode = setMode;
+    }
+
+    public void setCurrentMode(Object currentMode) {
+        this.currentMode = currentMode;
+    }
+
+    public Boolean getEdited() {
+        return isEdited;
+    }
+
+    public void setEdited(Boolean edited) {
+        isEdited = edited;
+    }
+
+    public void setSetMode(Boolean[] setMode) {
+        this.setMode = setMode;
+    }
+
+    public LocalDateTime getTempTime() {
+        return tempTime;
+    }
+
+    public void setTempTime(LocalDateTime tempTime) {
+        this.tempTime = tempTime;
+    }
+
+    public LocalDateTime getTempTime2() {
+        return tempTime2;
+    }
+
+    public void setTempTime2(LocalDateTime tempTime2) {
+        this.tempTime2 = tempTime2;
+    }
+
+    public Boolean getEditMode() {
+        return isEditMode;
+    }
+
 
     public void enterEditMode() {
         isEditMode = true;
@@ -66,9 +143,9 @@ public class WatchSystem extends TimerTask {
                 isEditMode = false;
             tempTime = ((IntervalTimer) currentMode).getSavedIntervalTimer();
             currentCursor = 4;
-        } else {
-            System.out.println("errror");
         }
+        else if(currentMode instanceof StopWatch)
+            isEditMode = false;
     }
 
     public LocalDateTime increaseData() {
@@ -203,9 +280,8 @@ public class WatchSystem extends TimerTask {
         ((Alarm) currentMode).disableAlarm(currentAlarmPage);
     }
 
-    public LocalDateTime changeAlarmPage() {
-        currentAlarmPage = (currentAlarmPage + 1) % 4;
-        return ((Alarm) currentMode).loadAlarm(currentAlarmPage);
+    public void changeAlarmPage() {
+        currentAlarmPage = (currentAlarmPage+1) % 4;
     }
 
     public void changePage() {
