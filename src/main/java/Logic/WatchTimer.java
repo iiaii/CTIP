@@ -37,7 +37,7 @@ public class WatchTimer extends TimerTask {
         this.remainedTimer = this.savedTimer;
     }
 
-    public LocalDateTime getSavedTimer() {
+    public LocalDateTime getSavedTimer(){
         return this.savedTimer;
     }
 
@@ -52,10 +52,10 @@ public class WatchTimer extends TimerTask {
     public void setRemainedTimer(LocalDateTime remainedTimer) {
         this.remainedTimer = remainedTimer;
     }
-
     public void setActived(Boolean actived) {
         isActived = actived;
     }
+
 
     @Override
     public void run() {
