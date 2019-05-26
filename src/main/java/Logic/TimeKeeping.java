@@ -1,4 +1,5 @@
 package Logic;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ public class TimeKeeping extends TimerTask {
         currentTime = currentTime.plusSeconds(1);
     }
 
-    public LocalDateTime loadTime(){
+    public LocalDateTime loadTime() {
         return currentTime;
     }
 

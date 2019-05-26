@@ -8,7 +8,7 @@ import java.util.Timer;
 
 public class Alarm {
     public AlarmTime[] alarms = new AlarmTime[4];
-    public Alarm(Timer m_timer,TimeKeeping timeKeeping) {
+    public Alarm(Timer m_timer, TimeKeeping timeKeeping) {
         for(int i=0;i<4;i++){
             alarms[i] = new AlarmTime(m_timer,timeKeeping);
         }
