@@ -92,9 +92,9 @@ public class Dday extends TimerTask {
 
     public double getCalDday() {
         currentDay = tm.getCurrentTime();
-        if (this.displayType) { //dday
+        if (this.displayType) {
             this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday) + ((currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) == true ? 0 : 1);
-        } else { //%
+        } else {
             this.calDday = (double) (ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double) (ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
 
             if (Double.isNaN(this.calDday)) {
@@ -138,7 +138,7 @@ public class Dday extends TimerTask {
         this.displayType = true;
     }
 
-    public void changeFormat() { //true면 d-day, false면 %
+    public void changeFormat() {
         if (this.existStartDday == false) {
             this.displayType = true;
         } else {
@@ -147,7 +147,6 @@ public class Dday extends TimerTask {
     }
 
     public void ring() {
-        System.out.println("ring in Dday");
         DigitalWatch.getInstance().beep();
     }
 }
