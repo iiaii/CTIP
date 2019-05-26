@@ -9,27 +9,30 @@ import java.util.Timer;
 class ModeManagerTest {
     Timer m_timer = new Timer();
     private TimeKeeping tk = new TimeKeeping(m_timer);
-    private  ModeManager mM = new ModeManager(m_timer);
+    private WatchSystem ws = new WatchSystem(m_timer);
+    private ModeManager mM = ws.getModeManager();
+
     @Test
     void getCurrentMode() {
         mM.setCurrentMode(0);
-        Object curMode = mM.getCurrentMode();
-        assertEquals(curMode, mM.getModes().get(0));
+        assertEquals(mM.getCurrentMode(), mM.getModes().get(0));
     }
 
     @Test
     void getNextMode() {
+        Boolean[] tmpSetMode = {true, true, true, false, false};
+        ws.setSetMode(tmpSetMode);
+        ws.saveMode();
         mM.setCurrentMode(0);
-        mM.getNextMode();
-        assertEquals(mM.getNextMode(), mM.getModes().get(1));
+        Object nextMode = mM.getNextMode();
+        assertEquals(nextMode, mM.getCurrentMode());
     }
 
     @Test
     void loadSetMode() {
-        Boolean[] tmpSetMode = {false, false, true, false, false};
+        Boolean[] tmpSetMode = {true, true, true, false, false};
         mM.setSetMode(tmpSetMode);
-        mM.loadSetMode();
-        assertEquals(mM.getSetMode(), tmpSetMode);
+        assertEquals(mM.loadSetMode(), tmpSetMode);
     }
 
     @Test

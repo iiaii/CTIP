@@ -34,6 +34,7 @@ public class WatchTimer extends TimerTask {
         this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         this.remainedTimer = this.savedTimer;
     }
+
     public LocalDateTime getSavedTimer(){
         return this.savedTimer;
     }
@@ -49,6 +50,11 @@ public class WatchTimer extends TimerTask {
     public void setRemainedTimer(LocalDateTime remainedTimer){
         this.remainedTimer = remainedTimer;
     }
+
+    public void setActived(Boolean actived) {
+        isActived = actived;
+    }
+
     @Override
     public void run() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
@@ -72,14 +78,12 @@ public class WatchTimer extends TimerTask {
     }
 
     public void pause() {
-//        saveTimer(this.remainedTimer);
         this.isActived = false;
     }
 
     public void reset() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
         LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
-        SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
         if(!this.isActived){
             this.savedTimer = initDateTime;
             this.remainedTimer = initDateTime;

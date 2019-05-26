@@ -15,20 +15,22 @@ class StopWatchTest {
     @Test
     void activate() {
         sw.activate();
-        assertEquals(sw.getActivated(), true);
+        assertTrue(sw.getActivated());
     }
 
     @Test
     void pause() {
         sw.pause();
-        assertEquals(sw.getActivated(), false);
+        assertFalse(sw.getActivated());
     }
 
     @Test
     void reset() {
+        sw.setActivated(false);
         sw.reset();
         assertEquals(sw.getActivated(), false);
         assertEquals(sw.getCountDay(), 0);
+        assertEquals(sw.getCurrentStopwatch(), LocalTime.of(0,0,0));
     }
 
     @Test

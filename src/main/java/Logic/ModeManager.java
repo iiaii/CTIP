@@ -8,14 +8,6 @@ public class ModeManager {
     private int currentMode = 0;
     private Boolean[] setMode = {false, false, false, false, false}; // watchTimer,stopwatch,alarm,dday,intervaltimer
 
-    public Boolean[] getSetMode() {
-        return setMode;
-    }
-
-    public void setSetMode(Boolean[] setMode) {
-        this.setMode = setMode;
-    }
-
 
     private TimeKeeping timekeeping = null;
     private WatchTimer watchTimer = null;
@@ -28,6 +20,14 @@ public class ModeManager {
 
     public void setCurrentMode(int currentMode) {
         this.currentMode = currentMode;
+    }
+
+    public Boolean[] getSetMode() {
+        return setMode;
+    }
+
+    public void setSetMode(Boolean[] setMode) {
+        this.setMode = setMode;
     }
 
     LinkedList<Object> modes = new LinkedList<Object>();

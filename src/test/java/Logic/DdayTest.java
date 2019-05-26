@@ -3,7 +3,7 @@ package Logic;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import GUI.DigitalWatch;
 import java.util.Timer;
 import java.time.LocalTime;
 import java.time.LocalDate;
@@ -40,12 +40,27 @@ class DdayTest {
         d.reset();
         assertEquals(d.getStartDday(), initDateTime);
         assertEquals(d.getEndDday(), initDateTime);
+        assertFalse(d.getExistStartDday());
+        assertFalse(d.getExistEndDday());
+        assertTrue(d.getDisplayType());
     }
 
     @Test
     void changeFormat() {
         d.setDisplayType(true);
+        d.setExistStartDday(false);
         d.changeFormat();
-        assertEquals(d.getDisplayType(), false);
+        assertTrue(d.getDisplayType());
+
+        d.setDisplayType(true);
+        d.setExistStartDday(true);
+        d.changeFormat();
+        assertFalse(d.getDisplayType());
+    }
+
+    @Test
+    void ring(){
+        d.ring();
+        assertTrue(DigitalWatch.getInstance().getBell().isPlaying());
     }
 }

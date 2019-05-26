@@ -60,7 +60,6 @@ public class IntervalTimer extends TimerTask{
 
     public void disable() {
         this.isEnabled = false;
-//        saveIntervalTimer(this.remainedIntervalTimer);
     }
 
     public LocalDateTime loadIntervalTimer(){
