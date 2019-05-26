@@ -143,9 +143,10 @@ public class ModeManager {
 
     public void destroyStopwatch() {
         if (this.stopwatch != null) {
-            this.stopwatch.reset();
+            this.stopwatch.cancel();
             modes.remove(this.stopwatch);
             this.stopwatch = null;
+
         }
         this.setMode[1] = false;
         currentMode = 0;
@@ -164,7 +165,7 @@ public class ModeManager {
     public void destroyAlarm() {
         if (this.alarm != null) {
             for (int i = 0; i < 4; i++) {
-                this.alarm.disableAlarm(i);
+                this.alarm.getAlarmTime(i).cancel();
             }
         }
         this.alarm = null;
@@ -184,7 +185,7 @@ public class ModeManager {
 
     public void destroyDday() {
         if (this.dday != null) {
-            this.dday.reset();
+            this.dday.cancel();
             modes.remove(dday);
             this.dday = null;
         }
@@ -204,7 +205,7 @@ public class ModeManager {
 
     public void destroyIntervalTimer() {
         if (this.intervaltimer != null) {
-            this.intervaltimer.disable();
+            this.intervaltimer.cancel();
             modes.remove(intervaltimer);
             this.intervaltimer = null;
         }
