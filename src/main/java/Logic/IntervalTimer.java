@@ -65,7 +65,6 @@ public class IntervalTimer extends TimerTask {
 
     public void disable() {
         this.isEnabled = false;
-//        saveIntervalTimer(this.remainedIntervalTimer);
     }
 
     public LocalDateTime loadIntervalTimer() {
@@ -89,7 +88,6 @@ public class IntervalTimer extends TimerTask {
     }
 
     public void ring() {
-        System.out.println("Ring in interval timer");
         DigitalWatch.getInstance().beep();
     }
 

@@ -6,7 +6,7 @@ import java.util.Timer;
 public class ModeManager {
 
     private int currentMode = 0;
-    private Boolean[] setMode = {false, false, false, false, false}; // watchTimer,stopwatch,alarm,dday,intervaltimer
+    private Boolean[] setMode = {false, false, false, false, false};
 
     public Boolean[] getSetMode() {
         return setMode;
@@ -137,7 +137,6 @@ public class ModeManager {
         if (modes.size() == 0) modes.add(this.timekeeping);
         modes.add(this.stopwatch);
         currentMode = 0;
-        // TODO implement here
         return this.stopwatch;
     }
 

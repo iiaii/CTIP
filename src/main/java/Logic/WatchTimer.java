@@ -76,7 +76,6 @@ public class WatchTimer extends TimerTask {
     }
 
     public void pause() {
-//        saveTimer(this.remainedTimer);
         this.isActived = false;
     }
 
@@ -101,7 +100,6 @@ public class WatchTimer extends TimerTask {
     }
 
     public void ring() {
-        System.out.println("ring in WatchTimer");
         DigitalWatch.getInstance().beep();
     }
 

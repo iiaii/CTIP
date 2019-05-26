@@ -36,7 +36,7 @@ public class WatchDigit extends JPanel {
 
     private void loadSegment()  {
         String path = "segment/color" + ((selected == false) ? "1" : "2") + "/" + Character.toString(segment);
-        this.image = IconImages.getImage(path); //ImageIO.read(new File(path));
+        this.image = IconImages.getImage(path);
 
     }
 

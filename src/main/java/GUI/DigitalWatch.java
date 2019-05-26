@@ -28,9 +28,6 @@ public class DigitalWatch extends JFrame {
     private Bell bell = new Bell();
 
     public DigitalWatch() {
-        // Beep sound initialize
-
-        /* Image Cache initialize */
         for(int i=0;i<6;i++){
             IconImages.getImage(iconNames[i]);
         }
@@ -68,7 +65,6 @@ public class DigitalWatch extends JFrame {
         icons = new WatchIcon[6];
 
         Color c = new Color(0, 144, 158);
-        //Color[] iconColors = {new Color(242,140,56 ),new Color(221,221,221),c,new Color(255, 111, 97),c,new Color(221,221,221)};
         Color[] iconColors = {c,c,c,c,c,c};
         for(int i=0;i< icons.length;i++){
             icons[i] = new WatchIcon(iconNames[i], iconColors[i]);
@@ -89,8 +85,6 @@ public class DigitalWatch extends JFrame {
                 g2.setRenderingHints(qualityHints);
                 g2.setStroke(new BasicStroke(4));
 
-                //draw outline border
-                //g2.drawRoundRect(2,2,width-4, this.getHeight()-4,80, 80);
                 g2.drawRoundRect(2,2,this.getWidth()-4, this.getHeight()-4,20, 20);
 
             }
@@ -201,20 +195,19 @@ public class DigitalWatch extends JFrame {
         return instance;
     }
 
-    public void showDigit(String content) { // cursor yyyyMMddhhmmss
+    public void showDigit(String content) {
         for(int i=0;i<7;i++) {
             this.cursors[i].setSegments(content.substring(2 * i, 2 * (i + 1)));
         }
     }
 
-    public void showMode(int[] modes) { // {0,1,0,0,0,0}
+    public void showMode(int[] modes) {
         Color colors[] = {new Color(221, 221, 221), new Color(255, 111, 97), new Color(0, 144, 158), new Color(255,0,0)}; // disabled, color1, color2
         for(int i=0;i<this.icons.length;i++){
             if(this.drawedIcons[i] != modes[i]){
-                this.icons[i].setColor(colors[modes[i]]); // modes 값에 따라서 아이콘 색 지정
+                this.icons[i].setColor(colors[modes[i]]);
                 this.drawedIcons[i] = modes[i];
             }
-            // modes 0이면 비활성화, 1이면 리빙코랄, 2면 보색
         }
     }
 
@@ -256,7 +249,7 @@ public class DigitalWatch extends JFrame {
         public void buttonAHold() {
             ws.muteBeep();
             if(ws.getIsSetMode() == false) {
-                if(ws.getIsEditMode() == false) // 에딧보드일때는 셋모드로 진입불가능
+                if(ws.getIsEditMode() == false)
                     ws.enterSetMode();
             } else {
                 //none
@@ -268,7 +261,6 @@ public class DigitalWatch extends JFrame {
                 ws.muteBeep();
             } else {
                 if(ws.getIsSetMode() == true) {
-                    //mode toggle
                     ws.chooseModes();
                 } else {
                     Boolean isEditMode = ws.getIsEditMode();
@@ -293,7 +285,6 @@ public class DigitalWatch extends JFrame {
                         }
 
                         if (mode instanceof Alarm) {
-                            // get alarm state
                             if (((Alarm) mode).getAlarmTime(ws.getCurrentAlarmPage()).getEnabled() == true) {
                                 ws.disableAlarm();
                             } else {
@@ -311,7 +302,7 @@ public class DigitalWatch extends JFrame {
                             if (t.getIsEnabled()) {
                                 ws.disableIntervalTimer();
                             } else {
-                                ws.enableIntervalTimer(); // 오타임
+                                ws.enableIntervalTimer();
                             }
                         }
                     } else {
@@ -331,8 +322,6 @@ public class DigitalWatch extends JFrame {
                 ws.muteBeep();
             } else {
                 if (ws.getIsSetMode() == true) {
-                    //mode toggle
-                    //ws.chooseModes();
                     ws.saveMode();
                 } else {
                     Boolean isEditMode = ws.getIsEditMode();
@@ -343,7 +332,6 @@ public class DigitalWatch extends JFrame {
                         }
 
                         if (mode instanceof WatchTimer) {
-                            System.out.println("save WatchTimer");
                             ws.saveTimer();
                         }
 
@@ -392,7 +380,7 @@ public class DigitalWatch extends JFrame {
                         }
 
                         if (mode instanceof Dday) {
-                            ws.changePage();//dday changepage가 없음
+                            ws.changePage();
                         }
 
                         if (mode instanceof IntervalTimer) {
