@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -501,8 +502,9 @@ public class WatchSystem extends TimerTask{
         String PM;
         LocalDateTime currentTime = modeManager.getTimekeeping().loadTime();
         SimpleDateFormat format = new SimpleDateFormat("a");
+
         PM = format.format(LocaltoDate(currentTime));
-        if(PM.equals("PM"))
+        if(PM.equals("PM") || PM.equals("오후")) // PM은 개발환경, 오후는 Build했을때..
             icon[0] = 1;
         for(int i=0;i<5;i++){
             if(modeManager.loadSetMode()[i]==true){
