@@ -1,4 +1,5 @@
 package Logic;
+
 import GUI.DigitalWatch;
 
 import java.time.LocalDate;
@@ -17,28 +18,31 @@ public class AlarmTime extends TimerTask {
 
 
     public AlarmTime(Timer m_timer, TimeKeeping timeKeeping) {
-        currentAlarm = LocalTime.of(0, 0,0,0);
+        currentAlarm = LocalTime.of(0, 0, 0, 0);
         this.timeKeeping = timeKeeping;
         this.m_timer = m_timer;
         this.isEnabled = false;
-        m_timer.schedule(this,0,1000);
+        m_timer.schedule(this, 0, 1000);
     }
 
     public LocalDateTime loadAlarmData() {
-        return LocalDateTime.of(LocalDate.now(),this.currentAlarm);
+        return LocalDateTime.of(LocalDate.now(), this.currentAlarm);
     }
+
     public void saveAlarmData(LocalDateTime data) {
         this.currentAlarm = data.toLocalTime();
     }
+
     public void enable() {
         this.isEnabled = true;
     }
+
     public void disable() {
         this.isEnabled = false;
     }
 
     public LocalDateTime getCurrentAlarm() {
-        return LocalDateTime.of(LocalDate.now(),currentAlarm);
+        return LocalDateTime.of(LocalDate.now(), currentAlarm);
     }
 
     public void setCurrentAlarm(LocalDateTime currentAlarm) {
@@ -56,18 +60,19 @@ public class AlarmTime extends TimerTask {
     public void ring() {
         DigitalWatch.getInstance().beep();
     }
+
     public Boolean getEnabled() {
         return isEnabled;
     }
 
     @Override
-    public void run(){
+    public void run() {
         LocalDateTime currentTime = timeKeeping.getCurrentTime();
-        if(currentAlarm.getHour() == currentTime.getHour() &&
+        if (currentAlarm.getHour() == currentTime.getHour() &&
                 currentAlarm.getMinute() == currentTime.getMinute() &&
                 currentAlarm.getSecond() == currentTime.getSecond() &&
                 isEnabled
-        ){
+        ) {
             ring();
         }
     }

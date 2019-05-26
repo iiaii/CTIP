@@ -1,4 +1,5 @@
 package Logic;
+
 import GUI.DigitalWatch;
 
 import java.text.SimpleDateFormat;
@@ -10,7 +11,7 @@ import java.util.Date;
 import java.util.TimerTask;
 import java.util.Timer;
 
-public class Dday extends TimerTask{
+public class Dday extends TimerTask {
     private Boolean existStartDday = false;
     private Boolean existEndDday = false;
     private LocalDateTime startDday;
@@ -44,7 +45,7 @@ public class Dday extends TimerTask{
         return endDday;
     }
 
-    public LocalDateTime loadStartDday(){
+    public LocalDateTime loadStartDday() {
         return startDday;
     }
 
@@ -67,7 +68,7 @@ public class Dday extends TimerTask{
     public void run() {
         currentDay = tm.getCurrentTime();
         // endDay설정되어있을때만 조건맞을때 실행
-        if(existEndDday && (currentDay.getYear() == endDday.getYear()) && (currentDay.getDayOfYear() == endDday.getDayOfYear())) {
+        if (existEndDday && (currentDay.getYear() == endDday.getYear()) && (currentDay.getDayOfYear() == endDday.getDayOfYear())) {
             existEndDday = false; // 한번만 울려주게 하기 위해서 설정함
             ring();
         }
@@ -75,16 +76,16 @@ public class Dday extends TimerTask{
 
     public double getCalDday() {
         currentDay = tm.getCurrentTime();
-        if(this.displayType) { //dday
-            this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday) + ((currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) == true ? 0 :1);
-        }
-        else { //%
-            this.calDday = (double)(ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double)(ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
+        if (this.displayType) { //dday
+            this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday) + ((currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) == true ? 0 : 1);
+        } else { //%
+            this.calDday = (double) (ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double) (ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
 
-            if(Double.isNaN(this.calDday)) {
+            if (Double.isNaN(this.calDday)) {
                 // 0 나누기 0 이 발생함
                 // startDday, endDday, currentDay 똑같을 때 발생
-                if(ChronoUnit.DAYS.between(this.startDday, currentDay) == ChronoUnit.DAYS.between(this.startDday, this.endDday)) return 100;
+                if (ChronoUnit.DAYS.between(this.startDday, currentDay) == ChronoUnit.DAYS.between(this.startDday, this.endDday))
+                    return 100;
             }
         }
         return calDday;
@@ -103,7 +104,7 @@ public class Dday extends TimerTask{
     }
 
     public void saveDday(LocalDateTime startDday, LocalDateTime endDday) {
-        if(startDday != null) this.startDday = startDday;
+        if (startDday != null) this.startDday = startDday;
         this.existStartDday = (startDday != null);
         this.endDday = endDday;
         this.existEndDday = true;
@@ -123,19 +124,15 @@ public class Dday extends TimerTask{
     }
 
     public void changeFormat() { //true면 d-day, false면 %
-        if(this.existStartDday == false) {
+        if (this.existStartDday == false) {
             this.displayType = true;
         } else {
             this.displayType = !this.displayType;
         }
     }
 
-    public void ring(){
+    public void ring() {
         System.out.println("ring in Dday");
         DigitalWatch.getInstance().beep();
-    }
-
-    public Date LocaltoDate(LocalDateTime time){
-        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
