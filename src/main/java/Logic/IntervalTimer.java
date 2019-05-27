@@ -1,4 +1,5 @@
 package Logic;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
@@ -9,80 +10,104 @@ import java.util.TimerTask;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class IntervalTimer extends TimerTask{
+import GUI.DigitalWatch;
+import sun.audio.*;    //import the sun.audio package
+
+import java.io.*;
+
+
+public class IntervalTimer extends TimerTask {
     private int iteration;
     private LocalDateTime savedIntervalTimer;
     private Boolean isEnabled;
     private LocalDateTime remainedIntervalTimer;
     private Timer m_timer;
 
+    public LocalDateTime getSavedIntervalTimer() {
+        return savedIntervalTimer;
+    }
+
+    public void setSavedIntervalTimer(LocalDateTime savedIntervalTimer) {
+        this.savedIntervalTimer = savedIntervalTimer;
+    }
+
+    public LocalDateTime getRemainedIntervalTimer() {
+        return remainedIntervalTimer;
+    }
+
+    public void setRemainedIntervalTimer(LocalDateTime remainedIntervalTimer) {
+        this.remainedIntervalTimer = remainedIntervalTimer;
+    }
+
     public IntervalTimer(Timer m_timer) {
         this.m_timer = m_timer;
         this.iteration = 0;
         this.isEnabled = false;
-        this.savedIntervalTimer = LocalDateTime.of(2019,1,1,0,0,2,0);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        this.savedIntervalTimer = initDateTime;
         this.remainedIntervalTimer = savedIntervalTimer;
         m_timer.schedule(this, 0, 1000);
     }
-    public Boolean getIsEnabled(){
+
+    public Boolean getIsEnabled() {
         return this.isEnabled;
     }
+
     public void enable() {
-        if(this.remainedIntervalTimer == null)
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+
+        if (!sdf.format(Date.from(this.savedIntervalTimer.atZone(ZoneId.systemDefault()).toInstant())).equals("000000")) { // 저장된 intervaltimer이 000000이면 동작하지않음 말도안돼 십라
+            this.isEnabled = true;
+        }
+        if (sdf.format(Date.from(this.remainedIntervalTimer.atZone(ZoneId.systemDefault()).toInstant())).equals("000000"))
             this.remainedIntervalTimer = LocalDateTime.of(this.savedIntervalTimer.toLocalDate(), this.savedIntervalTimer.toLocalTime());
-        this.isEnabled = true;
     }
 
     public void disable() {
         this.isEnabled = false;
-//        saveIntervalTimer(this.remainedIntervalTimer);
     }
 
-    public void reset() {
-        LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDate tmpDate = LocalDate.of(0,1,1);
-        LocalDateTime initDateTime = LocalDateTime.of(tmpDate, tmpTime);
-
-        if(!this.isEnabled){
-            this.savedIntervalTimer = initDateTime;
-            this.remainedIntervalTimer = initDateTime;
-        }
-    }/*
-    public String loadIntervalTimer() {
-        String data,data2;
-        SimpleDateFormat format = new SimpleDateFormat("HHmmss");
-        data = format.format(LocaltoDate(remainedIntervalTimer));
-        data2 = ""+iteration;
-        System.out.println(data2+data);
-        return data2+data;
-    }
-    */
-    public LocalDateTime loadIntervalTimer(){
+    public LocalDateTime loadIntervalTimer() {
         return remainedIntervalTimer;
     }
+
     public void saveIntervalTimer(LocalDateTime data) {
-        this.savedIntervalTimer = data;
+        if (!isEnabled) {
+            this.savedIntervalTimer = data;
+            this.remainedIntervalTimer = data;
+            this.iteration = 0;
+        }
     }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
+    }
+
     public void ring() {
+        DigitalWatch.getInstance().beep();
+    }
+
+    @Override
+    public void run() {
         SimpleDateFormat formatTime = new SimpleDateFormat("HHmmss");
-        if(this.isEnabled){
-            this.remainedIntervalTimer = this.remainedIntervalTimer.minusSeconds(1);
-            if(formatTime.format(LocaltoDate(this.remainedIntervalTimer)).equals("235959")){
-                this.remainedIntervalTimer = savedIntervalTimer;
-                this.iteration+=1;
-                System.out.println("beep");
+        if (this.isEnabled) {
+            if (formatTime.format(Date.from(this.remainedIntervalTimer.atZone(ZoneId.systemDefault()).toInstant())).equals("000000")) {
+                this.remainedIntervalTimer = savedIntervalTimer.minusSeconds(1);
+                iteration++;
+            } else {
+                this.remainedIntervalTimer = this.remainedIntervalTimer.minusSeconds(1);
+                if (formatTime.format(Date.from(this.remainedIntervalTimer.atZone(ZoneId.systemDefault()).toInstant())).equals("000000")) { // 깎인 것이 0이면
+                    ring();
+                }
             }
         }
     }
 
-    @Override
-    public void run(){
-           ring();
-    }
-    public Date LocaltoDate(LocalDateTime time){
-        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
-    }
-    public int getIteration(){
+    public int getIteration() {
         return iteration;
     }
 

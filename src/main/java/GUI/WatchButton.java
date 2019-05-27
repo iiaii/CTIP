@@ -12,7 +12,7 @@ public class WatchButton extends JLabel {
     private ActionListener eventClick;
     private ActionListener eventClickHold;
     private int holdTime;
-    private Boolean shape = true; // true : 왼쪽에 붙은 버튼(오른쪽잘림), false : 오른쪽에 붙은 버튼(왼쪽잘림)
+    private Boolean shape = true;
 
     public WatchButton(){
         this.setLayout(null);
@@ -41,7 +41,6 @@ public class WatchButton extends JLabel {
         g2.setStroke(new BasicStroke(4));
 
         int x = 2;
-        //draw outline border
         if(this.shape == false) {
             x = -2;
         }
@@ -75,21 +74,18 @@ public class WatchButton extends JLabel {
         public void mouseReleased(MouseEvent e) {
             long timeDifference = System.currentTimeMillis() - this.mousePressedTime;
             int uniqueId = (int) System.currentTimeMillis();
-            //System.out.println(timeDifference);
             if(timeDifference >= holdTime) {
                 if(t.eventClickHold != null){
                     String commandName = "ClickHold";
                     ActionEvent event = new ActionEvent(this, uniqueId, commandName);
                     t.eventClickHold.actionPerformed(event);
                 }
-                //System.out.println("Hold");
             } else {
                 if(t.eventClick != null){
                     String commandName = "Click";
                     ActionEvent event = new ActionEvent(this, uniqueId, commandName);
                     t.eventClick.actionPerformed(event);
                 }
-                //System.out.println("Click");
             }
         }
 
