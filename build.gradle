@@ -65,4 +65,4 @@ test{
     }
 }
 // Define the main class for the application
-mainClassName = 'app.App'
+mainClassName = 'GUI.DigitalWatch'
