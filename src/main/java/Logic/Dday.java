@@ -2,14 +2,10 @@ package Logic;
 
 import GUI.DigitalWatch;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.TimerTask;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Dday extends TimerTask {
     private Boolean existStartDday = false;

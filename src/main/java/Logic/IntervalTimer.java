@@ -1,19 +1,15 @@
 package Logic;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import GUI.DigitalWatch;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import GUI.DigitalWatch;
-import sun.audio.*;    //import the sun.audio package
-
-import java.io.*;
 
 
 public class IntervalTimer extends TimerTask {

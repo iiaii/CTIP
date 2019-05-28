@@ -1,10 +1,8 @@
 package Logic;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.*;
-import java.util.TimerTask;
+import java.time.LocalTime;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class StopWatch extends TimerTask {
     private LocalTime currentStopwatch;
