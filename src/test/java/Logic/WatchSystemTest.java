@@ -158,7 +158,7 @@ class WatchSystemTest {
         ws.setCurrentMode(alarm);
         ws.setCurrentAlarmPage(0);
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(2019,5,26), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         ws.setTempTime(initDateTime);
         ws.saveAlarm();
         assertEquals(alarm.getAlarmTime(0).getCurrentAlarm(), initDateTime);
