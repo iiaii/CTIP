@@ -16,8 +16,10 @@ class AlarmTimeTest {
 
     @Test
     void loadAlarmData() {
-        artm.setCurrentAlarm(LocalDateTime.now());
-        assertEquals(artm.getCurrentAlarm(), LocalDateTime.now());
+
+        LocalDateTime tmpDateTime = LocalDateTime.now();
+        artm.setCurrentAlarm(tmpDateTime);
+        assertEquals(artm.getCurrentAlarm(), tmpDateTime);
     }
 
     @Test
