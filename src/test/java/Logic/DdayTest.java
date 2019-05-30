@@ -1,5 +1,6 @@
 package Logic;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,7 +59,8 @@ class DdayTest {
         assertFalse(d.getDisplayType());
     }
 
-    @Ignore
+    @Disabled
+    @Test
     void ring(){
         d.ring();
         assertTrue(DigitalWatch.getInstance().getBell().isPlaying());

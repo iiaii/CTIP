@@ -1,15 +1,12 @@
 package Logic;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Date;
-import java.util.Timer;
-import java.time.LocalTime;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Timer;
+
+import static org.junit.jupiter.api.Assertions.*;
 class AlarmTimeTest {
     Timer m_timer = new Timer();
     TimeKeeping tk = new TimeKeeping(m_timer);
@@ -42,7 +39,8 @@ class AlarmTimeTest {
         assertFalse(artm.getEnabled());
     }
 
-    @Ignore
+    @Disabled
+    @Test
     void ring(){
         artm.ring();
         assertFalse(artm.getEnabled());
