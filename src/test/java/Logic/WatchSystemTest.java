@@ -1,7 +1,7 @@
 package Logic;
 
 import GUI.DigitalWatch;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -315,7 +315,8 @@ class WatchSystemTest {
         assertEquals(ws.getCurrentDdayPage(),0);
     }
 
-    @Ignore
+    @Disabled
+    @Test
     void muteBeep() {
         ws.muteBeep();
         assertFalse(DigitalWatch.getInstance().getBell().isPlaying());

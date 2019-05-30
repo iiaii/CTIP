@@ -1,6 +1,7 @@
 package Logic;
 
 import GUI.DigitalWatch;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Timer;
@@ -57,7 +58,8 @@ class WatchTimerTest {
         assertFalse(wt.getActived());
     }
 
-    @Ignore
+    @Disabled
+    @Test
     void ring() {
         wt.ring();
         assertTrue(DigitalWatch.getInstance().getBell().isPlaying());
