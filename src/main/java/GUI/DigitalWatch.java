@@ -215,12 +215,9 @@ public class DigitalWatch extends JFrame {
     }
 
     public void selectCursor(int cursor) {
-        try {
-            for(int i=0;i<this.cursors.length;i++){
-                if(this.cursors[i].getCursorState() != (i == cursor))
-                    this.cursors[i].setCursorState(i == cursor);
-            }
-        } catch(NullPointerException e){
+        for (int i = 0; i < this.cursors.length; i++) {
+            if (this.cursors[i].getCursorState() != (i == cursor))
+                this.cursors[i].setCursorState(i == cursor);
         }
     }
 

@@ -80,6 +80,7 @@ public class Dday extends TimerTask {
     public void run() {
         currentDay = tm.getCurrentTime();
         // endDay설정되어있을때만 조건맞을때 실행
+        System.out.println("Exist End Dday" + existEndDday);
         if (existEndDday && (currentDay.getYear() == endDday.getYear()) && (currentDay.getDayOfYear() == endDday.getDayOfYear())) {
             existEndDday = false; // 한번만 울려주게 하기 위해서 설정함
             ring();

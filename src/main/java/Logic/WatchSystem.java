@@ -16,7 +16,7 @@ public class WatchSystem extends TimerTask {
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage = 0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {true, true, true, false, false};
+    public Boolean[] setMode = {false, true, true, true, false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     private ModeManager modeManager;
@@ -25,6 +25,7 @@ public class WatchSystem extends TimerTask {
     private Object currentMode = null;
     private Timer m_timer;
     private Boolean isEdited = false;
+    private Boolean pressedReset = false;
 
     public ModeManager getModeManager() {
         return modeManager;
@@ -262,13 +263,15 @@ public class WatchSystem extends TimerTask {
 
     public void saveAlarm() {
         ((Alarm) currentMode).saveAlarm(currentAlarmPage, tempTime);
+        if(pressedReset == true) ((Alarm) currentMode).disableAlarm(currentAlarmPage);
+        pressedReset = false;
         exitEditMode();
     }
 
     public void resetAlarm() {
-        tempTime = LocalDateTime.of(LocalDate.of(0, 1, 1), LocalTime.of(0, 0, 0));
-        ((Alarm) currentMode).saveAlarm(currentAlarmPage, tempTime);
-        exitEditMode();
+        tempTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        // reset button 눌렸는지 확인하고 저장할때 리셋 button 눌ㄹ렸으면 disable같이해줌
+        pressedReset = true;
     }
 
     public void enableAlarm() {
@@ -407,23 +410,19 @@ public class WatchSystem extends TimerTask {
         String data;
         int icon[] = new int[6];
 
-        try {
-            icon = iconIdeal();
-            gui.showMode(icon);
-            /* show digit part */
-            if (this.isSetMode == true) {
-                data = "zzzzzzzzzzzzzzzzz";
-            } else {
-                data = digitIdeal(currentMode);
-            }
-            gui.showDigit(data);
-            if (this.isEditMode) {
-                gui.selectCursor(this.currentCursor);
-            } else {
-                gui.selectCursor(-1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        icon = iconIdeal();
+        gui.showMode(icon);
+        /* show digit part */
+        if (this.isSetMode == true) {
+            data = "zzzzzzzzzzzzzzzzz";
+        } else {
+            data = digitIdeal(currentMode);
+        }
+        gui.showDigit(data);
+        if (this.isEditMode) {
+            gui.selectCursor(this.currentCursor);
+        } else {
+            gui.selectCursor(-1);
         }
     }
 
