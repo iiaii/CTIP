@@ -252,13 +252,13 @@ public class WatchSystem extends TimerTask {
 
     public void saveIntervalTimer() {
         ((IntervalTimer) currentMode).saveIntervalTimer(tempTime);
+        pressedReset = false; // 무의미하지만 일관성을 위해 추가함
         exitEditMode();
     }
 
     public void resetIntervalTimer() {
         tempTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
-        ((IntervalTimer) currentMode).saveIntervalTimer(tempTime);
-        exitEditMode();
+        pressedReset = true;
     }
 
     public void saveAlarm() {
@@ -515,17 +515,26 @@ public class WatchSystem extends TimerTask {
                 }
             } else {
                 Boolean displayType = ((Dday) mode).getDisplayType();
+                double calDday = ((Dday) mode).getCalDday();
                 data = format.format(Date.from(((Dday) mode).loadEndDday().atZone(ZoneId.systemDefault()).toInstant()));
                 if (displayType == true) {
-                    int tempCalDday = (int) ((Dday) mode).getCalDday() % 10000;
-                    tempCalDday = tempCalDday < 0 ? 0 : tempCalDday;
-                    data2 = "d-" + String.format("%04d", tempCalDday);
-                }else {
-                    data2 = (String.format("%04.2f", ((Dday) mode).getCalDday()) + ((((Dday) mode).getCalDday() * 100) % 100 == 0 ? "0" : "")).replace(".", "") + "PE";
-                    System.out.println((int)((Dday) mode).getCalDday());
-                    if (((Dday) mode).getCalDday() >= 100) {
-                        data2 = "zD0nEz";
+                    int tempCalDday = (int)calDday;
+                    if(tempCalDday >= 10000) {
+                        data2 = "d-zz0F";
+                    } else {
+                        data2 = "d-" + String.format("%04d", tempCalDday);
                     }
+                } else {
+
+                    data2 = String.format("%04.2f", calDday) + "PE";
+                    if(calDday >= 100) {
+                        data2 = "zD0nEz";
+                    } else if(calDday == 0) {
+                        data2 = "0" + data2;
+                    } else if(calDday < 0){
+                        data2 = "zzzErr";
+                    }
+                    data2 = data2.replace(".", "");
                 }
             }
 
