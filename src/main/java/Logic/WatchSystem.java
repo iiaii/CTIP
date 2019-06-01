@@ -150,9 +150,11 @@ public class WatchSystem extends TimerTask {
         if (currentCursor == 0) {
             if (this.currentDdayPage == 0) {
                 tempTime = tempTime.plusYears(100);
+                if(tempTime.getYear() % 10000 == tempTime.getYear() % 100) tempTime = tempTime.minusYears(8100);
                 isEdited = true;
             } else {
                 tempTime2 = tempTime2.plusYears(100);
+                if(tempTime2.getYear() % 10000 == tempTime2.getYear() % 100) tempTime2 = tempTime2.minusYears(8100);
             }
         } else if (currentCursor == 1) {
             if (this.currentDdayPage == 0) {
@@ -515,11 +517,14 @@ public class WatchSystem extends TimerTask {
             } else {
                 Boolean displayType = ((Dday) mode).getDisplayType();
                 data = format.format(Date.from(((Dday) mode).loadEndDday().atZone(ZoneId.systemDefault()).toInstant()));
-                if (displayType == true)
-                    data2 = "d-" + String.format("%04d", (int) ((Dday) mode).getCalDday() % 10000);
-                else {
+                if (displayType == true) {
+                    int tempCalDday = (int) ((Dday) mode).getCalDday() % 10000;
+                    tempCalDday = tempCalDday < 0 ? 0 : tempCalDday;
+                    data2 = "d-" + String.format("%04d", tempCalDday);
+                }else {
                     data2 = (String.format("%04.2f", ((Dday) mode).getCalDday()) + ((((Dday) mode).getCalDday() * 100) % 100 == 0 ? "0" : "")).replace(".", "") + "PE";
-                    if (((Dday) mode).getCalDday() == 100) {
+                    System.out.println((int)((Dday) mode).getCalDday());
+                    if (((Dday) mode).getCalDday() >= 100) {
                         data2 = "zD0nEz";
                     }
                 }

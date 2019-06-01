@@ -128,6 +128,7 @@ public class Dday extends TimerTask {
 
     public void reset() {
         existStartDday = false;
+        existEndDday = false;
         startDday = this.currentDay;
         endDday = this.currentDay;
         this.existEndDday = false;
