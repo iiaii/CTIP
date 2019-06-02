@@ -16,7 +16,7 @@ public class WatchSystem extends TimerTask {
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage = 0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {true, true, true, false, false};
+    public Boolean[] setMode = {false, true, true, true, false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     private ModeManager modeManager;
@@ -25,6 +25,7 @@ public class WatchSystem extends TimerTask {
     private Object currentMode = null;
     private Timer m_timer;
     private Boolean isEdited = false;
+    private Boolean pressedReset = false;
 
     public ModeManager getModeManager() {
         return modeManager;
@@ -150,9 +151,11 @@ public class WatchSystem extends TimerTask {
         if (currentCursor == 0) {
             if (this.currentDdayPage == 0) {
                 tempTime = tempTime.plusYears(100);
+                if(tempTime.getYear() % 10000 == tempTime.getYear() % 100) tempTime = tempTime.minusYears(8100);
                 isEdited = true;
             } else {
                 tempTime2 = tempTime2.plusYears(100);
+                if(tempTime2.getYear() % 10000 == tempTime2.getYear() % 100) tempTime2 = tempTime2.minusYears(8100);
             }
         } else if (currentCursor == 1) {
             if (this.currentDdayPage == 0) {
@@ -249,24 +252,26 @@ public class WatchSystem extends TimerTask {
 
     public void saveIntervalTimer() {
         ((IntervalTimer) currentMode).saveIntervalTimer(tempTime);
+        pressedReset = false; // 무의미하지만 일관성을 위해 추가함
         exitEditMode();
     }
 
     public void resetIntervalTimer() {
         tempTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
-        ((IntervalTimer) currentMode).saveIntervalTimer(tempTime);
-        exitEditMode();
+        pressedReset = true;
     }
 
     public void saveAlarm() {
         ((Alarm) currentMode).saveAlarm(currentAlarmPage, tempTime);
+        if(pressedReset == true) ((Alarm) currentMode).disableAlarm(currentAlarmPage);
+        pressedReset = false;
         exitEditMode();
     }
 
     public void resetAlarm() {
-        tempTime = LocalDateTime.of(LocalDate.of(0, 1, 1), LocalTime.of(0, 0, 0));
-        ((Alarm) currentMode).saveAlarm(currentAlarmPage, tempTime);
-        exitEditMode();
+        tempTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        // reset button 눌렸는지 확인하고 저장할때 리셋 button 눌ㄹ렸으면 disable같이해줌
+        pressedReset = true;
     }
 
     public void enableAlarm() {
@@ -405,23 +410,19 @@ public class WatchSystem extends TimerTask {
         String data;
         int icon[] = new int[6];
 
-        try {
-            icon = iconIdeal();
-            gui.showMode(icon);
-            /* show digit part */
-            if (this.isSetMode == true) {
-                data = "zzzzzzzzzzzzzzzzz";
-            } else {
-                data = digitIdeal(currentMode);
-            }
-            gui.showDigit(data);
-            if (this.isEditMode) {
-                gui.selectCursor(this.currentCursor);
-            } else {
-                gui.selectCursor(-1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        icon = iconIdeal();
+        gui.showMode(icon);
+        /* show digit part */
+        if (this.isSetMode == true) {
+            data = "zzzzzzzzzzzzzzzzz";
+        } else {
+            data = digitIdeal(currentMode);
+        }
+        gui.showDigit(data);
+        if (this.isEditMode) {
+            gui.selectCursor(this.currentCursor);
+        } else {
+            gui.selectCursor(-1);
         }
     }
 
@@ -514,14 +515,26 @@ public class WatchSystem extends TimerTask {
                 }
             } else {
                 Boolean displayType = ((Dday) mode).getDisplayType();
+                double calDday = ((Dday) mode).getCalDday();
                 data = format.format(Date.from(((Dday) mode).loadEndDday().atZone(ZoneId.systemDefault()).toInstant()));
-                if (displayType == true)
-                    data2 = "d-" + String.format("%04d", (int) ((Dday) mode).getCalDday() % 10000);
-                else {
-                    data2 = (String.format("%04.2f", ((Dday) mode).getCalDday()) + ((((Dday) mode).getCalDday() * 100) % 100 == 0 ? "0" : "")).replace(".", "") + "PE";
-                    if (((Dday) mode).getCalDday() == 100) {
-                        data2 = "zD0nEz";
+                if (displayType == true) {
+                    int tempCalDday = (int)calDday;
+                    if(tempCalDday >= 10000) {
+                        data2 = "d-zz0F";
+                    } else {
+                        data2 = "d-" + String.format("%04d", tempCalDday);
                     }
+                } else {
+
+                    data2 = String.format("%04.2f", calDday) + "PE";
+                    if(calDday >= 100) {
+                        data2 = "zD0nEz";
+                    } else if(calDday == 0) {
+                        data2 = "0" + data2;
+                    } else if(calDday < 0){
+                        data2 = "zzzErr";
+                    }
+                    data2 = data2.replace(".", "");
                 }
             }
 
