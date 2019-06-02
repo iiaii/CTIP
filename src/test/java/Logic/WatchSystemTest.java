@@ -215,21 +215,16 @@ class WatchSystemTest {
 
     @Test
     void saveDday() {
+        LocalDateTime tmpTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         ws.setCurrentMode(d);
-        ws.setEdited(false);
-        LocalDateTime tmpDateTime= d.getStartDday();
-        ws.saveDday();
-        assertEquals(d.getStartDday(), tmpDateTime);
-        LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(2019,5,26), tmpTime);
-        LocalDateTime initDateTime2 = LocalDateTime.of(LocalDate.of(2019,5,27), tmpTime);
-        ws.setTempTime(initDateTime);
-        ws.setTempTime2(initDateTime2);
         ws.setEdited(true);
+        ws.setTempTime(tmpTime);
+        ws.setTempTime2(tmpTime);
+        System.out.println(ws.getTempTime());
         ws.saveDday();
-        assertEquals(d.getStartDday(), initDateTime);
-        assertEquals(d.getEndDday(), initDateTime2);
-        assertEquals(d.getExistStartDday(), true);
+        assertEquals(d.getStartDday(), ws.getTempTime());
+        assertTrue(d.getExistEndDday());
+        assertTrue(d.getExistStartDday());
     }
 
     @Test
