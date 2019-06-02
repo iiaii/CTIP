@@ -36,7 +36,7 @@ class DdayTest {
 
     @Test
     void reset() {
-        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tk.getCurrentTime().toLocalTime());
+        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
         d.setCurrentDay(tk.getCurrentTime());
         d.reset();
         assertEquals(d.getStartDday(), initDateTime);
