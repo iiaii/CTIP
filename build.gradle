@@ -14,7 +14,7 @@ plugins {
     id 'application'
     id "org.sonarqube" version "2.7"
     id 'jacoco'
-    //id 'findbugs'
+    id 'findbugs'
     //id 'pmd'
 }
 
@@ -36,13 +36,13 @@ jacoco {
     toolVersion = "0.8.3"
     reportsDir = file("$buildDir/reports/jacoco")
 }
-/*
+
 findbugs{
     toolVersion = "3.0.1"
     reportsDir = file("$buildDir/reports/findbugs")
     ignoreFailures=true
 }
-
+/*
 pmd{
     reportsDir = file("$buildDir/reports/pmd")
     ignoreFailures=true
