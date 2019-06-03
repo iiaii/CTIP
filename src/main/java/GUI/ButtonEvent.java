@@ -1,5 +1,5 @@
 package GUI;
-public interface ButtonEvent 
+public interface ButtonEvent {
     public void buttonA();
     public void buttonAHold();
     public void buttonB();
