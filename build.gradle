@@ -16,7 +16,7 @@ plugins {
     id 'jacoco'
     id 'findbugs'
     id 'pmd'
-    id 'checkstyle'
+    //id 'checkstyle'
 }
 
 repositories {
