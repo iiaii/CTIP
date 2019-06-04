@@ -16,7 +16,7 @@ public class WatchSystem extends TimerTask {
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage = 0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {false, true, true, true, false};
+    public Boolean[] setMode = {true, true, true, false, false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     private ModeManager modeManager;
