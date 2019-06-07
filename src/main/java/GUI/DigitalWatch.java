@@ -36,8 +36,8 @@ public class DigitalWatch extends JFrame {
         }
         char digitFileName[] = {'0','1','2','3','4','5','6','7','8','9','-','d','E','n','P','z'};
         for(int i=0;i<16;i++){
-            IconImages.getImage("segment/color1/" + Character.toString(digitFileName[i]));
-            IconImages.getImage("segment/color2/" + Character.toString(digitFileName[i]));
+            IconImages.getImage("/icon/segment/color1/" + Character.toString(digitFileName[i]));
+            IconImages.getImage("/icon/segment/color2/" + Character.toString(digitFileName[i]));
         }
         int[] btnX = {24, 646, 24, 646};
         int[] btnY = {100, 100, 310, 310};
