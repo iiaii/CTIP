@@ -1,15 +1,18 @@
 package Logic;
 
 import GUI.DigitalWatch;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Timer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IntervalTimerTest {
 //    private Timer m_timer = new Timer();
@@ -35,7 +38,7 @@ class IntervalTimerTest {
     void disable() {
         it.setEnabled(true);
         it.disable();
-        assertEquals(it.getIsEnabled(), false);
+        assertFalse(it.getIsEnabled());
     }
 
     @Test
@@ -60,6 +63,7 @@ class IntervalTimerTest {
         assertEquals(it.getIteration(), 0);
     }
 
+    @Disabled
     @Test
     void ring() {
         it.ring();

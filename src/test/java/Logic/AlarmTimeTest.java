@@ -1,14 +1,12 @@
 package Logic;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Date;
-import java.util.Timer;
-import java.time.LocalTime;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Timer;
+
+import static org.junit.jupiter.api.Assertions.*;
 class AlarmTimeTest {
     Timer m_timer = new Timer();
     TimeKeeping tk = new TimeKeeping(m_timer);
@@ -16,8 +14,10 @@ class AlarmTimeTest {
 
     @Test
     void loadAlarmData() {
-        artm.setCurrentAlarm(LocalDateTime.now());
-        assertEquals(artm.getCurrentAlarm(), LocalDateTime.now());
+
+        LocalDateTime tmpDateTime = LocalDateTime.now();
+        artm.setCurrentAlarm(tmpDateTime);
+        assertEquals(artm.getCurrentAlarm(), tmpDateTime);
     }
 
     @Test
@@ -39,6 +39,7 @@ class AlarmTimeTest {
         assertFalse(artm.getEnabled());
     }
 
+    @Disabled
     @Test
     void ring(){
         artm.ring();

@@ -2,14 +2,11 @@ package Logic;
 
 import GUI.DigitalWatch;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.TimerTask;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Dday extends TimerTask {
     private Boolean existStartDday = false;
@@ -35,20 +32,13 @@ public class Dday extends TimerTask {
         return existEndDday;
     }
 
-    public void setExistEndDday(Boolean existEndDday) {
-        this.existEndDday = existEndDday;
-    }
-
-    public void setCalDday(double calDday) {
-        this.calDday = calDday;
-    }
 
     public Dday(TimeKeeping tm, Timer m_timer) {
         this.m_timer = m_timer;
         this.tm = tm;
         currentDay = tm.getCurrentTime();
-        startDday = currentDay;
-        endDday = currentDay;
+        startDday = LocalDateTime.of(currentDay.toLocalDate(), LocalTime.of(0,0,0));;
+        endDday = LocalDateTime.of(currentDay.toLocalDate(), LocalTime.of(0,0,0));;
         m_timer.schedule(this, 0, 1000);
         this.displayType = true;
     }
@@ -66,7 +56,7 @@ public class Dday extends TimerTask {
     }
 
     public void setStartDday(LocalDateTime startDday) {
-        this.startDday = startDday;
+        this.startDday = LocalDateTime.of(startDday.toLocalDate(), LocalTime.of(0,0,0));;
     }
 
     public LocalDateTime loadEndDday() {
@@ -74,7 +64,7 @@ public class Dday extends TimerTask {
     }
 
     public void setEndDday(LocalDateTime endDday) {
-        this.endDday = endDday;
+        this.endDday = LocalDateTime.of(endDday.toLocalDate(), LocalTime.of(0,0,0));;
     }
 
     public LocalDateTime getCurrentDay() {
@@ -90,23 +80,6 @@ public class Dday extends TimerTask {
         }
     }
 
-    public double getCalDday() {
-        currentDay = tm.getCurrentTime();
-        if (this.displayType) {
-            this.calDday = ChronoUnit.DAYS.between(currentDay, this.endDday) + ((currentDay.getYear() == endDday.getYear() && currentDay.getDayOfYear() == endDday.getDayOfYear()) == true ? 0 : 1);
-        } else {
-            this.calDday = (double) (ChronoUnit.DAYS.between(this.startDday, currentDay)) / (double) (ChronoUnit.DAYS.between(this.startDday, this.endDday)) * 100;
-
-            if (Double.isNaN(this.calDday)) {
-                // 0 나누기 0 이 발생함
-                // startDday, endDday, currentDay 똑같을 때 발생
-                if (ChronoUnit.DAYS.between(this.startDday, currentDay) == ChronoUnit.DAYS.between(this.startDday, this.endDday))
-                    return 100;
-            }
-        }
-        return calDday;
-    }
-
     public void setCalDday(int calDday) {
         this.calDday = calDday;
     }
@@ -120,18 +93,19 @@ public class Dday extends TimerTask {
     }
 
     public void saveDday(LocalDateTime startDday, LocalDateTime endDday) {
-        if (startDday != null) this.startDday = startDday;
+        if (startDday != null) this.startDday = LocalDateTime.of(startDday.toLocalDate(), LocalTime.of(0,0,0));
         this.existStartDday = (startDday != null);
-        this.endDday = endDday;
+        this.endDday = LocalDateTime.of(endDday.toLocalDate(), LocalTime.of(0,0,0));;
         this.existEndDday = true;
     }
 
     public void setCurrentDay(LocalDateTime currentDay) {
-        this.currentDay = currentDay;
+        this.currentDay = LocalDateTime.of(currentDay.toLocalDate(), LocalTime.of(0,0,0));;
     }
 
     public void reset() {
         existStartDday = false;
+        existEndDday = false;
         startDday = this.currentDay;
         endDday = this.currentDay;
         this.existEndDday = false;
@@ -148,5 +122,31 @@ public class Dday extends TimerTask {
 
     public void ring() {
         DigitalWatch.getInstance().beep();
+    }
+
+    public double getCalDday() {
+        currentDay = LocalDateTime.of(tm.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
+        long diffDays = ChronoUnit.DAYS.between(this.startDday, this.endDday);
+        long passedDays = ChronoUnit.DAYS.between(startDday, currentDay);
+        long remainedDays = ChronoUnit.DAYS.between(currentDay, endDday);
+
+        if (this.displayType) { // D-day
+            if(remainedDays < 0) return 0; // D+xx 없으니까 D-0에 고정
+            this.calDday = remainedDays;
+        } else {
+            if(diffDays == 0) { //시작날짜 종료날짜가 같고
+                if(passedDays >= 0) // 오늘 날짜가 시작날짜 지났으면 100%
+                    return 100;
+                else // passedDays < 0 아직 안왔으면 0%
+                    return 0;
+            } else if(diffDays < 0){
+                return -1;
+            }
+
+            if(passedDays < 0) return 0; // 아직 시작날짜가 안됐을 때는 0%
+
+            this.calDday = ((double) passedDays/ (double)diffDays) * 100;
+        }
+        return calDday;
     }
 }

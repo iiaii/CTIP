@@ -1,10 +1,12 @@
 package Logic;
 
 import GUI.DigitalWatch;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -70,14 +72,14 @@ class WatchSystemTest {
     void changeHourFormat() {
         ws.setCurrentMode(tk);
         ws.changeHourFormat();
-        assertEquals(tk.getDisplayFormat(), false);
+        assertFalse(tk.getDisplayFormat());
     }
 
     @Test
     void pauseTimer() {
         ws.setCurrentMode(wt);
         ws.pauseTimer();
-        assertEquals(wt.getActived(), false);
+        assertFalse(wt.getActived());
     }
 
     @Test
@@ -101,7 +103,7 @@ class WatchSystemTest {
         ws.saveTimer();
         assertEquals(wt.getSavedTimer(), initDateTime);
         assertEquals(wt.getRemainedTimer(), initDateTime);
-        assertEquals(wt.getActived(), false);
+        assertFalse(wt.getActived());
     }
 
     @Test
@@ -126,7 +128,7 @@ class WatchSystemTest {
     void disableIntervalTimer() {
         ws.setCurrentMode(it);
         ws.disableIntervalTimer();
-        assertEquals(it.getIsEnabled(), false);
+        assertFalse(it.getIsEnabled());
 
     }
 
@@ -158,7 +160,7 @@ class WatchSystemTest {
         ws.setCurrentMode(alarm);
         ws.setCurrentAlarmPage(0);
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(2019,5,26), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), tmpTime);
         ws.setTempTime(initDateTime);
         ws.saveAlarm();
         assertEquals(alarm.getAlarmTime(0).getCurrentAlarm(), initDateTime);
@@ -180,7 +182,7 @@ class WatchSystemTest {
         ws.setCurrentMode(alarm);
         ws.setCurrentAlarmPage(0);
         ws.enableAlarm();
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), true);
+        assertTrue(alarm.getAlarmTime(0).getEnabled());
     }
 
     @Test
@@ -188,7 +190,7 @@ class WatchSystemTest {
         ws.setCurrentMode(alarm);
         ws.setCurrentAlarmPage(0);
         ws.disableAlarm();
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), false);
+        assertFalse(alarm.getAlarmTime(0).getEnabled());
 
     }
 
@@ -213,21 +215,16 @@ class WatchSystemTest {
 
     @Test
     void saveDday() {
+        LocalDateTime tmpTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         ws.setCurrentMode(d);
-        ws.setEdited(false);
-        LocalDateTime tmpDateTime= d.getStartDday();
-        ws.saveDday();
-        assertEquals(d.getStartDday(), tmpDateTime);
-        LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(2019,5,26), tmpTime);
-        LocalDateTime initDateTime2 = LocalDateTime.of(LocalDate.of(2019,5,27), tmpTime);
-        ws.setTempTime(initDateTime);
-        ws.setTempTime2(initDateTime2);
         ws.setEdited(true);
+        ws.setTempTime(tmpTime);
+        ws.setTempTime2(tmpTime);
+        System.out.println(ws.getTempTime());
         ws.saveDday();
-        assertEquals(d.getStartDday(), initDateTime);
-        assertEquals(d.getEndDday(), initDateTime2);
-        assertEquals(d.getExistStartDday(), true);
+        assertEquals(d.getStartDday(), ws.getTempTime());
+        assertTrue(d.getExistEndDday());
+        assertTrue(d.getExistStartDday());
     }
 
     @Test
@@ -252,7 +249,7 @@ class WatchSystemTest {
         d.setExistStartDday(false);
         d.setCalDday(10);
         assertEquals(ws.changeDdayFormat(), d.getCalDday());
-        assertEquals(d.getDisplayType(), true);
+        assertTrue(d.getDisplayType());
     }
 
 
@@ -276,7 +273,7 @@ class WatchSystemTest {
         sw.setActivated(false);
         ws.resetStopwatch();
         assertEquals(sw.getCurrentStopwatch(), LocalTime.of(0,0,0));
-        assertEquals(sw.getActivated(), false);
+        assertFalse(sw.getActivated());
         assertEquals(sw.getCountDay(), 0);
     }
 
@@ -310,10 +307,14 @@ class WatchSystemTest {
 
     @Test
     void exitEditMode(){
+        ws.setCurrentMode(tk);
+        ws.enterEditMode();
+        ws.exitEditMode();
         assertFalse(ws.getEdited());
         assertEquals(ws.getCurrentDdayPage(),0);
     }
 
+    @Disabled
     @Test
     void muteBeep() {
         ws.muteBeep();

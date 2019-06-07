@@ -1,5 +1,6 @@
 package Logic;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +36,7 @@ class DdayTest {
 
     @Test
     void reset() {
-        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tk.getCurrentTime().toLocalTime());
+        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), LocalTime.of(0,0,0));
         d.setCurrentDay(tk.getCurrentTime());
         d.reset();
         assertEquals(d.getStartDday(), initDateTime);
@@ -58,6 +59,7 @@ class DdayTest {
         assertFalse(d.getDisplayType());
     }
 
+    @Disabled
     @Test
     void ring(){
         d.ring();

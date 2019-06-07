@@ -122,7 +122,7 @@ public class ModeManager {
 
     public void destoryTimer() {
         if (this.watchTimer != null) {
-            this.watchTimer.reset();
+            this.watchTimer.cancel();
             modes.remove(this.watchTimer);
             this.watchTimer = null;
         }
