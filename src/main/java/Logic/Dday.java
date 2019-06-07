@@ -135,10 +135,10 @@ public class Dday extends TimerTask {
             } else if(diffDays < 0){
                 return -1;
             }
-
-            if(passedDays < 0) return 0; // 아직 시작날짜가 안됐을 때는 0%
-
-            this.calDday = ((double) passedDays/ (double)diffDays) * 100;
+            else{
+                if(passedDays < 0) return 0; // 아직 시작날짜가 안됐을 때는 0%
+                this.calDday = ((double) passedDays/ (double)diffDays) * 100;
+            }
         }
         return calDday;
     }
