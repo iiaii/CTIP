@@ -280,7 +280,7 @@ class WatchSystemTest {
     @Test
     void chooseModes() {
         ws.setCurrentCursor(0);
-        Boolean[] tmp = {true,true,false,false,true};
+        boolean[] tmp = {true,true,false,false,true};
         ws.setSetMode(tmp);
         ws.chooseModes();
         assertFalse(ws.getSetMode()[0]);
@@ -288,7 +288,7 @@ class WatchSystemTest {
 
     @Test
     void saveMode() {
-        Boolean[] tmp = {true,true,false,false,true};
+        boolean[] tmp = {true,true,false,false,true};
         ws.setSetMode(tmp);
         ws.saveMode();
         assertNotNull(ws.getModeManager().getWatchTimer());
@@ -347,7 +347,7 @@ class WatchSystemTest {
 
     @Test
     void changeMode() {
-        Boolean[] tmpSetMode = {true, true, true, false, false};
+        boolean[] tmpSetMode = {true, true, true, false, false};
         ws.setSetMode(tmpSetMode);
         ws.saveMode();
         Object nextMode = ws.getModeManager().getWatchTimer();

@@ -16,27 +16,21 @@ public class WatchSystem extends TimerTask {
     private int currentModeCursor; //모드 커서 - 타이머, 스탑워치, 알람, dday, IT
     private int currentDdayPage = 0;
     private int currentAlarmPage = 0;
-    public Boolean[] setMode = {true, true, true, false, false};
+    public boolean[] setMode = {true, true, true, false, false};
     private LocalDateTime tempTime;
     private LocalDateTime tempTime2;
     private ModeManager modeManager;
-    private Boolean isEditMode = false;
-    private Boolean isSetMode = false;
+    private boolean isEditMode = false;
+    private boolean isSetMode = false;
     private Object currentMode = null;
-    private Timer m_timer;
-    private Boolean isEdited = false;
-    private Boolean pressedReset = false;
+    private boolean isEdited = false;
+    private boolean pressedReset = false;
 
     public ModeManager getModeManager() {
         return modeManager;
     }
 
-    public void setModeManager(ModeManager modeManager) {
-        this.modeManager = modeManager;
-    }
-
     public WatchSystem(Timer m_timer) {
-        this.m_timer = m_timer;
         this.modeManager = new ModeManager(m_timer);
         this.currentMode = this.modeManager.getCurrentMode();
         this.isSetMode = false;
@@ -62,10 +56,6 @@ public class WatchSystem extends TimerTask {
         return currentModeCursor;
     }
 
-    public void setCurrentModeCursor(int currentModeCursor) {
-        this.currentModeCursor = currentModeCursor;
-    }
-
     public void setCurrentDdayPage(int currentDdayPage) {
         this.currentDdayPage = currentDdayPage;
     }
@@ -74,27 +64,23 @@ public class WatchSystem extends TimerTask {
         this.currentAlarmPage = currentAlarmPage;
     }
 
-    public Boolean[] getSetMode() {
+    public boolean[] getSetMode() {
         return setMode;
-    }
-
-    public void setSetMode(Boolean setMode) {
-        isSetMode = setMode;
     }
 
     public void setCurrentMode(Object currentMode) {
         this.currentMode = currentMode;
     }
 
-    public Boolean getEdited() {
+    public boolean getEdited() {
         return isEdited;
     }
 
-    public void setEdited(Boolean edited) {
+    public void setEdited(boolean edited) {
         isEdited = edited;
     }
 
-    public void setSetMode(Boolean[] setMode) {
+    public void setSetMode(boolean[] setMode) {
         this.setMode = setMode;
     }
 
@@ -113,11 +99,6 @@ public class WatchSystem extends TimerTask {
     public void setTempTime2(LocalDateTime tempTime2) {
         this.tempTime2 = tempTime2;
     }
-
-    public Boolean getEditMode() {
-        return isEditMode;
-    }
-
 
     public void enterEditMode() {
         isEditMode = true;
@@ -392,7 +373,7 @@ public class WatchSystem extends TimerTask {
         DigitalWatch.getInstance().muteBeep();
     }
 
-    public Boolean[] enterSetMode() {
+    public boolean[] enterSetMode() {
         currentMode = null;
         currentCursor = 0;
         isSetMode = true;
@@ -427,19 +408,19 @@ public class WatchSystem extends TimerTask {
     }
 
 
-    public Boolean getIsEditMode() {
+    public boolean getIsEditMode() {
         return isEditMode;
     }
 
-    public void setEditMode(Boolean editMode) {
+    public void setEditMode(boolean editMode) {
         isEditMode = editMode;
     }
 
-    public Boolean getIsSetMode() {
+    public boolean getIsSetMode() {
         return isSetMode;
     }
 
-    public void setIsSetMode(Boolean setMode) {
+    public void setIsSetMode(boolean setMode) {
         isSetMode = setMode;
     }
 
@@ -449,7 +430,7 @@ public class WatchSystem extends TimerTask {
 
     public String digitIdeal(Object mode) {
         String data = "", data2 = "";
-        Boolean displayFormat;
+        boolean displayFormat;
         SimpleDateFormat format;
         LocalDateTime origin = null;
 
@@ -514,7 +495,7 @@ public class WatchSystem extends TimerTask {
                     data = format.format(Date.from(this.tempTime2.atZone(ZoneId.systemDefault()).toInstant())) + "zzzzzz";
                 }
             } else {
-                Boolean displayType = ((Dday) mode).getDisplayType();
+                boolean displayType = ((Dday) mode).getDisplayType();
                 double calDday = ((Dday) mode).getCalDday();
                 data = format.format(Date.from(((Dday) mode).loadEndDday().atZone(ZoneId.systemDefault()).toInstant()));
                 if (displayType == true) {

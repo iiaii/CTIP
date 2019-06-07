@@ -263,7 +263,7 @@ public class DigitalWatch extends JFrame {
                 if(ws.getIsSetMode() == true) {
                     ws.chooseModes();
                 } else {
-                    Boolean isEditMode = ws.getIsEditMode();
+                    boolean isEditMode = ws.getIsEditMode();
                     Object mode = ws.getCurrentMode();
                     if (isEditMode == false) {
                         if (mode instanceof WatchTimer) {
@@ -324,7 +324,7 @@ public class DigitalWatch extends JFrame {
                 if (ws.getIsSetMode() == true) {
                     ws.saveMode();
                 } else {
-                    Boolean isEditMode = ws.getIsEditMode();
+                    boolean isEditMode = ws.getIsEditMode();
                     Object mode = ws.getCurrentMode();
                     if (isEditMode == true) {
                         if (mode instanceof TimeKeeping) {
@@ -369,7 +369,7 @@ public class DigitalWatch extends JFrame {
                 if(ws.getIsSetMode() == true) {
                     //none
                 } else {
-                    Boolean isEditMode = ws.getIsEditMode();
+                    boolean isEditMode = ws.getIsEditMode();
                     Object mode = ws.getCurrentMode();
                     if (isEditMode == true) {
                         if (mode instanceof Alarm) {
@@ -402,7 +402,7 @@ public class DigitalWatch extends JFrame {
 
         public void buttonDHold() {
             ws.muteBeep();
-            Boolean isEditMode = ws.getIsEditMode();
+            boolean isEditMode = ws.getIsEditMode();
             Object mode = ws.getCurrentMode();
             if(ws.getIsSetMode() == true) {
                 ws.exitSetMode();
@@ -421,7 +421,7 @@ public class DigitalWatch extends JFrame {
     public class Bell extends Thread {
         private AudioInputStream audioIn;
         private Clip clip;
-        private Boolean isBeeping = false;
+        private boolean isBeeping = false;
 
         public Bell() {
             File f = new File("./beep-4.wav");
@@ -440,14 +440,14 @@ public class DigitalWatch extends JFrame {
         }
 
         public void play(){
-            this.run();
+            this.start();
         }
 
         public void pause(){
             clip.stop();
         }
 
-        public Boolean isPlaying(){
+        public boolean isPlaying(){
             return clip.isActive();
         }
     }

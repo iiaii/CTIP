@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class WatchIcon extends JLabel {
-    private Boolean selected;
+    private boolean selected;
     private BufferedImage originalImg;
     private BufferedImage img;
     private Color tempColor = Color.black;
@@ -21,11 +21,11 @@ public class WatchIcon extends JLabel {
         this.img = recolorImage(this.originalImg, defaultColor);
     }
 
-    public void setSelected(Boolean selected) {
+    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 
-    public Boolean getSelected() {
+    public boolean getSelected() {
         return this.selected;
     }
 

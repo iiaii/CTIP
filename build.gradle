@@ -16,6 +16,7 @@ plugins {
     id 'jacoco'
     //id 'findbugs'
     //id 'pmd'
+    //id 'checkstyle'
 }
 
 repositories {
@@ -36,16 +37,26 @@ jacoco {
     toolVersion = "0.8.3"
     reportsDir = file("$buildDir/reports/jacoco")
 }
+
 /*
 findbugs{
     toolVersion = "3.0.1"
     reportsDir = file("$buildDir/reports/findbugs")
     ignoreFailures=true
 }
-
 pmd{
     reportsDir = file("$buildDir/reports/pmd")
     ignoreFailures=true
+}
+
+checkstyle {
+    toolVersion '7.8.1'
+}
+checkstyleMain {
+    source ='src/main/java'
+}
+checkstyleTest {
+    source ='src/test/java'
 }
 */
 
@@ -65,4 +76,4 @@ test{
     }
 }
 // Define the main class for the application
-mainClassName = 'app.App'
+mainClassName = 'GUI.DigitalWatch'

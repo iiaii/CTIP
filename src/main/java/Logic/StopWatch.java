@@ -6,13 +6,10 @@ import java.util.TimerTask;
 
 public class StopWatch extends TimerTask {
     private LocalTime currentStopwatch;
-    private Boolean isActivated = false;
-    private Timer m_timer;
+    private boolean isActivated = false;
     private int countDay = 0;
-    private StopWatch tempTimer;
 
     public StopWatch(Timer m_timer) {
-        this.m_timer = m_timer;
         currentStopwatch = LocalTime.of(0, 0, 0);
         m_timer.schedule(this, 0, 1000);
     }
@@ -27,12 +24,8 @@ public class StopWatch extends TimerTask {
         }
     }
 
-    public void setActivated(Boolean activated) {
+    public void setActivated(boolean activated) {
         isActivated = activated;
-    }
-
-    public void setCountDay(int countDay) {
-        this.countDay = countDay;
     }
 
     public LocalTime getCurrentStopwatch() {
@@ -43,7 +36,7 @@ public class StopWatch extends TimerTask {
         this.currentStopwatch = currentStopwatch;
     }
 
-    public Boolean getActivated() {
+    public boolean getActivated() {
         return isActivated;
     }
 
