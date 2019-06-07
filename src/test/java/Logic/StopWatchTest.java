@@ -28,7 +28,7 @@ class StopWatchTest {
     void reset() {
         sw.setActivated(false);
         sw.reset();
-        assertEquals(sw.getActivated(), false);
+        assertFalse(sw.getActivated());
         assertEquals(sw.getCountDay(), 0);
         assertEquals(sw.getCurrentStopwatch(), LocalTime.of(0,0,0));
     }
