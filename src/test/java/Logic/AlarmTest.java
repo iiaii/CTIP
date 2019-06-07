@@ -31,12 +31,12 @@ class AlarmTest {
     @Test
     void enableAlarm() {
         alarm.enableAlarm(0);
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), true);
+        assertTrue(alarm.getAlarmTime(0).getEnabled());
     }
 
     @Test
     void disableAlarm() {
         alarm.disableAlarm(0);
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), false);
+        assertFalse(alarm.getAlarmTime(0).getEnabled());
     }
 }

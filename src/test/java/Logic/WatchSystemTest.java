@@ -72,14 +72,14 @@ class WatchSystemTest {
     void changeHourFormat() {
         ws.setCurrentMode(tk);
         ws.changeHourFormat();
-        assertEquals(tk.getDisplayFormat(), false);
+        assertFalse(tk.getDisplayFormat());
     }
 
     @Test
     void pauseTimer() {
         ws.setCurrentMode(wt);
         ws.pauseTimer();
-        assertEquals(wt.getActived(), false);
+        assertFalse(wt.getActived());
     }
 
     @Test
@@ -103,7 +103,7 @@ class WatchSystemTest {
         ws.saveTimer();
         assertEquals(wt.getSavedTimer(), initDateTime);
         assertEquals(wt.getRemainedTimer(), initDateTime);
-        assertEquals(wt.getActived(), false);
+        assertFalse(wt.getActived());
     }
 
     @Test
@@ -128,7 +128,7 @@ class WatchSystemTest {
     void disableIntervalTimer() {
         ws.setCurrentMode(it);
         ws.disableIntervalTimer();
-        assertEquals(it.getIsEnabled(), false);
+        assertFalse(it.getIsEnabled());
 
     }
 
@@ -182,7 +182,7 @@ class WatchSystemTest {
         ws.setCurrentMode(alarm);
         ws.setCurrentAlarmPage(0);
         ws.enableAlarm();
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), true);
+        assertTrue(alarm.getAlarmTime(0).getEnabled());
     }
 
     @Test
@@ -190,7 +190,7 @@ class WatchSystemTest {
         ws.setCurrentMode(alarm);
         ws.setCurrentAlarmPage(0);
         ws.disableAlarm();
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), false);
+        assertFalse(alarm.getAlarmTime(0).getEnabled());
 
     }
 
@@ -249,7 +249,7 @@ class WatchSystemTest {
         d.setExistStartDday(false);
         d.setCalDday(10);
         assertEquals(ws.changeDdayFormat(), d.getCalDday());
-        assertEquals(d.getDisplayType(), true);
+        assertTrue(d.getDisplayType());
     }
 
 
@@ -273,7 +273,7 @@ class WatchSystemTest {
         sw.setActivated(false);
         ws.resetStopwatch();
         assertEquals(sw.getCurrentStopwatch(), LocalTime.of(0,0,0));
-        assertEquals(sw.getActivated(), false);
+        assertFalse(sw.getActivated());
         assertEquals(sw.getCountDay(), 0);
     }
 
