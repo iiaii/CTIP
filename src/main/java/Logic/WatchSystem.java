@@ -419,10 +419,6 @@ public class WatchSystem extends TimerTask {
         return isEditMode;
     }
 
-    public void setEditMode(boolean editMode) {
-        isEditMode = editMode;
-    }
-
     public boolean getIsSetMode() {
         return isSetMode;
     }
