@@ -60,7 +60,7 @@ public class WatchButton extends JLabel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-
+            System.out.println("Mouse Clicked");
         }
 
         @Override
@@ -91,12 +91,12 @@ public class WatchButton extends JLabel {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-
+            System.out.println("Mouse Entered");
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-
+            System.out.println("Mouse Exited");
         }
     }
 

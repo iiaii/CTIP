@@ -125,6 +125,9 @@ public class WatchSystem extends TimerTask {
         }
         else if(currentMode instanceof StopWatch)
             isEditMode = false;
+        else{
+            return;
+        }
     }
 
     public LocalDateTime increaseData() {
@@ -173,6 +176,8 @@ public class WatchSystem extends TimerTask {
         } else if (currentCursor == 6) {
             tempTime = tempTime.plusSeconds(1);
             if (tempTime.getSecond() == 0) tempTime = tempTime.minusMinutes(1);
+        } else{
+            return null;
         }
 
         if (this.currentDdayPage == 0) {
@@ -194,6 +199,9 @@ public class WatchSystem extends TimerTask {
             } else if (currentMode instanceof Alarm || currentMode instanceof WatchTimer ||
                     currentMode instanceof IntervalTimer) {
                 currentCursor = (currentCursor) % 3 + 4; // 0, 1, 2 //4 5 6
+            }
+            else{
+                return;
             }
         }
     }
@@ -513,8 +521,9 @@ public class WatchSystem extends TimerTask {
                         data2 = "0" + data2;
                     } else if(calDday < 0){
                         data2 = "zzzErr";
+                    } else{
+                        data2 = data2.replace(".", "");
                     }
-                    data2 = data2.replace(".", "");
                 }
             }
 
@@ -541,8 +550,9 @@ public class WatchSystem extends TimerTask {
                 }
             }
             return finIteration + data;
+        }else{
+            return "zzzzzzzzzzzzzzzzz";
         }
-        return "zzzzzzzzzzzzzzzzz";
     }
 
     public int[] iconIdeal() {
@@ -582,6 +592,8 @@ public class WatchSystem extends TimerTask {
                 icon[4] = 1;
             } else if (currentMode instanceof IntervalTimer) {
                 icon[5] = 1;
+            } else{
+                return icon;
             }
         }
         return icon;
