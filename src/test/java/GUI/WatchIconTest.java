@@ -11,7 +11,7 @@ public class WatchIconTest {
 
     @Disabled
     @Test
-    public void setSelected(boolean selected) {
+    public void setSelected() {
             }
 
 
