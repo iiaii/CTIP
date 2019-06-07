@@ -168,7 +168,7 @@ public class WatchSystem extends TimerTask {
                 if (tempTime2.getDayOfMonth() == 1) tempTime2 = tempTime2.minusMonths(1);
             }
         } else if (currentCursor == 4) {
-            tempTime = tempTime.plusHours(1);
+                tempTime = tempTime.plusHours(1);
             if (tempTime.getHour() == 0) tempTime = tempTime.minusDays(1);
         } else if (currentCursor == 5) {
             tempTime = tempTime.plusMinutes(1);
@@ -276,6 +276,7 @@ public class WatchSystem extends TimerTask {
 
     public void changePage() {
         currentDdayPage = (currentDdayPage + 1) % 2;
+        currentCursor = 0;
     }
 
     public void saveDday() {
@@ -437,18 +438,17 @@ public class WatchSystem extends TimerTask {
 
     public String digitIdeal(Object mode) {
         String data = "", data2 = "";
-        boolean displayFormat;
         SimpleDateFormat format;
         LocalDateTime origin = null;
 
         if (mode instanceof TimeKeeping) {
-            format = new SimpleDateFormat(((TimeKeeping) mode).getDisplayFormat() ? "yyyyMMddHHmmss" : "yyyyMMddhhmmss");
             if (this.isEditMode == true) {
+                format = new SimpleDateFormat("yyyyMMddHHmmss");
                 origin = this.tempTime;
             } else {
+                format = new SimpleDateFormat(((TimeKeeping) mode).getDisplayFormat() ? "yyyyMMddHHmmss" : "yyyyMMddhhmmss");
                 origin = (modeManager.getTimekeeping()).loadTime();
             }
-
             data = format.format(Date.from(origin.atZone(ZoneId.systemDefault()).toInstant()));
             return data;
         } else if (mode instanceof WatchTimer) {

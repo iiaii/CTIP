@@ -33,6 +33,7 @@ public class TimeKeeping extends TimerTask {
         if(currentTime.getYear() > 9999) { // 10000년 넘어가면
             currentTime = currentTime.minusYears(8030);
         }
+        System.out.println(currentTime);
     }
 
     public LocalDateTime loadTime() {
