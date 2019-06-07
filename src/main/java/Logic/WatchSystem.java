@@ -128,7 +128,6 @@ public class WatchSystem extends TimerTask {
     }
 
     public LocalDateTime increaseData() {
-        Object currentMode = modeManager.getCurrentMode();
         if (currentCursor == 0) {
             if (this.currentDdayPage == 0) {
                 tempTime = tempTime.plusYears(100);

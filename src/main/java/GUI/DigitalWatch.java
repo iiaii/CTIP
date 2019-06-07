@@ -416,7 +416,6 @@ public class DigitalWatch extends JFrame {
     public class Bell extends Thread {
         private AudioInputStream audioIn;
         private Clip clip;
-        private boolean isBeeping = false;
 
         public Bell() {
             File f = new File("./beep-4.wav");
