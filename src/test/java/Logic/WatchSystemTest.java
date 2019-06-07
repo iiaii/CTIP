@@ -10,6 +10,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.Timer;
 
 class WatchSystemTest {
@@ -22,16 +23,95 @@ class WatchSystemTest {
     Dday d = new Dday(tk, m_timer);
     Alarm alarm = new Alarm(m_timer, tk);
     ModeManager mM = new ModeManager(m_timer);
+
+
+    @Test
+    @Disabled
+    void run(){
+        System.out.println("Disabled");
+    }
+
+    @Test
+    @Disabled
+    int[] iconIdeal(){
+        System.out.println("Disabled");
+        return null;
+    }
+
+    @Test
+    @Disabled
+    String digitIdeal(Object mode){
+        System.out.println("Disabled");
+        return null;
+    }
+
     @Test
     void enterEditMode() {
+        LocalDateTime tempTime;
+        LocalDateTime tempTime2;
+        int currentAlarmPage;
+
+        LocalDateTime tmpDateTime = LocalDateTime.of(LocalDate.of(1995,4,3), LocalTime.of(0,0,0));
+        LocalDateTime tmpDateTime2 = LocalDateTime.of(LocalDate.of(1995,5,25), LocalTime.of(0,0,0));
+
+
         ws.setCurrentMode(wt);
         wt.setActived(true);
         assertFalse(ws.getEdited());
-        LocalDateTime tmpDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
         wt.setRemainedTimer(tmpDateTime);
+//        tempTime = ((WatchTimer)ws.getCurrentMode()).getRemainedTimer();
         ws.enterEditMode();
-        assertEquals(ws.getTempTime(), tmpDateTime);
+        assertEquals(tmpDateTime, ws.getTempTime());
         assertEquals(ws.getCurrentCursor(), 4);
+        ws.exitEditMode();
+
+        ws.setCurrentMode(tk);
+        assertFalse(ws.getEdited());
+        tk.setCurrentTime(tmpDateTime);
+//        tempTime = ((TimeKeeping)ws.getCurrentMode()).loadTime();
+        ws.enterEditMode();
+        assertEquals(tmpDateTime, ws.getTempTime());
+        assertEquals(ws.getCurrentCursor(), 0);
+        ws.exitEditMode();
+
+        ws.setCurrentMode(alarm);
+        assertFalse(ws.getEdited());
+        currentAlarmPage = 0;
+        alarm.getAlarmTime(0).setCurrentAlarm(LocalDateTime.of(LocalDate.now(),LocalTime.of(0,0,0)));
+//        tempTime = ((Alarm)ws.getCurrentMode()).loadAlarm(currentAlarmPage);
+        ws.enterEditMode();
+        assertEquals(LocalDateTime.of(LocalDate.now(),LocalTime.of(0,0,0)),ws.getTempTime());
+        assertEquals(ws.getCurrentCursor(),4);
+        ws.exitEditMode();
+
+        ws.setCurrentMode(d);
+        assertFalse(ws.getEdited());
+        d.setStartDday(tmpDateTime);
+        d.setEndDday(tmpDateTime2);
+//        tempTime = ((Dday)ws.getCurrentMode()).loadStartDday();
+//        tempTime2 = ((Dday)ws.getCurrentMode()).loadEndDday();
+        ws.enterEditMode();
+        assertEquals(tmpDateTime,ws.getTempTime());
+        assertEquals(tmpDateTime2,ws.getTempTime2());
+        assertEquals(ws.getCurrentCursor(),0);
+        ws.exitEditMode();
+
+        ws.setCurrentMode(sw);
+        assertFalse(ws.getEdited());
+//        sw.setActivated(false);
+//        boolean isActive = ((StopWatch)ws.getCurrentMode()).getActivated();
+        ws.enterEditMode();
+        assertFalse(ws.getEdited());
+        ws.exitEditMode();
+
+        ws.setCurrentMode(it);
+        assertFalse(ws.getEdited());
+        it.setSavedIntervalTimer(tmpDateTime);
+//        tempTime = ((IntervalTimer)ws.getCurrentMode()).getSavedIntervalTimer();
+        ws.enterEditMode();
+        assertFalse(ws.getEdited());
+        assertEquals(tmpDateTime,ws.getTempTime());
+        assertEquals(4,ws.getCurrentCursor());
     }
 
     @Test
@@ -43,10 +123,64 @@ class WatchSystemTest {
         ws.setTempTime(initDateTime);
         ws.increaseData();
         assertEquals(initDateTime.plusYears(100), ws.getTempTime());
+
         ws.setCurrentDdayPage(1);
         ws.setTempTime2(initDateTime);
         ws.increaseData();
         assertEquals(initDateTime.plusYears(100), ws.getTempTime2());
+
+        ws.setCurrentCursor(1);
+        ws.setCurrentDdayPage(0);
+        ws.setTempTime(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusYears(1),ws.getTempTime());
+
+        ws.setCurrentDdayPage(1);
+        ws.setTempTime2(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusYears(1),ws.getTempTime2());
+
+        ws.setCurrentCursor(2);
+        ws.setCurrentDdayPage(0);
+        ws.setTempTime(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusMonths(1),ws.getTempTime());
+
+        ws.setCurrentDdayPage(1);
+        ws.setTempTime2(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusMonths(1),ws.getTempTime2());
+
+        ws.setCurrentCursor(3);
+        ws.setCurrentDdayPage(0);
+        ws.setTempTime(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusDays(1),ws.getTempTime());
+
+        ws.setCurrentDdayPage(1);
+        ws.setTempTime2(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusDays(1),ws.getTempTime2());
+
+        ws.setCurrentCursor(4);
+        ws.setTempTime(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusHours(1),ws.getTempTime());
+
+
+        ws.setCurrentCursor(5);
+        ws.setTempTime(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusMinutes(1),ws.getTempTime());
+
+
+        ws.setCurrentCursor(6);
+        ws.setTempTime(initDateTime);
+        ws.increaseData();
+        assertEquals(initDateTime.plusSeconds(1),ws.getTempTime());
+
+        ws.setCurrentCursor(122);
+        assertNull(ws.increaseData());
     }
 
     @Test
@@ -314,8 +448,8 @@ class WatchSystemTest {
         assertEquals(ws.getCurrentDdayPage(),0);
     }
 
-    @Disabled
     @Test
+    @Disabled
     void muteBeep() {
         ws.muteBeep();
         assertFalse(DigitalWatch.getInstance().getBell().isPlaying());
@@ -357,4 +491,7 @@ class WatchSystemTest {
         assertEquals(ws.getCurrentAlarmPage(), 0);
         assertFalse(ws.getEdited());
     }
+
+
+
 }
