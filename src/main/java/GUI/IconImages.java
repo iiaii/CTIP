@@ -16,7 +16,7 @@ public class IconImages {
         try {
             image = ImageIO.read(new File("icon/" + filename + ".png"));
         } catch(IOException e){
-
+            e.printStackTrace();
         }
         return image;
     }

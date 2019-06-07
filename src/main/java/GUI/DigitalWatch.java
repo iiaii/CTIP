@@ -252,7 +252,7 @@ public class DigitalWatch extends JFrame {
                 if(ws.getIsEditMode() == false)
                     ws.enterSetMode();
             } else {
-                //none
+                System.out.println("none");
             }
         }
 
@@ -290,11 +290,6 @@ public class DigitalWatch extends JFrame {
                             } else {
                                 ws.enableAlarm();
                             }
-                        }
-
-                        if (mode instanceof Dday) {
-                            Dday t = (Dday) mode;
-                            // none
                         }
 
                         if (mode instanceof IntervalTimer) {
@@ -356,7 +351,7 @@ public class DigitalWatch extends JFrame {
         public void buttonCHold() {
             ws.muteBeep();
             if(ws.getIsSetMode() == true) {
-                //none
+                System.out.println("none");
             } else {
                 ws.enterEditMode();
             }
@@ -367,7 +362,7 @@ public class DigitalWatch extends JFrame {
                 ws.muteBeep();
             } else {
                 if(ws.getIsSetMode() == true) {
-                    //none
+                    System.out.println("none");
                 } else {
                     boolean isEditMode = ws.getIsEditMode();
                     Object mode = ws.getCurrentMode();
@@ -421,7 +416,6 @@ public class DigitalWatch extends JFrame {
     public class Bell extends Thread {
         private AudioInputStream audioIn;
         private Clip clip;
-        private boolean isBeeping = false;
 
         public Bell() {
             File f = new File("./beep-4.wav");
@@ -431,7 +425,7 @@ public class DigitalWatch extends JFrame {
                 clip.open(audioIn);
                 clip.stop();
             } catch (Exception e){
-
+                e.printStackTrace();
             }
         }
         public void run(){
