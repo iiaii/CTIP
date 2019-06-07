@@ -10,15 +10,13 @@ import java.util.TimerTask;
 
 public class AlarmTime extends TimerTask {
     public LocalTime currentAlarm;
-    public Boolean isEnabled;
-    private Timer m_timer;//new in this class
+    public boolean isEnabled;
     private TimeKeeping timeKeeping; // new in this class
 
 
     public AlarmTime(Timer m_timer, TimeKeeping timeKeeping) {
         currentAlarm = LocalTime.of(0, 0, 0, 0);
         this.timeKeeping = timeKeeping;
-        this.m_timer = m_timer;
         this.isEnabled = false;
         m_timer.schedule(this, 0, 1000);
     }
@@ -47,19 +45,11 @@ public class AlarmTime extends TimerTask {
         this.currentAlarm = currentAlarm.toLocalTime();
     }
 
-    public Boolean getIsEnabled() {
-        return this.isEnabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.isEnabled = enabled;
-    }
-
     public void ring() {
         DigitalWatch.getInstance().beep();
     }
 
-    public Boolean getEnabled() {
+    public boolean getEnabled() {
         return isEnabled;
     }
 

@@ -6,7 +6,7 @@ import java.util.Timer;
 public class ModeManager {
 
     private int currentMode = 0;
-    private Boolean[] setMode = {false, false, false, false, false};
+    private boolean[] setMode = {false, false, false, false, false};
 
 
     private TimeKeeping timekeeping = null;
@@ -22,11 +22,11 @@ public class ModeManager {
         this.currentMode = currentMode;
     }
 
-    public Boolean[] getSetMode() {
+    public boolean[] getSetMode() {
         return setMode;
     }
 
-    public void setSetMode(Boolean[] setMode) {
+    public void setSetMode(boolean[] setMode) {
         this.setMode = setMode;
     }
 
@@ -105,7 +105,7 @@ public class ModeManager {
         return this.modes.get(this.currentMode);
     }
 
-    public Boolean[] loadSetMode() {
+    public boolean[] loadSetMode() {
         return this.setMode;
     }
 

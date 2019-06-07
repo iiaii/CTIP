@@ -9,32 +9,29 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Dday extends TimerTask {
-    private Boolean existStartDday = false;
-    private Boolean existEndDday = false;
+    private boolean existStartDday = false;
+    private boolean existEndDday = false;
     private LocalDateTime startDday;
     private LocalDateTime endDday;
     private LocalDateTime currentDay;
-    private Timer m_timer;
     private double calDday;
 
-    public Boolean getExistStartDday() {
+    public boolean getExistStartDday() {
         return existStartDday;
     }
 
-    private Boolean displayType;
+    private boolean displayType;
     private TimeKeeping tm;
 
-    public void setExistStartDday(Boolean existStartDday) {
+    public void setExistStartDday(boolean existStartDday) {
         this.existStartDday = existStartDday;
     }
 
-    public Boolean getExistEndDday() {
+    public boolean getExistEndDday() {
         return existEndDday;
     }
 
-
     public Dday(TimeKeeping tm, Timer m_timer) {
-        this.m_timer = m_timer;
         this.tm = tm;
         currentDay = tm.getCurrentTime();
         startDday = LocalDateTime.of(currentDay.toLocalDate(), LocalTime.of(0,0,0));;
@@ -67,10 +64,6 @@ public class Dday extends TimerTask {
         this.endDday = LocalDateTime.of(endDday.toLocalDate(), LocalTime.of(0,0,0));;
     }
 
-    public LocalDateTime getCurrentDay() {
-        return this.currentDay;
-    }
-
     public void run() {
         currentDay = tm.getCurrentTime();
         // endDay설정되어있을때만 조건맞을때 실행
@@ -84,11 +77,11 @@ public class Dday extends TimerTask {
         this.calDday = calDday;
     }
 
-    public Boolean getDisplayType() {
+    public boolean getDisplayType() {
         return displayType;
     }
 
-    public void setDisplayType(Boolean displayType) {
+    public void setDisplayType(boolean displayType) {
         this.displayType = displayType;
     }
 

@@ -12,7 +12,7 @@ public class WatchButton extends JLabel {
     private ActionListener eventClick;
     private ActionListener eventClickHold;
     private int holdTime;
-    private Boolean shape = true;
+    private boolean shape = true;
 
     public WatchButton(){
         this.setLayout(null);
@@ -27,7 +27,7 @@ public class WatchButton extends JLabel {
         this.holdTime = holdTime;
     }
 
-    public void setShape(Boolean shape){
+    public void setShape(boolean shape){
         this.shape = shape;
     }
 
