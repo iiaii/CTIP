@@ -510,7 +510,7 @@ public class WatchSystem extends TimerTask {
                     data2 = String.format("%04.2f", calDday) + "PE";
                     if(calDday >= 100) {
                         data2 = "zD0nEz";
-                    } else if(calDday == 0) {
+                    } else if(calDday == 0f) {
                         data2 = "0" + data2;
                     } else if(calDday < 0){
                         data2 = "zzzErr";
