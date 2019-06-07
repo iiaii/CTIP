@@ -440,7 +440,7 @@ public class DigitalWatch extends JFrame {
         }
 
         public void play(){
-            this.run();
+            this.start();
         }
 
         public void pause(){
