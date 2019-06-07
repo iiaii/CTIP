@@ -384,7 +384,7 @@ public class DigitalWatch extends JFrame {
                         }
 
                         if (mode instanceof IntervalTimer) {
-                            ws.resetIntervalTimer();
+                            ws.resetIntervalTimer();d
                         }
                     } else {
                         if (mode instanceof WatchTimer) {
