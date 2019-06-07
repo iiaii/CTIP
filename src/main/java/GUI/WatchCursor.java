@@ -48,10 +48,6 @@ public class WatchCursor extends JPanel {
         }
     }
 
-    public String getSegments() {
-        return segments;
-    }
-
     public void setSegments(String segments) {
         this.segments = segments;
         char segment1 = segments.charAt(0);

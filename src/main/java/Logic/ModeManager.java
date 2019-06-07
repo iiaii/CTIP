@@ -59,37 +59,16 @@ public class ModeManager {
         return stopwatch;
     }
 
-    public void setStopwatch(StopWatch stopwatch) {
-        this.stopwatch = stopwatch;
-    }
-
     public Alarm getAlarm() {
         return alarm;
-    }
-
-    public void setAlarm(Alarm alarm) {
-        this.alarm = alarm;
     }
 
     public Dday getDday() {
         return dday;
     }
 
-    public void setDday(Dday dday) {
-        this.dday = dday;
-    }
-
     public IntervalTimer getIntervaltimer() {
         return intervaltimer;
-    }
-
-    public void setIntervaltimer(IntervalTimer intervaltimer) {
-        this.intervaltimer = intervaltimer;
-    }
-
-
-    public int getCurrentModeIndex() {
-        return this.currentMode;
     }
 
     public Object getCurrentMode() {

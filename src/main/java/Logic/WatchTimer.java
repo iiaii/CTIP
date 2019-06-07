@@ -27,22 +27,12 @@ public class WatchTimer extends TimerTask {
         m_timer.schedule(this, 0, 1000);
     }
 
-    public WatchTimer() {
-        this.isActived = false;
-        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
-        this.remainedTimer = this.savedTimer;
-    }
-
     public LocalDateTime getSavedTimer(){
         return this.savedTimer;
     }
 
     public LocalDateTime getRemainedTimer() {
         return this.remainedTimer;
-    }
-
-    public void setSavedTimer(LocalDateTime savedTimer) {
-        this.savedTimer = savedTimer;
     }
 
     public void setRemainedTimer(LocalDateTime remainedTimer) {

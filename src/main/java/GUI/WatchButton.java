@@ -22,11 +22,6 @@ public class WatchButton extends JLabel {
         this.addMouseListener(new ML());
     }
 
-    public WatchButton(int holdTime) {
-        this();
-        this.holdTime = holdTime;
-    }
-
     public void setShape(boolean shape){
         this.shape = shape;
     }

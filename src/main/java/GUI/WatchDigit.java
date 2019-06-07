@@ -40,10 +40,6 @@ public class WatchDigit extends JPanel {
 
     }
 
-    public int getSegment() {
-        return this.segment;
-    }
-
     private void drawDigit(Graphics g) {
         this.loadSegment();
         g.drawImage(this.image, 0, 0, this.getWidth(), this.getHeight(), this);
