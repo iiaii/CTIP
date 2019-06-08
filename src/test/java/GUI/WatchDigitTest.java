@@ -22,23 +22,12 @@ public class WatchDigitTest {
 
     @Disabled
     @Test
-    public void setSegment() {
-            }
+    public void setSegment() {}
 
-
-    @Disabled
-    @Test
-    private void loadSegment()  {
-    }
 
     @Disabled
     @Test
     public void getSegment() {
-    }
-
-    @Disabled
-    @Test
-    private void drawDigit() {
     }
 
     @Disabled

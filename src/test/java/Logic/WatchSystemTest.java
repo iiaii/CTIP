@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,21 +32,25 @@ class WatchSystemTest {
 
     @Test
     @Disabled
-    int[] iconIdeal(){
-        System.out.println("Disabled");
-        return null;
+    public void iconIdeal(){
     }
 
     @Test
     @Disabled
-    String digitIdeal(Object mode){
+    void digitIdeal(Object mode){
+        ws.digitIdeal(new Object());
         System.out.println("Disabled");
-        return null;}
+    }
+
+    @Test
+    @Disabled
+    void muteBeep() {
+        ws.muteBeep();
+        assertFalse(DigitalWatch.getInstance().getBell().isPlaying());
+    }
 
     @Test
     void enterEditMode() {
-        LocalDateTime tempTime;
-        LocalDateTime tempTime2;
         int currentAlarmPage;
 
         LocalDateTime tmpDateTime = LocalDateTime.of(LocalDate.of(1995,4,3), LocalTime.of(0,0,0));
@@ -445,13 +448,6 @@ class WatchSystemTest {
         ws.exitEditMode();
         assertFalse(ws.getEdited());
         assertEquals(ws.getCurrentDdayPage(),0);
-    }
-
-    @Test
-    @Disabled
-    void muteBeep() {
-        ws.muteBeep();
-        assertFalse(DigitalWatch.getInstance().getBell().isPlaying());
     }
 
     @Test

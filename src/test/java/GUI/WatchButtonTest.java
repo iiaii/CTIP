@@ -15,7 +15,6 @@ public class WatchButtonTest {
     @Disabled
     @Test
     public void setShape(){
-
     }
 
 
@@ -32,6 +31,6 @@ public class WatchButtonTest {
 
     @Disabled
     @Test
-    public void setClickHoldListener(){           }
+    public void setClickHoldListener(){}
 
 }

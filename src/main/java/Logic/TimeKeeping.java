@@ -45,7 +45,6 @@ public class TimeKeeping extends TimerTask {
     }
 
     public void setHourformat() {
-        // TODO implement here
         this.displayFormat = !this.displayFormat;
     }
 

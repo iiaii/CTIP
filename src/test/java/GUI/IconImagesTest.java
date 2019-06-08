@@ -13,13 +13,13 @@ public class IconImagesTest {
 
 
     @Test
-    private static BufferedImage loadFile(String filename) {
+    private static BufferedImage loadFile() {
         return null;
     }
 
     @Disabled
     @Test
-    public static BufferedImage getImage(String filename) {
+    public static BufferedImage getImage() {
         return null;
     }
 

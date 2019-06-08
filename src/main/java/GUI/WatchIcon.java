@@ -21,19 +21,6 @@ public class WatchIcon extends JLabel {
         this.img = recolorImage(this.originalImg, defaultColor);
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    public boolean getSelected() {
-        return this.selected;
-    }
-
-    public void setIcon(String iconName) throws Exception {
-        this.originalImg =  IconImages.getImage(iconName);
-        this.setColor(this.currentColor);
-    }
-
     public void setColor(Color color){
         this.currentColor = color;
         this.img = recolorImage(this.originalImg, color);
