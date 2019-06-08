@@ -119,7 +119,7 @@ class WatchSystemTest {
     @Test
     void increaseData() {
         LocalTime tmpTime = LocalTime.of(0,0,0);
-        LocalDateTime initDateTime = LocalDateTime.of(tk.getCurrentTime().toLocalDate(), tmpTime);
+        LocalDateTime initDateTime = LocalDateTime.of(LocalDate.of(1995,4,3), tmpTime);
         ws.setCurrentCursor(0);
         ws.setCurrentDdayPage(0);
         ws.setTempTime(initDateTime);
