@@ -15,9 +15,8 @@ import java.util.TimerTask;
 public class IntervalTimer extends TimerTask {
     private int iteration;
     private LocalDateTime savedIntervalTimer;
-    private Boolean isEnabled;
+    private boolean isEnabled;
     private LocalDateTime remainedIntervalTimer;
-    private Timer m_timer;
 
     public LocalDateTime getSavedIntervalTimer() {
         return savedIntervalTimer;
@@ -36,7 +35,6 @@ public class IntervalTimer extends TimerTask {
     }
 
     public IntervalTimer(Timer m_timer) {
-        this.m_timer = m_timer;
         this.iteration = 0;
         this.isEnabled = false;
         LocalDateTime initDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
@@ -45,7 +43,7 @@ public class IntervalTimer extends TimerTask {
         m_timer.schedule(this, 0, 1000);
     }
 
-    public Boolean getIsEnabled() {
+    public boolean getIsEnabled() {
         return this.isEnabled;
     }
 
@@ -75,11 +73,7 @@ public class IntervalTimer extends TimerTask {
         }
     }
 
-    public Boolean getEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(boolean enabled) {
         isEnabled = enabled;
     }
 

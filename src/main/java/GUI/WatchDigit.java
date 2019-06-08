@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage;
 
 public class WatchDigit extends JPanel {
     private char segment;
-    private Boolean selected;
+    private boolean selected;
     private BufferedImage image;
 
-    public Boolean getSelected() {
+    public boolean getSelected() {
         return selected;
     }
 
-    public void setSelected(Boolean selected) {
+    public void setSelected(boolean selected) {
         this.selected = selected;
         this.loadSegment();
     }
@@ -38,10 +38,6 @@ public class WatchDigit extends JPanel {
         String path = "segment/color" + ((selected == false) ? "1" : "2") + "/" + Character.toString(segment);
         this.image = IconImages.getImage(path);
 
-    }
-
-    public int getSegment() {
-        return this.segment;
     }
 
     private void drawDigit(Graphics g) {

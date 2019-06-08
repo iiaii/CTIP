@@ -27,7 +27,7 @@ class WatchTimerTest {
     @Test
     void pause() {
         wt.pause();
-        assertEquals(wt.getActived(), false);
+        assertFalse(wt.getActived());
     }
 
     @Test

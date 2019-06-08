@@ -12,7 +12,7 @@ public class WatchButton extends JLabel {
     private ActionListener eventClick;
     private ActionListener eventClickHold;
     private int holdTime;
-    private Boolean shape = true;
+    private boolean shape = true;
 
     public WatchButton(){
         this.setLayout(null);
@@ -22,12 +22,7 @@ public class WatchButton extends JLabel {
         this.addMouseListener(new ML());
     }
 
-    public WatchButton(int holdTime) {
-        this();
-        this.holdTime = holdTime;
-    }
-
-    public void setShape(Boolean shape){
+    public void setShape(boolean shape){
         this.shape = shape;
     }
 
@@ -60,7 +55,7 @@ public class WatchButton extends JLabel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-
+            System.out.println("Mouse Clicked");
         }
 
         @Override
@@ -91,12 +86,12 @@ public class WatchButton extends JLabel {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-
+            System.out.println("Mouse Entered");
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-
+            System.out.println("Mouse Exited");
         }
     }
 

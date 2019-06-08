@@ -4,6 +4,8 @@ import GUI.DigitalWatch;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,7 +38,7 @@ class IntervalTimerTest {
     void disable() {
         it.setEnabled(true);
         it.disable();
-        assertEquals(it.getIsEnabled(), false);
+        assertFalse(it.getIsEnabled());
     }
 
     @Test

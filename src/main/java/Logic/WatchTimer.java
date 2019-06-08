@@ -14,27 +14,17 @@ import java.util.TimerTask;
 public class WatchTimer extends TimerTask {
     private LocalDateTime savedTimer;
     private LocalDateTime remainedTimer;
-    private Boolean isActived;
-    private Timer m_timer;
-    private WatchTimer newTimer;
+    private boolean isActived;
 
-    public Boolean getActived() {
+    public boolean getActived() {
         return isActived;
     }
 
     public WatchTimer(Timer m_timer) {
         this.isActived = false;
-        this.m_timer = m_timer;
         this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
         this.remainedTimer = this.savedTimer;
-        this.m_timer.schedule(this, 0, 1000);
-    }
-
-    public WatchTimer() {
-        this.isActived = false;
-        this.m_timer = m_timer;
-        this.savedTimer = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
-        this.remainedTimer = this.savedTimer;
+        m_timer.schedule(this, 0, 1000);
     }
 
     public LocalDateTime getSavedTimer(){
@@ -45,14 +35,10 @@ public class WatchTimer extends TimerTask {
         return this.remainedTimer;
     }
 
-    public void setSavedTimer(LocalDateTime savedTimer) {
-        this.savedTimer = savedTimer;
-    }
-
     public void setRemainedTimer(LocalDateTime remainedTimer) {
         this.remainedTimer = remainedTimer;
     }
-    public void setActived(Boolean actived) {
+    public void setActived(boolean actived) {
         isActived = actived;
     }
 

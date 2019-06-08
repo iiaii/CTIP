@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,12 +30,12 @@ class AlarmTest {
     @Test
     void enableAlarm() {
         alarm.enableAlarm(0);
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), true);
+        assertTrue(alarm.getAlarmTime(0).getEnabled());
     }
 
     @Test
     void disableAlarm() {
         alarm.disableAlarm(0);
-        assertEquals(alarm.getAlarmTime(0).getEnabled(), false);
+        assertFalse(alarm.getAlarmTime(0).getEnabled());
     }
 }

@@ -20,7 +20,7 @@ class ModeManagerTest {
 
     @Test
     void getNextMode() {
-        Boolean[] tmpSetMode = {true, true, true, false, false};
+        boolean[] tmpSetMode = {true, true, true, false, false};
         ws.setSetMode(tmpSetMode);
         ws.saveMode();
         mM.setCurrentMode(0);
@@ -30,7 +30,7 @@ class ModeManagerTest {
 
     @Test
     void loadSetMode() {
-        Boolean[] tmpSetMode = {true, true, true, false, false};
+        boolean[] tmpSetMode = {true, true, true, false, false};
         mM.setSetMode(tmpSetMode);
         assertEquals(mM.loadSetMode(), tmpSetMode);
     }

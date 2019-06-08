@@ -8,20 +8,20 @@ public class WatchCursor extends JPanel {
     private int stroke = 2;
     private WatchDigit digit1, digit2;
     private String segments = "00";
-    private Boolean cursor = false;
+    private boolean cursor = false;
 
     public WatchCursor(String segments){
         this.setLayout(null);
         this.segments = segments;
     }
 
-    public void setCursorState(Boolean cursor){
+    public void setCursorState(boolean cursor){
         this.cursor = cursor;
         this.digit1.setSelected(cursor);
         this.digit2.setSelected(cursor);
     }
 
-    public Boolean getCursorState() {
+    public boolean getCursorState() {
         return this.cursor;
     }
 
@@ -46,10 +46,6 @@ public class WatchCursor extends JPanel {
         } else {
             this.digit2.setSegment(this.segments.charAt(1));
         }
-    }
-
-    public String getSegments() {
-        return segments;
     }
 
     public void setSegments(String segments) {
